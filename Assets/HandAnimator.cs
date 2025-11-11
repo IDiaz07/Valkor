@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//La mayoría del código está basado en una solución de valem tutorials
 public class HandAnimator : MonoBehaviour
 {
     public InputActionProperty pinchInput;
