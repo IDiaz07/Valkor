@@ -9,6 +9,7 @@ public class TreeBehaviour : MonoBehaviour
     private ParticleSystem treeDust;
     [SerializeField]
     private GameObject woodDrop;
+    private Rigidbody rigidbody;
     private void Awake()
     {
         treeSound = this.gameObject.GetComponent<AudioSource>();
@@ -25,8 +26,13 @@ public class TreeBehaviour : MonoBehaviour
 
     private void Fall()
     {
-        //TODO a�adir particulas, sonido, tronco, etc
-        Instantiate(woodDrop);
+        
+        Invoke(nameof(SpawnWood), 3);
+    }
+
+    private void SpawnWood()
+    {
+        Instantiate(woodDrop,this.transform.position,this.transform.rotation);
         Destroy(this.gameObject, 0.06f);
     }
 
