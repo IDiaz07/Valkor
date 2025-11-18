@@ -3333,6 +3333,34 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "CustomActions",
+            "id": "a84fcce3-2d1c-4564-8360-0bb8ea0b3c49",
+            "actions": [
+                {
+                    "name": "LeftThumbStickPressed",
+                    "type": "Button",
+                    "id": "9edce431-8480-4944-b17f-62f2f158fb5d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "eadde273-f0a0-4887-8045-0f190496b70f",
+                    "path": "<XRInputV1::Oculus::OculusTouchControllerOpenXR>{LeftHand}/thumbstickclicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftThumbStickPressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

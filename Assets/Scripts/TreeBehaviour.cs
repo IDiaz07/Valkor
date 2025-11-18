@@ -4,6 +4,8 @@ using UnityEngine;
 public class TreeBehaviour : MonoBehaviour
 {
     [SerializeField]
+    private GameObject parent;
+    [SerializeField]
     private int treeHealth = 100;
     private AudioSource treeSound;
     [SerializeField]
@@ -36,7 +38,14 @@ public class TreeBehaviour : MonoBehaviour
     {
         Instantiate(woodDrop,this.transform.position,this.transform.rotation);
         Instantiate(treeCutEffectsSpawner, this.transform.position, this.transform.rotation);
-        Destroy(this.gameObject, 0.06f);
+        if (parent != null)
+        {
+            Destroy(parent, 0.06f);
+        }
+        else
+        {
+            Destroy(this.gameObject, 0.06f);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
