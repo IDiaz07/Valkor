@@ -6,6 +6,8 @@ public class TreeBehaviour : MonoBehaviour
     [SerializeField]
     private int treeHealth = 100;
     private AudioSource treeSound;
+    [SerializeField]
+    private GameObject treeCutEffectsSpawner;
     private ParticleSystem treeDust;
     [SerializeField]
     private GameObject woodDrop;
@@ -33,6 +35,7 @@ public class TreeBehaviour : MonoBehaviour
     private void SpawnWood()
     {
         Instantiate(woodDrop,this.transform.position,this.transform.rotation);
+        Instantiate(treeCutEffectsSpawner, this.transform.position, this.transform.rotation);
         Destroy(this.gameObject, 0.06f);
     }
 
