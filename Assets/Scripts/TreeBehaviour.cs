@@ -31,7 +31,7 @@ public class TreeBehaviour : MonoBehaviour
     private void Fall()
     {
         
-        Invoke(nameof(SpawnWood));
+        Invoke(nameof(SpawnWood),0f);
     }
 
     private void SpawnWood()
