@@ -19,11 +19,30 @@ public class simpleBuoyancyScript : MonoBehaviour
     {
         
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+           PlayerMovementManager playerMovementManager = other.gameObject.GetComponent<PlayerMovementManager>();
+            playerMovementManager.currentGravity = -2f;
+
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerMovementManager playerMovementManager = other.gameObject.GetComponent<PlayerMovementManager>();
+            playerMovementManager.ResetGravity();
+
+        }
+    }
     private void OnTriggerStay(Collider other)
     {
-        try
-        {
+        
             Rigidbody rb = other.gameObject.GetComponentInParent<Rigidbody>();
+        if (rb != null)
+        {
             //La profundidad a la que está sumergido el objeto
             float depth = (this.gameObject.transform.position.y - rb.transform.TransformPoint(rb.centerOfMass).y);
             if (depth > 0)
@@ -37,12 +56,11 @@ public class simpleBuoyancyScript : MonoBehaviour
 
 
                 //Amortiguación para reducir el efecto rebote
-                float damping = -rb.linearVelocity.y *1/dampingReduction;
+                float damping = -rb.linearVelocity.y * 1 / dampingReduction;
                 rb.AddForce(transform.up * damping, ForceMode.Force);
             }
         }
-        catch (System.Exception e)
-        {
-        }
+        
+        
     }
 }
