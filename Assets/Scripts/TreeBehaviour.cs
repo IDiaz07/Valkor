@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(ParticleSystem))]
 public class TreeBehaviour : MonoBehaviour
 {
     [SerializeField]
@@ -13,6 +15,10 @@ public class TreeBehaviour : MonoBehaviour
     private ParticleSystem treeDust;
     [SerializeField]
     private GameObject woodDrop;
+    [SerializeField]
+    private int woodDropAmount = 1;
+    private bool isFalling = false;
+
     private Rigidbody rigidbody;
     private void Awake()
     {
@@ -22,7 +28,7 @@ public class TreeBehaviour : MonoBehaviour
     public void LoseHealth(int healthLoss)
     {
         treeHealth -= healthLoss;
-        if(treeHealth <= 0)
+        if(treeHealth <= 0 && !isFalling)
         {
             Fall();
         }
@@ -30,13 +36,17 @@ public class TreeBehaviour : MonoBehaviour
 
     private void Fall()
     {
+        isFalling = true;
         
-        Invoke(nameof(SpawnWood),0f);
+        SpawnWood(woodDropAmount);
     }
 
-    private void SpawnWood()
+    private void SpawnWood(int spawnQuantity)
     {
-        Instantiate(woodDrop,this.transform.position,this.transform.rotation);
+        for (int i = 0; i < spawnQuantity; i++)
+        {
+            Instantiate(woodDrop, this.transform.position + new Vector3(0,i*2,0), this.transform.rotation);
+        }
         Instantiate(treeCutEffectsSpawner, this.transform.position, this.transform.rotation);
         if (parent != null)
         {
