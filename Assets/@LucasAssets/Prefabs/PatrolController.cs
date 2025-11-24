@@ -5,11 +5,15 @@ public enum EnemyState
 {
     Patrolling,
     Chasing,
-    Returning
+    Returning,
+    Fighting
 }
 
 public class PatrolController : MonoBehaviour
 {
+    [Header("Vida del personaje")]
+    [SerializeField] int vida = 20;
+
     [Header("Configuración de Patrullaje")]
     [SerializeField] private Transform[] patrolPoints;
     [SerializeField] private float waitTimeAtPoint = 2f;
@@ -19,6 +23,14 @@ public class PatrolController : MonoBehaviour
     [SerializeField] private EnemyVisionSensor visionSensor;
     [SerializeField] private float chaseSpeed = 5f;
     [SerializeField] private float loseTargetDistance = 15f;
+
+    [Header("Configuración de Combate")]
+    [SerializeField] private float fightingDistance = 1.5f;        // Distancia realista para entrar en combate
+    [SerializeField] private float fightingStopDistance = 3f;      // Distancia para salir de combate
+    [SerializeField] private float fightingRotationSpeed = 5f;
+    [SerializeField] private float minimumChaseTime = 0.5f;
+    [SerializeField] private float minTimeBetweenHits = 1f;        // <-- NUEVO: Tiempo mínimo entre golpes
+    [SerializeField] private float maxTimeBetweenHits = 3f;
 
     [Header("Referencias")]
     private NavMeshAgent agent;
@@ -30,6 +42,11 @@ public class PatrolController : MonoBehaviour
     private float waitTimer = 0f;
     private EnemyState currentState = EnemyState.Patrolling;
     private Vector3 lastKnownPlayerPosition;
+    private bool wasInFightingState = false;
+    private float timeInCurrentState = 0f;  // <-- NUEVO: Contador de tiempo en el estado actual
+    private float nextHitTime = 0f;                                // <-- NUEVO: Momento del próximo golpe
+    private float timeSinceEnteredFighting = 0f;
+
 
     void Start()
     {
@@ -67,6 +84,8 @@ public class PatrolController : MonoBehaviour
     {
         if (patrolPoints.Length == 0) return;
 
+        timeInCurrentState += Time.deltaTime;
+
         // Actualizar estado según detección
         UpdateState();
 
@@ -78,6 +97,9 @@ public class PatrolController : MonoBehaviour
                 break;
             case EnemyState.Chasing:
                 HandleChasing();
+                break;
+            case EnemyState.Fighting: 
+                HandleFighting();
                 break;
             case EnemyState.Returning:
                 HandleReturning();
@@ -91,33 +113,110 @@ public class PatrolController : MonoBehaviour
     {
         if (visionSensor != null && visionSensor.HasPlayerInSight)
         {
-            // Detectó al jugador
-            if (currentState != EnemyState.Chasing)
+            float distanceToPlayer = Vector3.Distance(transform.position, visionSensor.DetectedPlayer.position);
+
+            // 1. Si está patrullando o volviendo, SIEMPRE pasar primero a Chasing
+            if (currentState == EnemyState.Patrolling || currentState == EnemyState.Returning)
             {
                 EnterChaseState();
             }
+            // 2. MODIFICADO: Solo puede entrar en Fighting si ha perseguido el tiempo suficiente Y está cerca
+            else if (currentState == EnemyState.Chasing &&
+                     timeInCurrentState >= minimumChaseTime &&      // <-- NUEVA CONDICIÓN
+                     distanceToPlayer <= fightingDistance)
+            {
+                EnterFightingState();
+            }
+            // 3. Si está en Fighting y el jugador se aleja, volver a Chasing
+            else if (currentState == EnemyState.Fighting && distanceToPlayer > fightingStopDistance)
+            {
+                EnterChaseState();
+            }
+
             lastKnownPlayerPosition = visionSensor.DetectedPlayer.position;
         }
-        else if (currentState == EnemyState.Chasing)
+        else
         {
-            // Ya no ve al jugador - verificar si debe volver
-            float distanceToLastKnown = Vector3.Distance(transform.position, lastKnownPlayerPosition);
-
-            if (distanceToLastKnown > loseTargetDistance || agent.remainingDistance < 1f)
+            // Perdió de vista al jugador
+            if (currentState == EnemyState.Chasing || currentState == EnemyState.Fighting)
             {
                 EnterReturningState();
             }
         }
     }
 
+    void EnterFightingState()
+    {
+        currentState = EnemyState.Fighting;
+        timeInCurrentState = 0f;  // <-- RESETEAR TIMER
+
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
+
+        timeSinceEnteredFighting = 0f;
+        nextHitTime = Random.Range(minTimeBetweenHits, maxTimeBetweenHits);
+        Debug.Log($"Entrando en Fighting. Primer golpe en: {nextHitTime:F2}s");
+
+        Debug.Log("¡Enemigo entró en combate cuerpo a cuerpo!");
+    }
+
+    void HandleFighting()
+    {
+        // Verificar que el sensor sigue detectando al jugador
+        if (visionSensor == null || !visionSensor.HasPlayerInSight)
+        {
+            return;
+        }
+
+        // Incrementar el tiempo en combate
+        timeSinceEnteredFighting += Time.deltaTime;
+
+        // Mantener al enemigo rotando hacia el jugador
+        Vector3 directionToPlayer = (visionSensor.DetectedPlayer.position - transform.position).normalized;
+        directionToPlayer.y = 0;
+
+        if (directionToPlayer != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * fightingRotationSpeed);
+        }
+
+        // CORREGIDO: Sistema de golpes aleatorios
+        if (timeSinceEnteredFighting >= nextHitTime)
+        {
+            PerformHit();
+
+            // RESETEAR el timer y calcular el próximo golpe
+            timeSinceEnteredFighting = 0f;  // <-- CLAVE: Resetear a 0
+            nextHitTime = Random.Range(minTimeBetweenHits, maxTimeBetweenHits);
+
+            Debug.Log($"Golpe ejecutado. Próximo golpe en: {nextHitTime:F2}s");
+        }
+    }
+
     void EnterChaseState()
     {
         currentState = EnemyState.Chasing;
+        timeInCurrentState = 0f;
+
         agent.speed = chaseSpeed;
         agent.autoBraking = true;
+        agent.stoppingDistance = 0.3f;  // <-- REDUCIR para que se acerque más
+        agent.isStopped = false;
         isWaiting = false;
 
         Debug.Log("¡Enemigo detectó al jugador!");
+    }
+
+    void PerformHit()
+    {
+        animator.SetTrigger("isHitting");
+        Debug.Log($"[{Time.time:F2}] ¡Enemigo golpea!");
+
+        // Aquí puedes añadir lógica adicional como:
+        // - Efectos de sonido
+        // - Efectos visuales
+        // - Daño al jugador si está en rango
     }
 
     void HandleChasing()
@@ -130,11 +229,18 @@ public class PatrolController : MonoBehaviour
 
     void EnterReturningState()
     {
+        if (currentState == EnemyState.Fighting)
+        {
+            animator.SetTrigger("isNotWalking");
+        }
+
         currentState = EnemyState.Returning;
+        timeInCurrentState = 0f;  // <-- RESETEAR TIMER
+
         agent.speed = patrolSpeed;
         agent.autoBraking = false;
+        agent.isStopped = false;
 
-        // Volver al punto de patrullaje más cercano
         int closestPointIndex = FindClosestPatrolPoint();
         currentPatrolIndex = closestPointIndex;
         GoToNextPatrolPoint();
@@ -187,15 +293,43 @@ public class PatrolController : MonoBehaviour
 
     void UpdateAnimation()
     {
-        bool hasValidPath = agent.hasPath && !agent.pathPending;
-        bool isMovingToDestination = agent.remainingDistance > agent.stoppingDistance;
-        bool hasVelocity = agent.velocity.sqrMagnitude > 0.0001f;
-
-        bool shouldWalk = hasValidPath && isMovingToDestination && hasVelocity && !isWaiting;
-
-        if (shouldWalk)
+        if (currentState == EnemyState.Fighting)
         {
-            animator.SetTrigger("isWalking");
+            // ACTIVAR el trigger continuamente mientras esté en Fighting
+            // Unity lo reactivará cada vez que la animación termine
+            animator.SetTrigger("isFighting");
+
+            // Marcar que estamos en Fighting (solo para tracking)
+            if (!wasInFightingState)
+            {
+                wasInFightingState = true;
+                Debug.Log("Entrando en animación de combate");
+            }
+        }
+        else
+        {
+            // Salimos del estado Fighting
+            if (wasInFightingState)
+            {
+                animator.SetTrigger("isNotWalking");
+                wasInFightingState = false;
+                Debug.Log("Saliendo de animación de combate");
+            }
+
+            // Lógica normal de caminar (solo cuando NO está en Fighting)
+            bool hasValidPath = agent.hasPath && !agent.pathPending;
+            bool isMovingToDestination = agent.remainingDistance > agent.stoppingDistance;
+            bool hasVelocity = agent.velocity.sqrMagnitude > 0.0001f;
+            bool shouldWalk = hasValidPath && isMovingToDestination && hasVelocity && !isWaiting;
+
+            if (shouldWalk)
+            {
+                animator.SetTrigger("isWalking");
+            }
+            else
+            {
+                animator.SetTrigger("isNotWalking");
+            }
         }
     }
 
