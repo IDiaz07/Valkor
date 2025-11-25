@@ -973,6 +973,7 @@ GameObject:
   - component: {fileID: 431050351}
   - component: {fileID: 431050350}
   - component: {fileID: 431050349}
+  - component: {fileID: 431050353}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1071,6 +1072,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &431050353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431050348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c6af11a39472243b2be7fff49db16c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thumbstickA:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Thumbstick A
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: acb9aa79-d7cf-4a3d-b0ae-af48ddd9d0c0
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  inventory: {fileID: 0}
+  slotHolder: {fileID: 0}
 --- !u!1 &624125314
 GameObject:
   m_ObjectHideFlags: 0
@@ -2664,6 +2691,7 @@ GameObject:
   - component: {fileID: 1446065093}
   - component: {fileID: 1446065092}
   - component: {fileID: 1446065091}
+  - component: {fileID: 1446065095}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2754,6 +2782,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1446065095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446065090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c6af11a39472243b2be7fff49db16c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thumbstickA:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Thumbstick A
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 186bd05a-dd46-4cd3-b8b7-346d90ac3cd3
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -8222252007134549311, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  inventory: {fileID: 0}
+  slotHolder: {fileID: 0}
 --- !u!1 &1780760507
 GameObject:
   m_ObjectHideFlags: 0
