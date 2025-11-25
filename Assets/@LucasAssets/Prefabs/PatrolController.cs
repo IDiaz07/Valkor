@@ -32,6 +32,11 @@ public class PatrolController : MonoBehaviour
     [SerializeField] private float minTimeBetweenHits = 1f;        // <-- NUEVO: Tiempo mínimo entre golpes
     [SerializeField] private float maxTimeBetweenHits = 3f;
 
+    [Header("Sistema de Daño")]
+    [SerializeField] private float hitStunDuration = 0.5f;    // Tiempo que dura el stun al recibir golpe
+    private bool isStunned = false;                           // Si está aturdido por un golpe
+    private float stunnedTimer = 0f;
+
     [Header("Referencias")]
     private NavMeshAgent agent;
     private Animator animator;
@@ -86,10 +91,36 @@ public class PatrolController : MonoBehaviour
 
         timeInCurrentState += Time.deltaTime;
 
-        // Actualizar estado según detección
+        // NUEVO: Manejar estado de stun
+        if (isStunned)
+        {
+            stunnedTimer -= Time.deltaTime;
+
+            if (stunnedTimer <= 0f)
+            {
+                isStunned = false;
+                Debug.Log("<color=green>Enemigo recuperado del stun</color>");
+
+                // Reactivar el agente según el estado actual
+                if (currentState == EnemyState.Chasing || currentState == EnemyState.Patrolling || currentState == EnemyState.Returning)
+                {
+                    agent.isStopped = false;
+                }
+            }
+
+            // Mientras está stunned, no procesar comportamiento normal
+            return;
+        }
+
+        // TEST MANUAL
+        if (Input.GetKeyDown(KeyCode.H) && currentState == EnemyState.Fighting)
+        {
+            Debug.Log("<color=red>TEST MANUAL: Forzando golpe con tecla H</color>");
+            PerformHit();
+        }
+
         UpdateState();
 
-        // Comportamiento según el estado
         switch (currentState)
         {
             case EnemyState.Patrolling:
@@ -98,7 +129,7 @@ public class PatrolController : MonoBehaviour
             case EnemyState.Chasing:
                 HandleChasing();
                 break;
-            case EnemyState.Fighting: 
+            case EnemyState.Fighting:
                 HandleFighting();
                 break;
             case EnemyState.Returning:
@@ -450,5 +481,34 @@ public class PatrolController : MonoBehaviour
                 Gizmos.DrawWireSphere(lastKnownPlayerPosition, 0.5f);
             }
         }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        // Verificar si el objeto que colisionó está en la capa Weapon
+        if (other.gameObject.layer == LayerMask.NameToLayer("Weapon"))
+        {
+            Debug.Log($"<color=red>¡Enemigo golpeado por: {other.gameObject.name}!</color>");
+            OnHitByWeapon();
+        }
+    }
+
+    void OnHitByWeapon()
+    {
+        // Activar animación de golpeado
+        animator.SetTrigger("beenHitted");
+
+        // Activar estado de stun
+        isStunned = true;
+        stunnedTimer = hitStunDuration;
+
+        // Detener movimiento temporalmente
+        if (agent != null)
+        {
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+        }
+
+        Debug.Log($"<color=orange>Enemigo recibió golpe. Stunned por {hitStunDuration}s</color>");
     }
 }
