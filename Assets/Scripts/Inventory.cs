@@ -7,6 +7,8 @@ public class Inventory : MonoBehaviour
     public InputActionProperty thumbstickA;
     CharacterController controller;
 
+    public Transform rightHand;
+
     private int allSlots;
     private bool inventoryEnabled;
     public GameObject inventory;
@@ -38,6 +40,13 @@ public class Inventory : MonoBehaviour
         if (inventoryEnabled)
         {
             inventory.SetActive(true);
+
+
+            inventory.transform.SetParent(rightHand);
+
+                
+            inventory.transform.localPosition = new Vector3(0.1f, 0f, 0.2f);
+            inventory.transform.localRotation = Quaternion.Euler(45, 0, 0);
         }
         else
         {
