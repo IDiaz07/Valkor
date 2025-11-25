@@ -45,7 +45,7 @@ public class TreeBehaviour : MonoBehaviour
     {
         for (int i = 0; i < spawnQuantity; i++)
         {
-            Instantiate(woodDrop, this.transform.position + new Vector3(0,i*2,0), this.transform.rotation);
+            Instantiate(woodDrop, this.transform.position + new Vector3(0,1+i*2,0), Quaternion.Euler(Vector3.up));
         }
         Instantiate(treeCutEffectsSpawner, this.transform.position, this.transform.rotation);
         if (parent != null)
