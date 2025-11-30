@@ -14,19 +14,19 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 1, g: 1, b: 1, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.0002
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.9408721, g: 0.94841516, b: 0.89071023, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 712e4ad5484293c4e8a20c85a4fa07cf, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -474,6 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dynamicMoveProvider: {fileID: 1778951465}
+  controller: {fileID: 0}
   thumbstickDown:
     m_UseReference: 1
     m_Action:
@@ -488,6 +489,20 @@ MonoBehaviour:
     m_Reference: {fileID: -5064918857351788269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   walkSpeed: 3
   sprintSpeed: 8
+  thumbstickUp:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Thumbstick Up
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: daa7a5bc-eb95-4516-b2cc-0d85827049e7
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  jumpSpeed: 2
+  currentGravity: 0
 --- !u!114 &758944152 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6678509202150728127, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
@@ -934,6 +949,54 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &1291573772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1291573774}
+  - component: {fileID: 1291573773}
+  m_Layer: 0
+  m_Name: --SCENE MANAGEMENT--
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1291573773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291573772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf68ada8a9bad214a8e28c117dc2eba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DirectionalLight: {fileID: 1609910397}
+  Preset: {fileID: 11400000, guid: b933fc95d5095f941852d414f9fce6fd, type: 2}
+  TimeOfDay: 10
+  cicleSpeed: 72
+--- !u!4 &1291573774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291573772}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1580624109
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1026,7 +1089,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.747442, g: 0.69240457, b: 0.69240457, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -1089,7 +1152,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1609910396}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.0435779, y: 0.86272997, z: -0.49809733, w: 0.07547914}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6194,6 +6257,7 @@ MonoBehaviour:
   treeHealth: 100
   treeCutEffectsSpawner: {fileID: 5904804212116689015, guid: e6580605e26c6084d9225a055573156d, type: 3}
   woodDrop: {fileID: 1350307105891777757, guid: 1c22404767f033a4bb1af533a0514fe8, type: 3}
+  woodDropAmount: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -6205,3 +6269,4 @@ SceneRoots:
   - {fileID: 170299708}
   - {fileID: 1792767189}
   - {fileID: 880393578}
+  - {fileID: 1291573774}
