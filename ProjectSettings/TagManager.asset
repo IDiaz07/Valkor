@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - DamageCollider
+  - Item
   layers:
   - Default
   - TransparentFX

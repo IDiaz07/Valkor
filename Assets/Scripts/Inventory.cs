@@ -12,6 +12,7 @@ public class Inventory : MonoBehaviour
     private int allSlots;
     private bool inventoryEnabled;
     public GameObject inventory;
+    [SerializeField]
     private GameObject[] slot;
     public GameObject slotHolder;
     // Update is called once per frame
