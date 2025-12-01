@@ -26,6 +26,11 @@ public class Inventory : MonoBehaviour
 
 
             slot[i]= slotHolder.transform.GetChild(i).gameObject;
+
+            if (slot[i].GetComponent<Slot>().Item==null)
+            {
+                slot[i].GetComponent<Slot>().empty = true;
+            }
         }
 
 
@@ -64,6 +69,7 @@ public class Inventory : MonoBehaviour
            
         Item item = pickedItem.GetComponent<Item>();
          
+            AddItem(pickedItem, item.description, item.itemID, item.type, item.icon);
 
 
         } 
@@ -79,12 +85,11 @@ public class Inventory : MonoBehaviour
             {
                 itemToAdd.GetComponent<Item>().pickedUp = true;
 
+                slot[i].GetComponent<Slot>().AddItem(itemToAdd, description, id, type, icon);
 
-                slot[i].GetComponent<Slot>().Item = itemToAdd;
-                slot[i].GetComponent<Slot>().description = description;
-                slot[i].GetComponent<Slot>().ID = id;
-                slot[i].GetComponent<Slot>().type = type;
-                slot[i].GetComponent<Slot>().icon = icon;
+                itemToAdd.transform.SetParent(slot[i].transform);
+                itemToAdd.SetActive(false);
+                slot[i].GetComponent<Slot>().empty = false;
 
 
             }

@@ -13,6 +13,37 @@ public class Slot : MonoBehaviour
 
     public bool empty;
 
+    public Image image;
+    
 
- 
+    void Start()
+    {
+        empty = true;
+        image.enabled = false;
+    }
+
+    public void AddItem(GameObject itemToAdd, string desc, int id, string t, Sprite ic)
+    {
+        Item = itemToAdd;
+        description = desc;
+        ID = id;
+        type = t;
+        icon = ic;
+        empty = false;
+        image.sprite = icon;
+        image.enabled = true;
+    }
+
+
+    public void ClearSlot()
+    {
+        Item = null;
+        description = "";
+        ID = 0;
+        type = "";
+        icon = null;
+        empty = true;
+        image.sprite = null;
+        image.enabled = false;
+    }
 }
