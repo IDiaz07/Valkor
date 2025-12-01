@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3786774673480988031}
   - component: {fileID: 7027659235940980618}
   - component: {fileID: 7876458325587389192}
+  - component: {fileID: 3135293332017428147}
   m_Layer: 0
   m_Name: WoodenLog
   m_TagString: Untagged
@@ -261,3 +262,20 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
+--- !u!114 &3135293332017428147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350307105891777757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b5fa9826bc9654da8a737d9dea23b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Un trozo de madera
+  itemID: 1
+  type: Recurso
+  icon: {fileID: 21300000, guid: 45e051dfd09dcdd4da5a9b0793e05a52, type: 3}
+  pickedUp: 0

@@ -12,6 +12,7 @@ public class Inventory : MonoBehaviour
     private int allSlots;
     private bool inventoryEnabled;
     public GameObject inventory;
+    [SerializeField]
     private GameObject[] slot;
     public GameObject slotHolder;
     // Update is called once per frame
@@ -55,5 +56,38 @@ public class Inventory : MonoBehaviour
     }
 
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Item"))
+        {
+        GameObject pickedItem = other.gameObject;
+           
+        Item item = pickedItem.GetComponent<Item>();
+         
 
+
+        } 
+}
+
+
+
+    public void AddItem(GameObject itemToAdd, string description, int id, string type, Sprite icon)
+    {
+        for (int i = 0; i < allSlots; i++)
+        {
+            if (slot[i].transform.childCount == 0)
+            {
+                itemToAdd.GetComponent<Item>().pickedUp = true;
+
+
+                slot[i].GetComponent<Slot>().Item = itemToAdd;
+                slot[i].GetComponent<Slot>().description = description;
+                slot[i].GetComponent<Slot>().ID = id;
+                slot[i].GetComponent<Slot>().type = type;
+                slot[i].GetComponent<Slot>().icon = icon;
+
+
+            }
+        }
+    }
 }

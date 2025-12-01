@@ -5,15 +5,14 @@ public class Slot : MonoBehaviour
 {
 
 
-    public GameObject IteminShot;
-    public Image slotImage;
-    Color originalColor;
-  
-    void Start()
-    {
-        slotImage = GetComponentInChildren<Image>();
-         originalColor = slotImage.color;
-    }
+    public GameObject Item;
+    public int ID = 0;
+    public string type;
+    public Sprite icon;
+    public string description;
+
+    public bool empty;
+
 
  
 }
