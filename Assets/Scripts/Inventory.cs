@@ -15,6 +15,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private GameObject[] slot;
     public GameObject slotHolder;
+    public bool isSailing;
     // Update is called once per frame
     void Start()
     {
@@ -27,7 +28,7 @@ public class Inventory : MonoBehaviour
 
             slot[i]= slotHolder.transform.GetChild(i).gameObject;
 
-            if (slot[i].GetComponent<Slot>().Item==null)
+            if (slot[i].GetComponent<Slot>().Item!=null)
             {
                 slot[i].GetComponent<Slot>().empty = true;
             }
