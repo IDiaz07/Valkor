@@ -64,10 +64,23 @@ public class PagesController : MonoBehaviour
 
     public void CraftPage1Object()
     {
-        // Quitar Comentario para instanciar directamente en el mundo. Instantiate(currentPage1Craftable, this.transform.position, Quaternion.Identity);
-        Item itemToAdd = currentPage1Craftable.craftable.GetComponent<Item>();
-        playerInventory.AddItem(currentPage1Craftable.craftable, itemToAdd.description, itemToAdd.itemID, itemToAdd.type, itemToAdd.icon);
+        if (currentPage1Craftable == null) return;
+        if (currentPage1Craftable.craftable == null) return;
+
+        GameObject newItem = Instantiate(currentPage1Craftable.craftable);
+
+        Item itemToAdd = newItem.GetComponent<Item>();
+        if (itemToAdd == null) return;
+
+        playerInventory.AddItem(
+            newItem,
+            itemToAdd.description,
+            itemToAdd.itemID,
+            itemToAdd.type,
+            itemToAdd.icon
+        );
     }
+
     private void OnEnable()
     {
         if (currentPage1Craftable != null)

@@ -28,7 +28,7 @@ public class Inventory : MonoBehaviour
 
             slot[i]= slotHolder.transform.GetChild(i).gameObject;
 
-            if (slot[i].GetComponent<Slot>().Item!=null)
+            if (slot[i].GetComponent<Slot>().Item==null)
             {
                 slot[i].GetComponent<Slot>().empty = true;
             }
@@ -86,14 +86,21 @@ public class Inventory : MonoBehaviour
             {
                 itemToAdd.GetComponent<Item>().pickedUp = true;
 
-                slot[i].GetComponent<Slot>().AddItem(itemToAdd, description, id, type, icon);
+                // Mover el objeto al inventario
 
-                itemToAdd.transform.SetParent(slot[i].transform);
-                itemToAdd.SetActive(false);
-                slot[i].GetComponent<Slot>().empty = false;
+                Slot s = slot[i].GetComponent<Slot>();
+                s.Item = itemToAdd;
+                s.description = description;
+                Debug.Log(s.description);
+                s.ID = id;
+                s.type = type;
+                s.icon = icon;
+                s.image.sprite = s.icon;
+                Destroy(itemToAdd);
 
-
+                break; // <-- IMPORTANTE
             }
         }
     }
+
 }

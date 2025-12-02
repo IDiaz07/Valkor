@@ -18,8 +18,8 @@ public class Slot : MonoBehaviour
 
     void Start()
     {
+        image = GetComponent<Image>();
         empty = true;
-        image.enabled = false;
     }
 
     public void AddItem(GameObject itemToAdd, string desc, int id, string t, Sprite ic)
@@ -30,6 +30,7 @@ public class Slot : MonoBehaviour
         type = t;
         icon = ic;
         empty = false;
+
         image.sprite = icon;
         image.enabled = true;
     }

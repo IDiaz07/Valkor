@@ -32,13 +32,13 @@ public class characterWeightSimulator : MonoBehaviour
     }*/
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("collision");
+        //Debug.Log("collision");
         Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.AddForceAtPosition(Vector3.down * characterWeight, other.ClosestPoint(characterController.transform.position));
-            Debug.Log("forceAdded");
+            //Debug.Log("forceAdded");
         }
-        else { Debug.Log("Could not get rigidBody for " + other.gameObject.name); return; }
+        //else { Debug.Log("Could not get rigidBody for " + other.gameObject.name); return; }
     }
 }
