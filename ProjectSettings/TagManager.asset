@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DamageCollider
   - Item
+  - Boat
   layers:
   - Default
   - TransparentFX
