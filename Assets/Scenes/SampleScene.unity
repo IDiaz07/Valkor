@@ -11596,9 +11596,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.22
-  m_Height: 1.67
+  m_Height: 1.682346
   m_Direction: 1
-  m_Center: {x: 0, y: 0.76072, z: 0}
+  m_Center: {x: 0, y: 0.75454706, z: 0}
 --- !u!114 &421968823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11765,7 +11765,7 @@ GameObject:
   - component: {fileID: 459451292}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28715,7 +28715,7 @@ MonoBehaviour:
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
   m_AngularVelocityScale: 1
-  m_TrackPosition: 1
+  m_TrackPosition: 0
   m_SmoothPosition: 0
   m_SmoothPositionAmount: 8
   m_TightenPosition: 0.1
