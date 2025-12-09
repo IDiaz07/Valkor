@@ -68,6 +68,7 @@ public class PagesController : MonoBehaviour
         if (currentPage1Craftable.craftable == null) return;
 
         GameObject newItem = Instantiate(currentPage1Craftable.craftable);
+        Debug.Log(newItem.GetInstanceID());
 
         Item itemToAdd = newItem.GetComponent<Item>();
         if (itemToAdd == null) return;
@@ -96,8 +97,5 @@ public class PagesController : MonoBehaviour
             }
             //TODO Añadir código para que el botón se desactive si no hay suficientes recursos en el inventario cuando el inventario funcione
         }
-
-        
     }
-
 }

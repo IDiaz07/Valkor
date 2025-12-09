@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,11 +11,13 @@ public class Slot : MonoBehaviour
     public string type;
     public Sprite icon;
     public string description;
+    public int amount;
+    public TextMeshProUGUI amountText;
 
     public bool empty;
 
     public Image image;
-    
+
 
     void Start()
     {
@@ -24,15 +27,23 @@ public class Slot : MonoBehaviour
 
     public void AddItem(GameObject itemToAdd, string desc, int id, string t, Sprite ic)
     {
+        if (id == this.ID)
+        {
+            this.amount += 1;
+            UpdateUI();
+            return;
+        }
         Item = itemToAdd;
         description = desc;
         ID = id;
         type = t;
         icon = ic;
         empty = false;
+        amount = 1;
 
         image.sprite = icon;
         image.enabled = true;
+        UpdateUI();
     }
 
 
@@ -46,5 +57,12 @@ public class Slot : MonoBehaviour
         empty = true;
         image.sprite = null;
         image.enabled = false;
+        amount = 0;
+    }
+
+    public void UpdateUI()
+    {
+        Debug.Log("update");
+        amountText.text = amount.ToString();
     }
 }

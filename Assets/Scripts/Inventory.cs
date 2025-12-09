@@ -15,7 +15,6 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private GameObject[] slot;
     public GameObject slotHolder;
-    public bool isSailing;
     // Update is called once per frame
     void Start()
     {
@@ -80,27 +79,38 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(GameObject itemToAdd, string description, int id, string type, Sprite icon)
     {
+        bool itemAdded = false;
+        Debug.Log("Metodo AddItem");
         for (int i = 0; i < allSlots; i++)
         {
-            if (slot[i].transform.childCount == 0)
+            if (slot[i].GetComponent<Slot>().ID == id)
             {
-                itemToAdd.GetComponent<Item>().pickedUp = true;
+                Item item = new Item(description,id,type,icon,true);
 
                 // Mover el objeto al inventario
-
+                Debug.Log("A punto de añadir Item");
                 Slot s = slot[i].GetComponent<Slot>();
-                s.Item = itemToAdd;
-                s.description = description;
-                Debug.Log(s.description);
-                s.ID = id;
-                s.type = type;
-                s.icon = icon;
-                s.image.sprite = s.icon;
+                s.AddItem(itemToAdd, description, id, type, icon);
                 Destroy(itemToAdd);
-
-                break; // <-- IMPORTANTE
+                itemAdded = true;
+                break;
             }
         }
+        if(!itemAdded) for (int i = 0; i < allSlots; i++)
+            {
+                if (slot[i].GetComponent<Slot>().empty)
+                {
+                    Item item = new Item(description, id, type, icon, true);
+
+                    // Mover el objeto al inventario
+                    Debug.Log("A punto de añadir Item");
+                    Slot s = slot[i].GetComponent<Slot>();
+                    s.AddItem(itemToAdd, description, id, type, icon);
+                    Destroy(itemToAdd);
+                    itemAdded = true;
+                    break;
+                }
+            }
     }
 
 }
