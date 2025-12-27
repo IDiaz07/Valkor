@@ -25,6 +25,11 @@ public class CharacterLife : MonoBehaviour
             actualHealth -= 9f;
             Debug.Log($"Daño de rana recivido. Vida actual ={actualHealth}");
         }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Slime"))
+        {
+            actualHealth -= 5f;
+            Debug.Log($"Daño de rana recivido. Vida actual ={actualHealth}");
+        }
     }
 
     private void Die()

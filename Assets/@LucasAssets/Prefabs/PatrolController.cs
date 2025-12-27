@@ -62,7 +62,7 @@ public class PatrolController : MonoBehaviour
         // Configuración inicial del NavMeshAgent
         agent.speed = patrolSpeed;
         agent.autoBraking = false;
-        agent.stoppingDistance = 0.0f;
+        agent.stoppingDistance = 0.5f;
 
         // Validación del sensor de visión
         if (visionSensor == null)
@@ -241,7 +241,7 @@ public class PatrolController : MonoBehaviour
 
         agent.speed = chaseSpeed;
         agent.autoBraking = true;
-        agent.stoppingDistance = 0.00f;  // <-- REDUCIR para que se acerque más
+        agent.stoppingDistance = 0.5f; 
         agent.isStopped = false;
         isWaiting = false;
 
@@ -417,7 +417,7 @@ public class PatrolController : MonoBehaviour
         float distanceToTarget = Vector3.Distance(transform.position, patrolPoints[targetIndex].position);
 
         // Verificar si está suficientemente cerca del punto
-        if (distanceToTarget <= agent.stoppingDistance + 0.0f)
+        if (distanceToTarget <= agent.stoppingDistance)
         {
             // Verificar que está quieto o casi quieto
             if (agent.velocity.sqrMagnitude < 0.001f)
