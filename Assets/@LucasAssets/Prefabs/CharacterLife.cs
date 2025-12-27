@@ -4,12 +4,20 @@ public class CharacterLife : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float actualHealth;
+    [SerializeField] private float maxStamina = 100f;
+    [SerializeField] private float actualStamina;
+
+    public float MaxHealth { get => maxHealth; set => maxHealth = value; }
+    public float ActualHealth { get => actualHealth; set => actualHealth = value; }
+    public float MaxStamina { get => maxStamina; set => maxStamina = value; }
+    public float ActualStamina { get => actualStamina; set => actualStamina = value; }
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         actualHealth = maxHealth;
+        actualStamina = maxStamina;
     }
 
     // Update is called once per frame
