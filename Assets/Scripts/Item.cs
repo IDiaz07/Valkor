@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -8,15 +9,12 @@ public class Item : MonoBehaviour
     public Sprite icon;
     public bool pickedUp;
 
-
-    void Start()
+    public Item(string description, int itemID, string type, Sprite icon, bool pickedUp)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        this.description = description;
+        this.itemID = itemID;
+        this.type = type;
+        this.icon = icon;
+        this.pickedUp = pickedUp;
     }
 }
