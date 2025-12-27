@@ -282,8 +282,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 671294849}
   empty: 0
   image: {fileID: 0}
@@ -380,8 +380,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 290022416}
   empty: 0
   image: {fileID: 0}
@@ -5811,8 +5811,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 2016190096}
   empty: 0
   image: {fileID: 0}
@@ -6913,8 +6913,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 291680010}
   empty: 0
   image: {fileID: 0}
@@ -7283,8 +7283,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 679101846}
   empty: 0
   image: {fileID: 0}
@@ -12922,8 +12922,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 1314018900}
   empty: 0
   image: {fileID: 0}
@@ -13177,8 +13177,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 1832788228}
   empty: 0
   image: {fileID: 0}
@@ -13503,8 +13503,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 813676298}
   empty: 0
   image: {fileID: 0}
@@ -14312,8 +14312,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 210458153}
   empty: 0
   image: {fileID: 0}
@@ -14489,8 +14489,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 2103528706}
   empty: 0
   image: {fileID: 0}
@@ -14612,6 +14612,10 @@ PrefabInstance:
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 421968828}
+    - target: {fileID: 1318055584575526477, guid: 2fcc419baa9e9764e81ed1b549195f90, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1318055584575526477, guid: 2fcc419baa9e9764e81ed1b549195f90, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -16464,8 +16468,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 1560627984}
   empty: 0
   image: {fileID: 0}
@@ -16685,8 +16689,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 2114387808}
   empty: 0
   image: {fileID: 0}
@@ -16794,8 +16798,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 1758271628}
   empty: 0
   image: {fileID: 0}
@@ -16892,8 +16896,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 305835576}
   empty: 0
   image: {fileID: 0}
@@ -17563,8 +17567,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 1319902353}
   empty: 0
   image: {fileID: 0}
@@ -17710,8 +17714,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 875859037}
   empty: 0
   image: {fileID: 0}
@@ -18152,8 +18156,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 1983927673}
   empty: 0
   image: {fileID: 0}
@@ -18707,8 +18711,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 218586766}
   empty: 0
   image: {fileID: 0}
@@ -24246,8 +24250,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 1935301439}
   empty: 0
   image: {fileID: 0}
@@ -24344,8 +24348,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 232270644}
   empty: 0
   image: {fileID: 0}
@@ -24593,8 +24597,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 363545664}
   empty: 0
   image: {fileID: 0}
@@ -24767,8 +24771,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 875820090}
   empty: 0
   image: {fileID: 0}
@@ -31810,8 +31814,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 1699268786}
   empty: 0
   image: {fileID: 0}
@@ -31908,8 +31912,8 @@ MonoBehaviour:
   ID: 0
   type: 
   icon: {fileID: 0}
+  defaultSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  amount: 0
   amountText: {fileID: 1552692097}
   empty: 0
   image: {fileID: 0}

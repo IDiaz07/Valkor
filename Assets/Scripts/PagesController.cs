@@ -6,7 +6,7 @@ using static Craftable;
 public class PagesController : MonoBehaviour
 {
     //Las páginas del libro de creación
-    [Header("Páginas",order = 0)]
+    [Header("Páginas", order = 0)]
     [SerializeField] private GameObject page1;
     [SerializeField] private GameObject page2;
 
@@ -44,13 +44,13 @@ public class PagesController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        CheckMeetsRequirements();
     }
 
     public void SetPage1Craftable(Craftable craftable)
@@ -67,6 +67,11 @@ public class PagesController : MonoBehaviour
         if (currentPage1Craftable == null) return;
         if (currentPage1Craftable.craftable == null) return;
 
+
+        foreach (Requirement requirement in currentPage1Craftable.requirements)
+        {
+            playerInventory.RemoveItemFromInventory(requirement.itemID, requirement.amount);
+        }
         GameObject newItem = Instantiate(currentPage1Craftable.craftable);
         Debug.Log(newItem.GetInstanceID());
 
@@ -95,7 +100,30 @@ public class PagesController : MonoBehaviour
             {
                 page1Requirements.text += "" + requirement.amount + "x " + requirement.requirement.name + "\n";
             }
+            CheckMeetsRequirements();
+
             //TODO Añadir código para que el botón se desactive si no hay suficientes recursos en el inventario cuando el inventario funcione
+        }
+    }
+
+    private void CheckMeetsRequirements()
+    {
+        bool meetsRequirements = true;
+        foreach (Requirement requirement in currentPage1Craftable.requirements)
+        {
+            if (!playerInventory.FindObjectInInventory(requirement.itemID, requirement.amount))
+            {
+                meetsRequirements = false;
+                break;
+            }
+        }
+        if (meetsRequirements)
+        {
+            page1Button.interactable = true;
+        }
+        else
+        {
+            page1Button.interactable = false;
         }
     }
 }

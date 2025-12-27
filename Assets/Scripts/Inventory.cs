@@ -113,4 +113,39 @@ public class Inventory : MonoBehaviour
             }
     }
 
+
+    public void RemoveItemFromInventory(int itemId, int amount)
+    {
+        for (int i = 0; i < allSlots; i++)
+        {
+            Slot curSlot = slot[i].GetComponent<Slot>();
+            if (curSlot.ID == itemId)
+            {
+                curSlot.Amount -= amount;
+                if (curSlot.Amount < 1)
+                {
+                    curSlot.empty = true;
+                    curSlot.ClearSlot();
+                }
+
+            }
+        }
+    }
+    public bool FindObjectInInventory(int objectId, int minAmount){
+        for (int i = 0; i < allSlots; i++)
+        {
+            Slot curSlot = slot[i].GetComponent<Slot>();
+            if (!curSlot.empty)
+            {
+                if (curSlot.ID == objectId)
+                {
+                    if (curSlot.Amount >= minAmount) return true;
+                }
+            }
+        }
+        return false;
+    
+    
+    }
+
 }

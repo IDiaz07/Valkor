@@ -10,14 +10,16 @@ public class Slot : MonoBehaviour
     public int ID = 0;
     public string type;
     public Sprite icon;
+    [SerializeField] private Sprite defaultSprite;
     public string description;
-    public int amount;
+    private int amount;
     public TextMeshProUGUI amountText;
 
     public bool empty;
 
     public Image image;
 
+    public int Amount { get => amount; set { amount = value; UpdateUI(); } }
 
     void Start()
     {
@@ -55,14 +57,18 @@ public class Slot : MonoBehaviour
         type = "";
         icon = null;
         empty = true;
-        image.sprite = null;
-        image.enabled = false;
+        image.sprite = defaultSprite;
         amount = 0;
     }
 
     public void UpdateUI()
     {
-        Debug.Log("update");
+        Debug.Log("update slot ui");
+        if (amount == 0)
+        {
+            amountText.text = "";
+            return;
+        }
         amountText.text = amount.ToString();
     }
 }

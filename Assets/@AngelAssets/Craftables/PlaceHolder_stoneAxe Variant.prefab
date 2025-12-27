@@ -89,5 +89,7 @@ MonoBehaviour:
   requirements:
   - requirement: {fileID: 1350307105891777757, guid: 1c22404767f033a4bb1af533a0514fe8, type: 3}
     amount: 1
-  - requirement: {fileID: 6103845359311738780, guid: ba820a139c56b3443945ada57dd45f3e, type: 3}
-    amount: 1
+    itemID: 1
+  - requirement: {fileID: 5272209550920253297, guid: 6874077b7ae372148976f950f009aa9d, type: 3}
+    amount: 2
+    itemID: 4
