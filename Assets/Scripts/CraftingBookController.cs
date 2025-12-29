@@ -18,7 +18,7 @@ public class CraftingBookController : MonoBehaviour
         if (craftables.Length > 0)
             pagesController.SetPage1Craftable(craftables[0]);
         if (craftables.Length >1)
-            pagesController.SetPage1Craftable(craftables[1]);
+            pagesController.SetPage2Craftable(craftables[1]);
     }
 
 

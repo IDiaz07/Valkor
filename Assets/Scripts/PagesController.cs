@@ -5,6 +5,7 @@ using static Craftable;
 
 public class PagesController : MonoBehaviour
 {
+    //TODO ¿Convertir Page en una clase para evitar repetir código?
     //Las páginas del libro de creación
     [Header("Páginas", order = 0)]
     [SerializeField] private GameObject page1;
@@ -39,6 +40,13 @@ public class PagesController : MonoBehaviour
         page1Description = page1.transform.GetChild(2).GetComponent<TMP_Text>();
         page1Requirements = page1.transform.GetChild(3).GetComponent<TMP_Text>();
         page1Button = page1.transform.GetChild(4).GetComponent<Button>();
+
+
+        page2Image = page2.transform.GetChild(0).GetComponent<Image>();
+        page2Title = page2.transform.GetChild(1).GetComponent<TMP_Text>();
+        page2Description = page2.transform.GetChild(2).GetComponent<TMP_Text>();
+        page2Requirements = page2.transform.GetChild(3).GetComponent<TMP_Text>();
+        page2Button = page2.transform.GetChild(4).GetComponent<Button>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -50,7 +58,7 @@ public class PagesController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckMeetsRequirements();
+        CheckRequirementsAllPages();
     }
 
     public void SetPage1Craftable(Craftable craftable)
@@ -87,6 +95,31 @@ public class PagesController : MonoBehaviour
         );
     }
 
+    public void CraftPage2Object()
+    {
+        if (currentPage2Craftable == null) return;
+        if (currentPage2Craftable.craftable == null) return;
+
+
+        foreach (Requirement requirement in currentPage2Craftable.requirements)
+        {
+            playerInventory.RemoveItemFromInventory(requirement.itemID, requirement.amount);
+        }
+        GameObject newItem = Instantiate(currentPage2Craftable.craftable);
+        Debug.Log(newItem.GetInstanceID());
+
+        Item itemToAdd = newItem.GetComponent<Item>();
+        if (itemToAdd == null) return;
+
+        playerInventory.AddItem(
+            newItem,
+            itemToAdd.description,
+            itemToAdd.itemID,
+            itemToAdd.type,
+            itemToAdd.icon
+        );
+    }
+
     private void OnEnable()
     {
         if (currentPage1Craftable != null)
@@ -100,30 +133,68 @@ public class PagesController : MonoBehaviour
             {
                 page1Requirements.text += "" + requirement.amount + "x " + requirement.requirement.name + "\n";
             }
-            CheckMeetsRequirements();
+            if (CheckMeetsRequirements(currentPage1Craftable.requirements))
+            {
+                page1Button.interactable = true;
+            }
+            else
+            {
+                page1Button.interactable = false;
+            }
 
-            //TODO Añadir código para que el botón se desactive si no hay suficientes recursos en el inventario cuando el inventario funcione
+        }
+        if (currentPage2Craftable != null)
+        {
+            //Página 2
+            page2Image.sprite = currentPage2Craftable.craftable.GetComponent<Item>().icon;
+            page2Title.text = currentPage2Craftable.craftable.name;
+            page2Description.text = currentPage2Craftable.craftable.GetComponent<Item>().description;
+            page2Requirements.text = "";
+            foreach (Requirement requirement in currentPage2Craftable.requirements)
+            {
+                page2Requirements.text += "" + requirement.amount + "x " + requirement.requirement.name + "\n";
+            }
+            if (CheckMeetsRequirements(currentPage2Craftable.requirements))
+            {
+                page2Button.interactable = true;
+            }
+            else
+            {
+                page2Button.interactable = false;
+            }
+
         }
     }
 
-    private void CheckMeetsRequirements()
+    private bool CheckMeetsRequirements(Requirement[] requirementList)
     {
-        bool meetsRequirements = true;
-        foreach (Requirement requirement in currentPage1Craftable.requirements)
+        foreach (Requirement requirement in requirementList)
         {
             if (!playerInventory.FindObjectInInventory(requirement.itemID, requirement.amount))
             {
-                meetsRequirements = false;
-                break;
+                return false;
             }
         }
-        if (meetsRequirements)
+        return true;
+    }
+
+    private void CheckRequirementsAllPages()
+    {
+        if (CheckMeetsRequirements(currentPage1Craftable.requirements))
         {
             page1Button.interactable = true;
         }
         else
         {
             page1Button.interactable = false;
+        }
+        if (CheckMeetsRequirements(currentPage2Craftable.requirements))
+        {
+            page2Button.interactable = true;
+        }
+        else
+        {
+            page2Button.interactable = false;
         }
     }
 }
