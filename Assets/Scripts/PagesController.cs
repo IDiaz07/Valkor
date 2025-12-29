@@ -125,44 +125,66 @@ public class PagesController : MonoBehaviour
         if (currentPage1Craftable != null)
         {
             //Página 1
-            page1Image.sprite = currentPage1Craftable.craftable.GetComponent<Item>().icon;
-            page1Title.text = currentPage1Craftable.craftable.name;
-            page1Description.text = currentPage1Craftable.craftable.GetComponent<Item>().description;
-            page1Requirements.text = "";
-            foreach (Requirement requirement in currentPage1Craftable.requirements)
-            {
-                page1Requirements.text += "" + requirement.amount + "x " + requirement.requirement.name + "\n";
-            }
-            if (CheckMeetsRequirements(currentPage1Craftable.requirements))
-            {
-                page1Button.interactable = true;
-            }
-            else
-            {
-                page1Button.interactable = false;
-            }
+            UpdatePage1UI();
 
         }
         if (currentPage2Craftable != null)
         {
             //Página 2
-            page2Image.sprite = currentPage2Craftable.craftable.GetComponent<Item>().icon;
-            page2Title.text = currentPage2Craftable.craftable.name;
-            page2Description.text = currentPage2Craftable.craftable.GetComponent<Item>().description;
-            page2Requirements.text = "";
-            foreach (Requirement requirement in currentPage2Craftable.requirements)
-            {
-                page2Requirements.text += "" + requirement.amount + "x " + requirement.requirement.name + "\n";
-            }
-            if (CheckMeetsRequirements(currentPage2Craftable.requirements))
-            {
-                page2Button.interactable = true;
-            }
-            else
-            {
-                page2Button.interactable = false;
-            }
+            UpdatePage2UI();
 
+        }
+    }
+
+    public void UpdatePage2UI()
+    {
+        try
+        {
+            page2Image.sprite = currentPage2Craftable.craftable.GetComponent<Item>().icon;
+        }
+        catch
+        {
+            page2Title.text = "";
+            page2Description.text = "";
+            page2Requirements.text = "";
+            return;
+        }
+        page2Image.enabled = true;
+        page2Title.text = currentPage2Craftable.craftable.name;
+        page2Description.text = currentPage2Craftable.craftable.GetComponent<Item>().description;
+        page2Requirements.text = "";
+        foreach (Requirement requirement in currentPage2Craftable.requirements)
+        {
+            page2Requirements.text += "" + requirement.amount + "x " + requirement.requirement.name + "\n";
+        }
+        page2Button.gameObject.SetActive(true);
+        if (CheckMeetsRequirements(currentPage2Craftable.requirements))
+        {
+            page2Button.interactable = true;
+        }
+        else
+        {
+            page2Button.interactable = false;
+        }
+    }
+
+    public void UpdatePage1UI()
+    {
+        page1Image.sprite = currentPage1Craftable.craftable.GetComponent<Item>().icon;
+        page1Title.text = currentPage1Craftable.craftable.name;
+        page1Description.text = currentPage1Craftable.craftable.GetComponent<Item>().description;
+        page1Requirements.text = "";
+        foreach (Requirement requirement in currentPage1Craftable.requirements)
+        {
+            page1Requirements.text += "" + requirement.amount + "x " + requirement.requirement.name + "\n";
+        }
+        if (CheckMeetsRequirements(currentPage1Craftable.requirements))
+        {
+            page1Button.interactable = true;
+        }
+        else
+        {
+            page1Button.interactable = false;
         }
     }
 
@@ -196,5 +218,15 @@ public class PagesController : MonoBehaviour
         {
             page2Button.interactable = false;
         }
+    }
+
+    public void EmptyPage2()
+    {
+        currentPage2Craftable = null;
+        page2Image.sprite = null;
+        page2Image.enabled = false;
+        page2Title.text = "";
+        page2Description.text = "";
+        page2Button.gameObject.SetActive(false);
     }
 }

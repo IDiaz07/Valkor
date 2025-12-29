@@ -335,11 +335,11 @@ MonoBehaviour:
   craftable: {fileID: 6181262944856889445}
   requirements:
   - requirement: {fileID: 1350307105891777757, guid: 1c22404767f033a4bb1af533a0514fe8, type: 3}
-    amount: 0
-    itemID: 0
+    amount: 1
+    itemID: 1
   - requirement: {fileID: 5272209550920253297, guid: 6874077b7ae372148976f950f009aa9d, type: 3}
     amount: 2
-    itemID: 0
+    itemID: 4
 --- !u!114 &-804614348370692014
 MonoBehaviour:
   m_ObjectHideFlags: 0

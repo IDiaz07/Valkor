@@ -10,15 +10,16 @@ public class CraftingBookController : MonoBehaviour
 
     private PagesController pagesController;
 
+    private int curPageNum = 0;
+    private int maxPageNum;
+
 
 
     private void Awake()
     {
+        maxPageNum = (craftables.Length - 1) / 2;
         pagesController = bookInterface.GetComponent<PagesController>();
-        if (craftables.Length > 0)
-            pagesController.SetPage1Craftable(craftables[0]);
-        if (craftables.Length >1)
-            pagesController.SetPage2Craftable(craftables[1]);
+            
     }
 
 
@@ -26,6 +27,8 @@ public class CraftingBookController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        pagesController.SetPage1Craftable(craftables[0 + curPageNum * 2]);
+        pagesController.SetPage2Craftable(craftables[1 + curPageNum * 2]);
     }
 
     // Update is called once per frame
@@ -41,6 +44,37 @@ public class CraftingBookController : MonoBehaviour
     public void DisableInterface()
     {
         bookInterface.SetActive(false);
+    }
+
+    public void NextPage()
+    {
+        if (curPageNum < maxPageNum)
+        {
+            curPageNum += 1;
+            pagesController.SetPage1Craftable(craftables[0 + curPageNum * 2]);
+            pagesController.UpdatePage1UI();
+            try
+            {
+                pagesController.SetPage2Craftable(craftables[1 + curPageNum * 2]);
+            }
+            catch (System.Exception)
+            {
+                pagesController.EmptyPage2();
+            }
+            pagesController.UpdatePage2UI();
+        }
+        
+    }
+    public void PreviousPage()
+    {
+        if (curPageNum > 0)
+        {
+            curPageNum -= 1;
+            pagesController.SetPage1Craftable(craftables[0 + curPageNum * 2]);
+            pagesController.UpdatePage1UI();
+            pagesController.SetPage2Craftable(craftables[1 + curPageNum * 2]);
+            pagesController.UpdatePage2UI();
+        }
     }
 }
 
