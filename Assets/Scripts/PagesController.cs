@@ -205,7 +205,7 @@ public class PagesController : MonoBehaviour
 
     private void CheckRequirementsAllPages()
     {
-        if (CheckMeetsRequirements(currentPage1Craftable.requirements))
+        if (currentPage1Craftable != null && CheckMeetsRequirements(currentPage1Craftable.requirements))
         {
             page1Button.interactable = true;
         }
@@ -213,7 +213,7 @@ public class PagesController : MonoBehaviour
         {
             page1Button.interactable = false;
         }
-        if (CheckMeetsRequirements(currentPage2Craftable.requirements))
+        if (currentPage2Craftable != null && CheckMeetsRequirements(currentPage2Craftable.requirements))
         {
             page2Button.interactable = true;
         }

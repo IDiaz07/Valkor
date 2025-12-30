@@ -63,7 +63,6 @@ public class Slot : MonoBehaviour
 
     public void UpdateUI()
     {
-        Debug.Log("update slot ui");
         if (amount == 0)
         {
             amountText.text = "";
