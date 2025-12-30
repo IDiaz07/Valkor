@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CharacterLife : MonoBehaviour
@@ -6,11 +7,13 @@ public class CharacterLife : MonoBehaviour
     [SerializeField] private float actualHealth;
     [SerializeField] private float maxStamina = 100f;
     [SerializeField] private float actualStamina;
+    public float staminaRegenRate = 3;
 
     public float MaxHealth { get => maxHealth; set => maxHealth = value; }
     public float ActualHealth { get => actualHealth; set => actualHealth = value; }
     public float MaxStamina { get => maxStamina; set => maxStamina = value; }
-    public float ActualStamina { get => actualStamina; set => actualStamina = value; }
+    public float ActualStamina { get => actualStamina; set { actualStamina = value; if (actualStamina < 0) actualStamina = 0;
+            if (actualStamina > maxStamina) actualStamina = maxStamina; } }
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -24,6 +27,12 @@ public class CharacterLife : MonoBehaviour
     void Update()
     {
         if (actualHealth <= 0) Die();
+        StaminaRegen();
+    }
+
+    private void StaminaRegen()
+    {
+        ActualStamina += staminaRegenRate * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)

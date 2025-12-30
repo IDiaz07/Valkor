@@ -23,9 +23,13 @@ public class PlayerMovementManager : MonoBehaviour
     public InputActionProperty thumbstickUp;
     private Vector3 velocity;
     [SerializeField]
+    public float sprintStaminaConsumption;
     private float jumpSpeed = 2;
     private float defaultGravity;
     public float currentGravity;
+
+    [SerializeField]
+    private CharacterLife playerStats;
 
 
     private void Awake()
@@ -50,6 +54,12 @@ public class PlayerMovementManager : MonoBehaviour
                 InitiateSprint();
                 isSprinting=true;
             }
+        }
+        if (isSprinting) playerStats.ActualStamina -= sprintStaminaConsumption * Time.deltaTime;
+        if(playerStats.ActualStamina <= 0)
+        {
+            isSprinting = false;
+            CancelSprint();
         }
         velocity.y += currentGravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
@@ -92,6 +102,7 @@ public class PlayerMovementManager : MonoBehaviour
     {
         if (!controller.isGrounded) return;
             velocity.y += Mathf.Sqrt(jumpSpeed * -3f * Physics.gravity.y);
+        playerStats.ActualStamina -= 10;
     }
 
     public void ResetGravity()
