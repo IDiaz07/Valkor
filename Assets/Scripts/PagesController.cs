@@ -10,6 +10,9 @@ public class PagesController : MonoBehaviour
     [Header("Páginas", order = 0)]
     [SerializeField] private GameObject page1;
     [SerializeField] private GameObject page2;
+    public int curPageNum = 0;
+    public int maxPageNum;
+    public Craftable[] craftables;
 
     //Inventario
     [SerializeField] private Inventory playerInventory;
@@ -229,4 +232,35 @@ public class PagesController : MonoBehaviour
         page2Description.text = "";
         page2Button.gameObject.SetActive(false);
     }
-}
+
+    public void NextPage()
+    {
+        if (curPageNum < maxPageNum)
+        {
+            curPageNum += 1;
+            SetPage1Craftable(craftables[0 + curPageNum * 2]);
+            UpdatePage1UI();
+            try
+            {
+                SetPage2Craftable(craftables[1 + curPageNum * 2]);
+            }
+            catch (System.Exception)
+            {
+                EmptyPage2();
+            }
+            UpdatePage2UI();
+        }
+
+    }
+    public void PreviousPage()
+    {
+        if (curPageNum > 0)
+        {
+            curPageNum -= 1;
+            SetPage1Craftable(craftables[0 + curPageNum * 2]);
+            UpdatePage1UI();
+            SetPage2Craftable(craftables[1 + curPageNum * 2]);
+            UpdatePage2UI();
+        }
+    }
+} 
