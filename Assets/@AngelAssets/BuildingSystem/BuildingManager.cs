@@ -11,6 +11,11 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] private SelectedBuildType currentBuildType;
     [SerializeField] private LayerMask connectorLayer;
 
+    [Header("Destroy Settings")]
+    [SerializeField] private bool isDestroying = false;
+    private Transform lastHitDestroyTransform;
+    private List<Material> lastHitMaterials = new List<Material>();
+
     [Header("Ghost Settings")]
     [SerializeField] private Material ghostMaterialValid;
     [SerializeField] private Material ghostMaterialInvalid;
@@ -30,16 +35,28 @@ public class BuildingManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
             isBuilding = !isBuilding;
 
-        if (isBuilding)
+        if (Input.GetKeyDown(KeyCode.V))
+            isDestroying = !isDestroying;
+
+        if (isBuilding && !isDestroying)
         {
             GhostBuild();
 
             if (Input.GetMouseButtonDown(0))
                 PlaceBuild();
-        }else if (ghostBuildGameobject)
+        }
+        else if (ghostBuildGameobject)
         {
             Destroy(ghostBuildGameobject);
             ghostBuildGameobject = null;
+        }
+
+        if (isDestroying)
+        {
+            GhostDestroy();
+
+            if (Input.GetMouseButtonDown(0))
+                DestroyBuild();
         }
     }
 
@@ -54,7 +71,7 @@ public class BuildingManager : MonoBehaviour
 
     private void CreateGhostPrefab(GameObject currentBuild)
     {
-        if(ghostBuildGameobject == null)
+        if (ghostBuildGameobject == null)
         {
             ghostBuildGameobject = Instantiate(currentBuild);
 
@@ -86,6 +103,20 @@ public class BuildingManager : MonoBehaviour
         else
         {
             GhostSeparateBuild();
+
+            if (isGhostInValidPosition)
+            {
+                Collider[] overlapColliders = Physics.OverlapBox(ghostBuildGameobject.transform.position, new Vector3(2f, 2f, 2f), ghostBuildGameobject.transform.rotation);
+                foreach (Collider overlapCollider in overlapColliders)
+                {
+                    if (overlapCollider.gameObject != ghostBuildGameobject && overlapCollider.transform.root.CompareTag("Buildables"))
+                    {
+                        GhostifyModel(modelParent, ghostMaterialInvalid);
+                        isGhostInValidPosition = false;
+                        return;
+                    }
+                }
+            }
         }
     }
 
@@ -93,7 +124,7 @@ public class BuildingManager : MonoBehaviour
     {
         Connector bestConnector = null;
 
-        foreach(Collider collider in colliders)
+        foreach (Collider collider in colliders)
         {
             Connector connector = collider.GetComponent<Connector>();
 
@@ -104,7 +135,7 @@ public class BuildingManager : MonoBehaviour
             }
         }
 
-        if(bestConnector == null || currentBuildType == SelectedBuildType.floor && bestConnector.isConnectedToFloor || currentBuildType == SelectedBuildType.wall && bestConnector.isConnectedToWall)
+        if (bestConnector == null || currentBuildType == SelectedBuildType.floor && bestConnector.isConnectedToFloor || currentBuildType == SelectedBuildType.wall && bestConnector.isConnectedToWall)
         {
             GhostifyModel(modelParent, ghostMaterialInvalid);
             isGhostInValidPosition = false;
@@ -119,7 +150,7 @@ public class BuildingManager : MonoBehaviour
         Transform ghostConnector = FindSnapConnector(connector.transform, ghostBuildGameobject.transform.GetChild(1));
         ghostBuildGameobject.transform.position = connector.transform.position - (ghostConnector.position - ghostBuildGameobject.transform.position);
 
-        if(currentBuildType == SelectedBuildType.wall)
+        if (currentBuildType == SelectedBuildType.wall)
         {
             Quaternion newRotation = ghostBuildGameobject.transform.rotation;
             newRotation.eulerAngles = new Vector3(newRotation.eulerAngles.x, connector.transform.rotation.eulerAngles.y, newRotation.eulerAngles.z);
@@ -136,21 +167,14 @@ public class BuildingManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-          if(currentBuildType == SelectedBuildType.wall)
+            if (currentBuildType == SelectedBuildType.wall)
             {
                 GhostifyModel(modelParent, ghostMaterialInvalid);
                 isGhostInValidPosition = false;
                 return;
             }
 
-            if (hit.collider.transform.root.CompareTag("Buildables"))
-            {
-                GhostifyModel(modelParent, ghostMaterialInvalid);
-                isGhostInValidPosition = false;
-                return;
-            }
-
-            if(Vector3.Angle(hit.normal, Vector3.up) < maxGroundAngle)
+            if (Vector3.Angle(hit.normal, Vector3.up) < maxGroundAngle)
             {
                 GhostifyModel(modelParent, ghostMaterialInvalid);
                 isGhostInValidPosition = true;
@@ -183,7 +207,7 @@ public class BuildingManager : MonoBehaviour
         if (currentBuildType == SelectedBuildType.wall && connector.connectorParentType == SelectedBuildType.floor)
             return ConnectorPosition.bottom;
 
-        if(currentBuildType == SelectedBuildType.floor && connector.connectorParentType == SelectedBuildType.wall && connector.connectorPosition == ConnectorPosition.top)
+        if (currentBuildType == SelectedBuildType.floor && connector.connectorParentType == SelectedBuildType.wall && connector.connectorPosition == ConnectorPosition.top)
         {
             if (connector.transform.root.rotation.y == 0)
             {
@@ -202,7 +226,7 @@ public class BuildingManager : MonoBehaviour
             case ConnectorPosition.right:
                 return ConnectorPosition.left;
             case ConnectorPosition.top:
-               return ConnectorPosition.bottom;
+                return ConnectorPosition.bottom;
             case ConnectorPosition.bottom:
                 return ConnectorPosition.top;
             default:
@@ -222,7 +246,7 @@ public class BuildingManager : MonoBehaviour
 
     private void GhostifyModel(Transform modelParent, Material ghostMaterial = null)
     {
-        if(ghostMaterial != null)
+        if (ghostMaterial != null)
         {
             foreach (MeshRenderer meshRenderer in modelParent.GetComponentsInChildren<MeshRenderer>())
             {
@@ -253,7 +277,7 @@ public class BuildingManager : MonoBehaviour
 
     private void PlaceBuild()
     {
-        if(ghostBuildGameobject != null && isGhostInValidPosition)
+        if (ghostBuildGameobject != null && isGhostInValidPosition)
         {
             GameObject newBuild = Instantiate(GetCurrentBuild(), ghostBuildGameobject.transform.position, ghostBuildGameobject.transform.rotation);
 
@@ -266,6 +290,67 @@ public class BuildingManager : MonoBehaviour
             {
                 connector.UpdateConnectors(true);
             }
+        }
+    }
+
+    private void GhostDestroy()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.transform.root.CompareTag("Buildables"))
+            {
+                if (!lastHitDestroyTransform)
+                {
+                    lastHitDestroyTransform = hit.transform.root;
+
+                    lastHitMaterials.Clear();
+                    foreach (MeshRenderer lastHitMeshRenderers in lastHitDestroyTransform.GetComponentsInChildren<MeshRenderer>())
+                    {
+                        lastHitMaterials.Add(lastHitMeshRenderers.material);
+                    }
+
+                    GhostifyModel(lastHitDestroyTransform.GetChild(0), ghostMaterialInvalid);
+                }
+                else if (hit.transform.root != lastHitDestroyTransform)
+                {
+                    ResetLostHitDestroyTransform();
+                }
+            }
+            else if (lastHitDestroyTransform)
+            {
+                ResetLostHitDestroyTransform();
+            }
+        }
+    }
+
+    private void ResetLostHitDestroyTransform()
+    {
+        int counter = 0;
+        foreach (MeshRenderer lastHitMeshRenderers in lastHitDestroyTransform.GetComponentsInChildren<MeshRenderer>())
+        {
+            lastHitMeshRenderers.material = lastHitMaterials[counter];
+            counter++;
+        }
+
+        lastHitDestroyTransform = null;
+    }
+
+    private void DestroyBuild()
+    {
+        if (lastHitDestroyTransform)
+        {
+            foreach (Connector connector in lastHitDestroyTransform.GetComponentsInChildren<Connector>())
+            {
+                connector.gameObject.SetActive(false);
+                connector.UpdateConnectors(true);
+            }
+
+            Destroy(lastHitDestroyTransform.gameObject);
+
+            isDestroying = false;
+            lastHitDestroyTransform = null;
         }
     }
 }

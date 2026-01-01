@@ -33,6 +33,11 @@ public class Connector : MonoBehaviour
                 continue;
             }
 
+            if (!collider.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+
             if (collider.gameObject.layer == gameObject.layer)
             {
                 Connector foundConnector = collider.GetComponent<Connector>();
