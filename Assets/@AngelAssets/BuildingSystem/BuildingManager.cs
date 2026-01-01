@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BuildingManager : MonoBehaviour
 {
@@ -28,7 +30,21 @@ public class BuildingManager : MonoBehaviour
     private GameObject ghostBuildGameobject;
     private bool isGhostInValidPosition;
     private Transform modelParent = null;
+    private Transform raycastObject;
 
+    [Header("Hands")]
+    [SerializeField] private Transform leftHand;
+    [SerializeField] private Transform rightHand;
+    [Header("Input")]
+    [SerializeField] private InputActionProperty accept;
+
+    private void Awake()
+    {
+        leftHand = FindAnyObjectByType<XROrigin>().transform.GetChild(0).GetChild(3);
+        rightHand = FindAnyObjectByType<XROrigin>().transform.GetChild(0).GetChild(5);
+    }
+
+    public Transform RaycastObject { get => raycastObject; set => raycastObject = value; }
 
     void Update()
     {
@@ -42,7 +58,7 @@ public class BuildingManager : MonoBehaviour
         {
             GhostBuild();
 
-            if (Input.GetMouseButtonDown(0))
+            if (accept.action.WasPressedThisFrame())
                 PlaceBuild();
         }
         else if (ghostBuildGameobject)
@@ -55,7 +71,7 @@ public class BuildingManager : MonoBehaviour
         {
             GhostDestroy();
 
-            if (Input.GetMouseButtonDown(0))
+            if (accept.action.WasPressedThisFrame())
                 DestroyBuild();
         }
     }
@@ -69,6 +85,17 @@ public class BuildingManager : MonoBehaviour
         CheckBuildValidity();
     }
 
+    // Te permite activar el modo construcción si está desactivado y viceversa.
+    public void ChangeBuildingState()
+    {
+        isBuilding = !isBuilding;
+    }
+
+    // Te permite activar el modo desstrucción si está desactivado y viceversa.
+    public void ChangeDestructionState()
+    {
+        isDestroying = !isDestroying;
+    }
     private void CreateGhostPrefab(GameObject currentBuild)
     {
         if (ghostBuildGameobject == null)
@@ -85,9 +112,8 @@ public class BuildingManager : MonoBehaviour
 
     private void MoveGhostPrefabToRayCast()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(raycastObject.position, raycastObject.TransformDirection(Vector3.forward), out hit))
         {
             ghostBuildGameobject.transform.position = hit.point;
         }
@@ -163,9 +189,8 @@ public class BuildingManager : MonoBehaviour
 
     private void GhostSeparateBuild()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(raycastObject.position, raycastObject.TransformDirection(Vector3.forward), out hit))
         {
             if (currentBuildType == SelectedBuildType.wall)
             {
@@ -295,9 +320,8 @@ public class BuildingManager : MonoBehaviour
 
     private void GhostDestroy()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(raycastObject.position, raycastObject.TransformDirection(Vector3.forward), out hit))
         {
             if (hit.transform.root.CompareTag("Buildables"))
             {
@@ -352,6 +376,18 @@ public class BuildingManager : MonoBehaviour
             isDestroying = false;
             lastHitDestroyTransform = null;
         }
+    }
+
+    public void ChangeSelectedBuildType(SelectedBuildType buildType)
+    {
+        currentBuildType = buildType;
+    }
+    public Transform GetOppositeHand(Transform hand)
+    {
+        if (hand == leftHand) return rightHand;
+        if (hand == rightHand) return leftHand;
+        Debug.Log("This doesn't work...");
+        return leftHand;
     }
 }
 

@@ -1961,7 +1961,7 @@
                     "name": "Activate",
                     "type": "Button",
                     "id": "41976d89-60de-4deb-bff9-16b4af96b290",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -3346,6 +3346,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "B_Button",
+                    "type": "Button",
+                    "id": "d326db15-5594-456d-9d37-b8603f8044d8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -3357,6 +3366,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "LeftThumbStickPressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dbb5d462-ed0f-4f39-bafa-085d0ce4a128",
+                    "path": "<XRController>{RightHand}/secondaryTouch",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "B_Button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

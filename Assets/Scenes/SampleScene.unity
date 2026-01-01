@@ -5648,12 +5648,27 @@ MonoBehaviour:
   connectorLayer:
     serializedVersion: 2
     m_Bits: 128
+  isDestroying: 0
   ghostMaterialValid: {fileID: 2100000, guid: 520499d678e2d6a4d98894db9d9a0952, type: 2}
   ghostMaterialInvalid: {fileID: 2100000, guid: b1df303bc6279e049b67690e0c01fb1d, type: 2}
   connectorOverlapRadious: 1
   maxGroundAngle: 45
   isBuilding: 0
   currentBuildingIndex: 0
+  leftHand: {fileID: 0}
+  rightHand: {fileID: 0}
+  accept:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Accept
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: ebb71b23-049f-4366-b46b-419981f21d90
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1001 &123901795
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16401,6 +16416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ad4eafc7e6fdb4fa93ad6cbe2bfd84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBuildingMenu: 1
   page1: {fileID: 14995235}
   page2: {fileID: 618186893}
   curPageNum: 0
@@ -16660,7 +16676,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 877867030}
         m_TargetAssemblyTypeName: PagesController, Assembly-CSharp
-        m_MethodName: CraftPage2Object
+        m_MethodName: BuildObjectPage2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18378,7 +18394,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Crear
+  m_text: Construir
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -26114,7 +26130,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Crear
+  m_text: Construir
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -34912,7 +34928,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 877867030}
         m_TargetAssemblyTypeName: PagesController, Assembly-CSharp
-        m_MethodName: CraftPage1Object
+        m_MethodName: BuildObjectPage1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -35145,6 +35161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ad4eafc7e6fdb4fa93ad6cbe2bfd84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBuildingMenu: 0
   page1: {fileID: 1595153899234065950}
   page2: {fileID: 7397394354247257925}
   curPageNum: 0
@@ -38448,8 +38465,8 @@ MonoBehaviour:
   - {fileID: 4890325357909272095, guid: e6f2cac900cbc4849b0930c496416836, type: 3}
   - {fileID: 2828935514418895320, guid: dd2cb694ba58ec84ab86bf300be4b9cd, type: 3}
   buildables:
-  - {fileID: -6728437800689975315, guid: 3472afe5e25a6324899e756c55c497b3, type: 3}
-  - {fileID: -6728437800689975315, guid: 3472afe5e25a6324899e756c55c497b3, type: 3}
+  - {fileID: 822404397164020497, guid: 6d6858087291c5c4b95ecb22ef396ba5, type: 3}
+  - {fileID: 1883783579912045226, guid: 1635c501092657044b3481a51b73ae44, type: 3}
 --- !u!114 &5825761998137018843
 MonoBehaviour:
   m_ObjectHideFlags: 0

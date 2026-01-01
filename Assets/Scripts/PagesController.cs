@@ -1,17 +1,20 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using static Craftable;
 
 public class PagesController : MonoBehaviour
 {
-    //TODO ¿Convertir Page en una clase para evitar repetir código?
-    //Las páginas del libro de creación
+
+    [SerializeField] private bool isBuildingMenu = false;
+
     [Header("Páginas", order = 0)]
     [SerializeField] private GameObject page1;
     [SerializeField] private GameObject page2;
     public int curPageNum = 0;
     public int maxPageNum;
+
     public Craftable[] craftables;
 
     //Inventario
@@ -21,6 +24,7 @@ public class PagesController : MonoBehaviour
     private Craftable currentPage1Craftable;
     private Craftable currentPage2Craftable;
 
+    [Header("Página 1")]
     //Página 1
     private Image page1Image;
     private TMP_Text page1Title;
@@ -28,12 +32,16 @@ public class PagesController : MonoBehaviour
     private TMP_Text page1Requirements;
     private Button page1Button;
 
+    [Header("Página 2")]
     //Página 2
     private Image page2Image;
     private TMP_Text page2Title;
     private TMP_Text page2Description;
     private TMP_Text page2Requirements;
     private Button page2Button;
+
+    [Header("Building menu")]
+    private BuildingManager buildingManager;
 
 
     private void Awake()
@@ -50,6 +58,8 @@ public class PagesController : MonoBehaviour
         page2Description = page2.transform.GetChild(2).GetComponent<TMP_Text>();
         page2Requirements = page2.transform.GetChild(3).GetComponent<TMP_Text>();
         page2Button = page2.transform.GetChild(4).GetComponent<Button>();
+
+        if (isBuildingMenu) buildingManager = FindAnyObjectByType<BuildingManager>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -143,7 +153,7 @@ public class PagesController : MonoBehaviour
     {
         try
         {
-            page2Image.sprite = currentPage2Craftable.craftable.GetComponent<Item>().icon;
+            page2Image.sprite = currentPage2Craftable.GetComponent<Item>().icon;
         }
         catch
         {
@@ -173,9 +183,9 @@ public class PagesController : MonoBehaviour
 
     public void UpdatePage1UI()
     {
-        page1Image.sprite = currentPage1Craftable.craftable.GetComponent<Item>().icon;
+        page1Image.sprite = currentPage1Craftable.GetComponent<Item>().icon;
         page1Title.text = currentPage1Craftable.craftable.name;
-        page1Description.text = currentPage1Craftable.craftable.GetComponent<Item>().description;
+        page1Description.text = currentPage1Craftable.GetComponent<Item>().description;
         page1Requirements.text = "";
         foreach (Requirement requirement in currentPage1Craftable.requirements)
         {
@@ -262,5 +272,30 @@ public class PagesController : MonoBehaviour
             SetPage2Craftable(craftables[1 + curPageNum * 2]);
             UpdatePage2UI();
         }
+    }
+    public void BuildObjectPage1()
+    {
+        ChangeBuildingState();
+        buildingManager.ChangeSelectedBuildType(currentPage1Craftable.craftable.gameObject.transform.GetChild(1).GetChild(0).GetComponent<Connector>().connectorParentType);
+
+    }
+    public void BuildObjectPage2()
+    {
+        ChangeBuildingState();
+        buildingManager.ChangeSelectedBuildType(currentPage2Craftable.craftable.gameObject.transform.GetChild(1).GetChild(0).GetComponent<Connector>().connectorParentType);
+
+    }
+    public void ChangeBuildingState()
+    {
+        if (isBuildingMenu)
+            buildingManager.ChangeBuildingState();
+        buildingManager.RaycastObject = buildingManager.GetOppositeHand(this.transform.root.GetComponent<XRGrabInteractable>().interactorsSelecting[0].transform.parent);
+    }
+
+    // Te permite activar el modo desstrucción si está desactivado y viceversa.
+    public void ChangeDestructionState()
+    {
+        if(isBuildingMenu)
+        buildingManager.ChangeDestructionState();
     }
 } 
