@@ -128,7 +128,25 @@ public class BuildingManager : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(ghostBuildGameobject.transform.position, connectorOverlapRadious, connectorLayer);
         if (colliders.Length > 0)
         {
-           if(currentBuildType != SelectedBuildType.placeableObject) GhostConnectBuild(colliders);
+            if (currentBuildType != SelectedBuildType.placeableObject)
+            {
+                GhostConnectBuild(colliders);
+            }
+            else
+            {
+                foreach (Collider collider in colliders)
+                {
+                    if (collider.transform.root.CompareTag("Buildables") && collider.transform.root.gameObject.GetComponent<Buildable>().Type != SelectedBuildType.floor)
+                    {
+                        Debug.Log("Un objeto/pared impide poner la hoguera");
+                        GhostifyModel(modelParent, ghostMaterialInvalid);
+                        isGhostInValidPosition = false;
+                        return;
+                    }
+                }
+                GhostifyModel(modelParent, ghostMaterialValid);
+                isGhostInValidPosition = true;
+            }
         }
         else
         {
@@ -143,19 +161,14 @@ public class BuildingManager : MonoBehaviour
                     {
                         if (currentBuildType == SelectedBuildType.placeableObject)
                         {
-                            if (overlapCollider.transform.root.gameObject.GetComponent<Buildable>().Type == SelectedBuildType.wall)
-                            {
-                                GhostifyModel(modelParent, ghostMaterialInvalid);
-                                isGhostInValidPosition = false;
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            GhostifyModel(modelParent, ghostMaterialInvalid);
-                            isGhostInValidPosition = false;
+                            GhostifyModel(modelParent, ghostMaterialValid);
+                            isGhostInValidPosition = true;
                             return;
                         }
+                        GhostifyModel(modelParent, ghostMaterialInvalid);
+                        isGhostInValidPosition = false;
+                        return;
+
                     }
                 }
             }
@@ -335,7 +348,7 @@ public class BuildingManager : MonoBehaviour
                     connector.UpdateConnectors(true);
                 }
             }
-                AudioSource.PlayClipAtPoint(audioClip, newBuild.transform.position, 2f);
+            AudioSource.PlayClipAtPoint(audioClip, newBuild.transform.position, 2f);
         }
     }
 
