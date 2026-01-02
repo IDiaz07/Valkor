@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class Buildeable : MonoBehaviour
+public class Buildable : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private int buildId;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private SelectedBuildType type;
+    public int BuildId { get => buildId; }
+    public SelectedBuildType Type { get => type; }
 }

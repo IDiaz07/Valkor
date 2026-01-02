@@ -164,7 +164,7 @@ public class PagesController : MonoBehaviour
         }
         page2Image.enabled = true;
         page2Title.text = currentPage2Craftable.craftable.name;
-        page2Description.text = currentPage2Craftable.craftable.GetComponent<Item>().description;
+        page2Description.text = currentPage2Craftable.GetComponent<Item>().description;
         page2Requirements.text = "";
         foreach (Requirement requirement in currentPage2Craftable.requirements)
         {
@@ -184,7 +184,7 @@ public class PagesController : MonoBehaviour
     public void UpdatePage1UI()
     {
         page1Image.sprite = currentPage1Craftable.GetComponent<Item>().icon;
-        page1Title.text = currentPage1Craftable.craftable.name;
+        page1Title.text = currentPage1Craftable.name;
         page1Description.text = currentPage1Craftable.GetComponent<Item>().description;
         page1Requirements.text = "";
         foreach (Requirement requirement in currentPage1Craftable.requirements)
@@ -276,13 +276,15 @@ public class PagesController : MonoBehaviour
     public void BuildObjectPage1()
     {
         ChangeBuildingState();
-        buildingManager.ChangeSelectedBuildType(currentPage1Craftable.craftable.gameObject.transform.GetChild(1).GetChild(0).GetComponent<Connector>().connectorParentType);
+        buildingManager.ChangeSelectedBuildType(currentPage1Craftable.craftable.gameObject.GetComponent<Buildable>().Type);
+        buildingManager.ChargeCurrentBuildIndex(currentPage1Craftable.craftable.gameObject.GetComponent<Buildable>().BuildId);
 
     }
     public void BuildObjectPage2()
     {
         ChangeBuildingState();
-        buildingManager.ChangeSelectedBuildType(currentPage2Craftable.craftable.gameObject.transform.GetChild(1).GetChild(0).GetComponent<Connector>().connectorParentType);
+        buildingManager.ChangeSelectedBuildType(currentPage2Craftable.craftable.gameObject.GetComponent<Buildable>().Type);
+        buildingManager.ChargeCurrentBuildIndex(currentPage2Craftable.craftable.gameObject.GetComponent<Buildable>().BuildId);
 
     }
     public void ChangeBuildingState()

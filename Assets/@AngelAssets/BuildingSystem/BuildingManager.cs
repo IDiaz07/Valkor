@@ -382,6 +382,10 @@ public class BuildingManager : MonoBehaviour
     {
         currentBuildType = buildType;
     }
+    public void ChargeCurrentBuildIndex(int newIndex)
+    {
+        currentBuildingIndex = newIndex;
+    }
     public Transform GetOppositeHand(Transform hand)
     {
         if (hand == leftHand) return rightHand;
