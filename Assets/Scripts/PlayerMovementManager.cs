@@ -27,6 +27,7 @@ public class PlayerMovementManager : MonoBehaviour
     private float jumpSpeed = 2;
     private float defaultGravity;
     public float currentGravity;
+    private Vector2 horizontalVelocity;
 
     [SerializeField]
     private CharacterLife playerStats;
@@ -55,7 +56,9 @@ public class PlayerMovementManager : MonoBehaviour
                 isSprinting=true;
             }
         }
-        if (isSprinting) playerStats.ActualStamina -= sprintStaminaConsumption * Time.deltaTime;
+        horizontalVelocity.x = controller.velocity.x;
+        horizontalVelocity.y = controller.velocity.z;
+        if (isSprinting && horizontalVelocity.magnitude > 0.1f) playerStats.ActualStamina -= sprintStaminaConsumption * Time.deltaTime;
         if(playerStats.ActualStamina <= 0)
         {
             isSprinting = false;

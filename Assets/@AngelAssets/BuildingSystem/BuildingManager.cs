@@ -8,6 +8,7 @@ public class BuildingManager : MonoBehaviour
     [Header("Build Objects")]
     [SerializeField] private List<GameObject> floorObjects = new List<GameObject>();
     [SerializeField] private List<GameObject> wallObjects = new List<GameObject>();
+    [SerializeField] private List<GameObject> placeableObjects = new List<GameObject>();
 
     [Header("Build Settings")]
     [SerializeField] private SelectedBuildType currentBuildType;
@@ -37,6 +38,9 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] private Transform rightHand;
     [Header("Input")]
     [SerializeField] private InputActionProperty accept;
+
+    [Header("Sounds")]
+    [SerializeField] private AudioClip audioClip;
 
     private void Awake()
     {
@@ -124,7 +128,7 @@ public class BuildingManager : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(ghostBuildGameobject.transform.position, connectorOverlapRadious, connectorLayer);
         if (colliders.Length > 0)
         {
-            GhostConnectBuild(colliders);
+           if(currentBuildType != SelectedBuildType.placeableObject) GhostConnectBuild(colliders);
         }
         else
         {
@@ -137,9 +141,21 @@ public class BuildingManager : MonoBehaviour
                 {
                     if (overlapCollider.gameObject != ghostBuildGameobject && overlapCollider.transform.root.CompareTag("Buildables"))
                     {
-                        GhostifyModel(modelParent, ghostMaterialInvalid);
-                        isGhostInValidPosition = false;
-                        return;
+                        if (currentBuildType == SelectedBuildType.placeableObject)
+                        {
+                            if (overlapCollider.transform.root.gameObject.GetComponent<Buildable>().Type == SelectedBuildType.wall)
+                            {
+                                GhostifyModel(modelParent, ghostMaterialInvalid);
+                                isGhostInValidPosition = false;
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            GhostifyModel(modelParent, ghostMaterialInvalid);
+                            isGhostInValidPosition = false;
+                            return;
+                        }
                     }
                 }
             }
@@ -201,7 +217,7 @@ public class BuildingManager : MonoBehaviour
 
             if (Vector3.Angle(hit.normal, Vector3.up) < maxGroundAngle)
             {
-                GhostifyModel(modelParent, ghostMaterialInvalid);
+                GhostifyModel(modelParent, ghostMaterialValid);
                 isGhostInValidPosition = true;
             }
             else
@@ -295,6 +311,8 @@ public class BuildingManager : MonoBehaviour
                 return floorObjects[currentBuildingIndex];
             case SelectedBuildType.wall:
                 return wallObjects[currentBuildingIndex];
+            case SelectedBuildType.placeableObject:
+                return placeableObjects[currentBuildingIndex];
         }
 
         return null;
@@ -310,11 +328,14 @@ public class BuildingManager : MonoBehaviour
             ghostBuildGameobject = null;
 
             isBuilding = false;
-
-            foreach (Connector connector in newBuild.GetComponentsInChildren<Connector>())
+            if (currentBuildType != SelectedBuildType.placeableObject)
             {
-                connector.UpdateConnectors(true);
+                foreach (Connector connector in newBuild.GetComponentsInChildren<Connector>())
+                {
+                    connector.UpdateConnectors(true);
+                }
             }
+                AudioSource.PlayClipAtPoint(audioClip, newBuild.transform.position, 2f);
         }
     }
 
@@ -390,7 +411,7 @@ public class BuildingManager : MonoBehaviour
     {
         if (hand == leftHand) return rightHand;
         if (hand == rightHand) return leftHand;
-        Debug.Log("This doesn't work...");
+        Debug.Log("GetOppositeHand doesn't work");
         return leftHand;
     }
 }
@@ -400,4 +421,5 @@ public enum SelectedBuildType
 {
     floor,
     wall,
+    placeableObject,
 }
