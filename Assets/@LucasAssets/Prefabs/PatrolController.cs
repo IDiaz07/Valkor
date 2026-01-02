@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -56,8 +57,8 @@ public class PatrolController : MonoBehaviour
     void Start()
     {
         // Obtener componentes
-        agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        agent = this.gameObject.GetComponent<NavMeshAgent>();
+        animator = this.gameObject.GetComponent<Animator>();
 
         // Configuración inicial del NavMeshAgent
         agent.speed = patrolSpeed;
