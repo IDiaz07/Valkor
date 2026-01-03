@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4539014610862391666}
   - component: {fileID: 1642433030449449321}
   - component: {fileID: 8317748858668389066}
-  - component: {fileID: 6651949072236990614}
+  - component: {fileID: -310219217668126006}
   m_Layer: 0
   m_Name: PlaceHolder_stoneAxe
   m_TagString: Untagged
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 1
---- !u!114 &6651949072236990614
+--- !u!114 &-310219217668126006
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,14 +194,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1214851107511038944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6b5fa9826bc9654da8a737d9dea23b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e850a10628a1e447be70c1e660ca911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: "Un hacha de piedra. Perfecto para talar \xE1rboles"
-  itemID: 3
-  type: Tool
-  icon: {fileID: 21300000, guid: f26fa8880b3aeef4b8516c82dc12f2a5, type: 3}
-  pickedUp: 0
+  itemData:
+    description: "Basura. \xBFPor qu\xE9 sigue en el juego?"
+    itemID: 2
+    type: Tool
+    icon: {fileID: 21300000, guid: db3e7b7c8db355e499429545071a0321, type: 3}
+    worldPrefab: {fileID: 1214851107511038944}
 --- !u!1 &4259887855535161983
 GameObject:
   m_ObjectHideFlags: 0

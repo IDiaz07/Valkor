@@ -152,8 +152,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1565850701542257117}
-  - component: {fileID: 4743899568235210463}
   - component: {fileID: 3105287712557303839}
+  - component: {fileID: 8603043393644731778}
   m_Layer: 0
   m_Name: Doorway
   m_TagString: Buildables
@@ -178,23 +178,6 @@ Transform:
   - {fileID: 7204267003104019651}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4743899568235210463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3609899017819910786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6b5fa9826bc9654da8a737d9dea23b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  description: "Marco de puerta b\xE1sico"
-  itemID: 502
-  type: Wall
-  icon: {fileID: 21300000, guid: 9a6560e5bacb40847bb1b879ede354fb, type: 3}
-  pickedUp: 0
 --- !u!114 &3105287712557303839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +192,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   craftable: {fileID: 4930375362777995958, guid: 85235c327392a824eb52055f4900bf45, type: 3}
   requirements: []
+--- !u!114 &8603043393644731778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3609899017819910786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e850a10628a1e447be70c1e660ca911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData:
+    description: Un door frame placeholder. Que feo
+    itemID: 502
+    type: wall
+    icon: {fileID: 21300000, guid: 8dd861a6e819de241bca68a36048a6bd, type: 3}
+    worldPrefab: {fileID: 4930375362777995958, guid: 85235c327392a824eb52055f4900bf45, type: 3}
 --- !u!1 &3767226861050321056
 GameObject:
   m_ObjectHideFlags: 0

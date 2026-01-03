@@ -104,6 +104,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 094b7921bd987aa4eb55bfb064e3236d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3981160043443742843}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 094b7921bd987aa4eb55bfb064e3236d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1156531489852396993}
     - targetCorrespondingSourceObject: {fileID: -9182217225944895262, guid: 094b7921bd987aa4eb55bfb064e3236d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6550798165065719438}
@@ -302,6 +305,25 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 1
+--- !u!114 &1156531489852396993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5341414003007625708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e850a10628a1e447be70c1e660ca911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData:
+    description: "Un bonita hacha. Puede servir para talar \xE1rboles, entre otras
+      cosas"
+    itemID: 0
+    type: Tool
+    icon: {fileID: 21300000, guid: 421a0da05ff7ddb42b5111e50f3fdac5, type: 3}
+    worldPrefab: {fileID: 5341414003007625708}
 --- !u!1 &5723953873707639105 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8534748088616843780, guid: 094b7921bd987aa4eb55bfb064e3236d, type: 3}

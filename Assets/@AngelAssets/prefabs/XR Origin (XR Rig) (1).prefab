@@ -730,9 +730,6 @@ MonoBehaviour:
     m_Reference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   rightHand: {fileID: 5231417696603682240}
   inventory: {fileID: 0}
-  slot:
-  - {fileID: 1350307105891777757, guid: 1c22404767f033a4bb1af533a0514fe8, type: 3}
-  - {fileID: 6103845359311738780, guid: ba820a139c56b3443945ada57dd45f3e, type: 3}
   slotHolder: {fileID: 0}
 --- !u!114 &581912098366048018
 MonoBehaviour:

@@ -138,11 +138,11 @@ public class PatrolController : MonoBehaviour
         }
 
         // TEST MANUAL
-        if (Input.GetKeyDown(KeyCode.H) && currentState == EnemyState.Fighting)
+        /*if (Input.GetKeyDown(KeyCode.H) && currentState == EnemyState.Fighting) EL NUEVO SISTEMA DE INPUT DE UNITY DA ERROR AL COGER ASÍ EL INPUT DEL TECLADO
         {
             Debug.Log("<color=red>TEST MANUAL: Forzando golpe con tecla H</color>");
             PerformHit();
-        }
+        }*/
 
         UpdateState();
 

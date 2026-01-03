@@ -96,7 +96,7 @@ public class PagesController : MonoBehaviour
         GameObject newItem = Instantiate(currentPage1Craftable.craftable);
         Debug.Log(newItem.GetInstanceID());
 
-        Item itemToAdd = newItem.GetComponent<Item>();
+        Item itemToAdd = newItem.GetComponent<WorldItem>().itemData;
         if (itemToAdd == null) return;
 
        
@@ -115,7 +115,7 @@ public class PagesController : MonoBehaviour
         GameObject newItem = Instantiate(currentPage2Craftable.craftable);
         Debug.Log(newItem.GetInstanceID());
 
-        Item itemToAdd = newItem.GetComponent<Item>();
+        Item itemToAdd = newItem.GetComponent<WorldItem>().itemData;
         if (itemToAdd == null) return;
 
         
@@ -141,7 +141,7 @@ public class PagesController : MonoBehaviour
     {
         try
         {
-            page2Image.sprite = currentPage2Craftable.GetComponent<Item>().icon;
+            page2Image.sprite = currentPage2Craftable.GetComponent<WorldItem>().itemData.icon;
         }
         catch
         {
@@ -152,7 +152,7 @@ public class PagesController : MonoBehaviour
         }
         page2Image.enabled = true;
         page2Title.text = currentPage2Craftable.craftable.name;
-        page2Description.text = currentPage2Craftable.GetComponent<Item>().description;
+        page2Description.text = currentPage2Craftable.GetComponent<WorldItem>().itemData.description;
         page2Requirements.text = "";
         foreach (Requirement requirement in currentPage2Craftable.requirements)
         {
@@ -171,9 +171,9 @@ public class PagesController : MonoBehaviour
 
     public void UpdatePage1UI()
     {
-        page1Image.sprite = currentPage1Craftable.GetComponent<Item>().icon;
+        page1Image.sprite = currentPage1Craftable.GetComponent<WorldItem>().itemData.icon;
         page1Title.text = currentPage1Craftable.name;
-        page1Description.text = currentPage1Craftable.GetComponent<Item>().description;
+        page1Description.text = currentPage1Craftable.GetComponent<WorldItem>().itemData.description;
         page1Requirements.text = "";
         foreach (Requirement requirement in currentPage1Craftable.requirements)
         {

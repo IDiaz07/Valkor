@@ -54,11 +54,6 @@ public class BuildingManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
-            isBuilding = !isBuilding;
-
-        if (Input.GetKeyDown(KeyCode.V))
-            isDestroying = !isDestroying;
 
         if (isBuilding && !isDestroying)
         {

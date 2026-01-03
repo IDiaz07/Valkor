@@ -83,7 +83,7 @@ PrefabInstance:
       addedObject: {fileID: 7553649625413979005}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a5d39c49c6ebaf1408f609e87c09b16c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5056923412443939801}
+      addedObject: {fileID: 7550159582519544143}
     - targetCorrespondingSourceObject: {fileID: -4841327252261037126, guid: a5d39c49c6ebaf1408f609e87c09b16c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7123074819267532149}
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 1
---- !u!114 &5056923412443939801
+--- !u!114 &7550159582519544143
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -274,14 +274,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 94258050655243162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6b5fa9826bc9654da8a737d9dea23b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e850a10628a1e447be70c1e660ca911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: No es ni buena ni bonita, pero es barata
-  itemID: 6
-  type: Weapon
-  icon: {fileID: 21300000, guid: e9d4143c19529834981ac6821a04aecd, type: 3}
-  pickedUp: 0
+  itemData:
+    description: Bonita y barata, pero no muy buena
+    itemID: 1
+    type: Weapon
+    icon: {fileID: 21300000, guid: 3b2e62babc5249f42921c2cd027852cd, type: 3}
+    worldPrefab: {fileID: 94258050655243162}
 --- !u!1 &3557720976011292017 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4841327252261037126, guid: a5d39c49c6ebaf1408f609e87c09b16c, type: 3}
