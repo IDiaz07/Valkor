@@ -1,20 +1,23 @@
-using Unity.VisualScripting;
+
 using UnityEngine;
 
-public class Item : MonoBehaviour
+[System.Serializable]
+public class Item
 {
     public string description;
     public int itemID;
     public string type;
     public Sprite icon;
-    public bool pickedUp;
+    public GameObject worldPrefab;
 
-    public Item(string description, int itemID, string type, Sprite icon, bool pickedUp)
+    public Item(string description, int itemID, string type, Sprite icon, GameObject prefab)
     {
         this.description = description;
         this.itemID = itemID;
         this.type = type;
         this.icon = icon;
-        this.pickedUp = pickedUp;
+        this.worldPrefab = prefab;
     }
 }
+
+

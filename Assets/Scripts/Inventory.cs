@@ -3,149 +3,79 @@ using UnityEngine.InputSystem;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField]
-    public InputActionProperty thumbstickA;
-    CharacterController controller;
+    [SerializeField] public InputActionProperty thumbstickA;
 
     public Transform rightHand;
 
     private int allSlots;
     private bool inventoryEnabled;
+
     public GameObject inventory;
-    [SerializeField]
-    private GameObject[] slot;
     public GameObject slotHolder;
-    // Update is called once per frame
+
+    private GameObject[] slot;
+
     void Start()
     {
         allSlots = slotHolder.transform.childCount;
-
         slot = new GameObject[allSlots];
 
-        for (int i = 0; i < allSlots; i++) {
+        for (int i = 0; i < allSlots; i++)
+        {
+            slot[i] = slotHolder.transform.GetChild(i).gameObject;
 
-
-            slot[i]= slotHolder.transform.GetChild(i).gameObject;
-
-            if (slot[i].GetComponent<Slot>().Item==null)
-            {
-                slot[i].GetComponent<Slot>().empty = true;
-            }
+            Slot s = slot[i].GetComponent<Slot>();
+            if (s.Item == null)
+                s.empty = true;
         }
-
-
     }
 
-    private void Update()
+    void Update()
     {
-        if ( thumbstickA.action.WasPressedThisFrame())
-        {
+        if (thumbstickA.action.WasPressedThisFrame())
             inventoryEnabled = !inventoryEnabled;
 
-        }
+        inventory.SetActive(inventoryEnabled);
+
         if (inventoryEnabled)
         {
-            inventory.SetActive(true);
-
-
             inventory.transform.SetParent(rightHand);
-
-                
             inventory.transform.localPosition = new Vector3(0.1f, 0f, 0.2f);
             inventory.transform.localRotation = Quaternion.Euler(45, 0, 0);
         }
-        else
-        {
-            inventory.SetActive(false); 
-        }
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Item"))
-        {
-        GameObject pickedItem = other.gameObject;
-           
-        Item item = pickedItem.GetComponent<Item>();
-         
-            AddItem(pickedItem, item.description, item.itemID, item.type, item.icon);
-
-
-        } 
-}
-
-
-
-    public void AddItem(GameObject itemToAdd, string description, int id, string type, Sprite icon)
-    {
-        bool itemAdded = false;
-        Debug.Log("Metodo AddItem");
-        for (int i = 0; i < allSlots; i++)
-        {
-            if (slot[i].GetComponent<Slot>().ID == id)
-            {
-                Item item = new Item(description,id,type,icon,true);
-
-                // Mover el objeto al inventario
-                Debug.Log("A punto de añadir Item");
-                Slot s = slot[i].GetComponent<Slot>();
-                s.AddItem(itemToAdd, description, id, type, icon);
-                Destroy(itemToAdd);
-                itemAdded = true;
-                break;
-            }
-        }
-        if(!itemAdded) for (int i = 0; i < allSlots; i++)
-            {
-                if (slot[i].GetComponent<Slot>().empty)
-                {
-                    Item item = new Item(description, id, type, icon, true);
-
-                    // Mover el objeto al inventario
-                    Debug.Log("A punto de añadir Item");
-                    Slot s = slot[i].GetComponent<Slot>();
-                    s.AddItem(itemToAdd, description, id, type, icon);
-                    Destroy(itemToAdd);
-                    itemAdded = true;
-                    break;
-                }
-            }
-    }
 
 
     public void RemoveItemFromInventory(int itemId, int amount)
     {
         for (int i = 0; i < allSlots; i++)
         {
-            Slot curSlot = slot[i].GetComponent<Slot>();
-            if (curSlot.ID == itemId)
-            {
-                curSlot.Amount -= amount;
-                if (curSlot.Amount < 1)
-                {
-                    curSlot.empty = true;
-                    curSlot.ClearSlot();
-                }
+            Slot s = slot[i].GetComponent<Slot>();
 
+            if (!s.empty && s.ID == itemId)
+            {
+                s.amount -= amount;
+
+                if (s.amount <= 0)
+                    s.ClearSlot();
+
+                return;
             }
         }
     }
-    public bool FindObjectInInventory(int objectId, int minAmount){
+
+
+    public bool FindObjectInInventory(int objectId, int minAmount)
+    {
         for (int i = 0; i < allSlots; i++)
         {
-            Slot curSlot = slot[i].GetComponent<Slot>();
-            if (!curSlot.empty)
-            {
-                if (curSlot.ID == objectId)
-                {
-                    if (curSlot.Amount >= minAmount) return true;
-                }
-            }
+            Slot s = slot[i].GetComponent<Slot>();
+
+            if (!s.empty && s.ID == objectId && s.amount >= minAmount)
+                return true;
         }
         return false;
-    
-    
     }
-
 }

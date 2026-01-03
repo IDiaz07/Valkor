@@ -1,0 +1,2 @@
+C:\Users\ander.urien\OneDrive - Universidad de Deusto\Documentos\GitHub\Valkor\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Users\ander.urien\OneDrive - Universidad de Deusto\Documentos\GitHub\Valkor\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

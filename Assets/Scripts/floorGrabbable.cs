@@ -32,7 +32,7 @@ public class floorGrabbable : MonoBehaviour
     {
         Debug.Log("AddingToInventory");
         Inventory inventory = FindFirstObjectByType<Inventory>();
-        inventory.AddItem(gameObject, item.description, item.itemID, item.type, item.icon);
+        
         Destroy(this.gameObject);
     }
 

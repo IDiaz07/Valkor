@@ -99,13 +99,7 @@ public class PagesController : MonoBehaviour
         Item itemToAdd = newItem.GetComponent<Item>();
         if (itemToAdd == null) return;
 
-        playerInventory.AddItem(
-            newItem,
-            itemToAdd.description,
-            itemToAdd.itemID,
-            itemToAdd.type,
-            itemToAdd.icon
-        );
+       
     }
 
     public void CraftPage2Object()
@@ -124,13 +118,7 @@ public class PagesController : MonoBehaviour
         Item itemToAdd = newItem.GetComponent<Item>();
         if (itemToAdd == null) return;
 
-        playerInventory.AddItem(
-            newItem,
-            itemToAdd.description,
-            itemToAdd.itemID,
-            itemToAdd.type,
-            itemToAdd.icon
-        );
+        
     }
 
     private void OnEnable()

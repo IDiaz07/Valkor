@@ -1,40 +1,68 @@
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Slot : MonoBehaviour
 {
-
-
     public GameObject Item;
     public int ID = 0;
     public string type;
     public Sprite icon;
+
     [SerializeField] private Sprite defaultSprite;
+
     public string description;
-    private int amount;
+    public int amount;
     public TextMeshProUGUI amountText;
-
-    public bool empty;
-
+    public bool empty = true;
     public Image image;
 
-    public int Amount { get => amount; set { amount = value; UpdateUI(); } }
+    private bool isProcessing = false;
 
     void Start()
     {
         image = GetComponent<Image>();
         empty = true;
+        image.sprite = defaultSprite;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isProcessing) return;
+        if (!other.CompareTag("Item")) return;
+
+        WorldItem worldItem = other.GetComponent<WorldItem>();
+        if (worldItem == null) return;
+
+        Item item = worldItem.itemData;
+
+        if (!empty && ID != item.itemID) return;
+
+        isProcessing = true;
+
+        AddItem(
+            other.gameObject,
+            item.description,
+            item.itemID,
+            item.type,
+            item.icon
+        );
+
+        Destroy(other.gameObject);
+        isProcessing = false;
     }
 
     public void AddItem(GameObject itemToAdd, string desc, int id, string t, Sprite ic)
     {
-        if (id == this.ID)
+        if (!empty && ID == id)
         {
-            this.amount += 1;
+            amount++;
             UpdateUI();
             return;
         }
+
         Item = itemToAdd;
         description = desc;
         ID = id;
@@ -42,12 +70,38 @@ public class Slot : MonoBehaviour
         icon = ic;
         empty = false;
         amount = 1;
-
         image.sprite = icon;
-        image.enabled = true;
         UpdateUI();
     }
 
+
+    public void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        if (empty || amount <= 0) return;
+
+        Transform hand = args.interactorObject.transform;
+
+        RemoveOneItem(hand);
+    }
+
+    public void RemoveOneItem(Transform hand)
+    {
+        if (empty || amount <= 0) return;
+
+        amount--;
+
+        GameObject obj = Instantiate(
+            Item.GetComponent<WorldItem>().itemData.worldPrefab
+        );
+
+        obj.transform.position = hand.position;
+        obj.transform.rotation = hand.rotation;
+
+        if (amount <= 0)
+            ClearSlot();
+        else
+            UpdateUI();
+    }
 
     public void ClearSlot()
     {
@@ -59,15 +113,12 @@ public class Slot : MonoBehaviour
         empty = true;
         image.sprite = defaultSprite;
         amount = 0;
+        UpdateUI();
     }
 
-    public void UpdateUI()
+    private void UpdateUI()
     {
-        if (amount == 0)
-        {
-            amountText.text = "";
-            return;
-        }
-        amountText.text = amount.ToString();
+        amountText.text = amount > 1 ? amount.ToString() : "";
     }
 }
+
