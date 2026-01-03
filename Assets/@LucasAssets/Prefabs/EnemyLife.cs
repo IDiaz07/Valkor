@@ -13,6 +13,12 @@ public class EnemyHealth : MonoBehaviour
     private HashSet<Collider> weaponsInContact = new HashSet<Collider>();
     private Animator animator;
 
+
+    [Header("Death Drop Settings")]
+    [SerializeField] private GameObject deathDropPrefab;
+    [SerializeField] private Vector3 dropOffset = Vector3.zero;
+    [SerializeField] private bool inheritRotation = false;
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -36,9 +42,16 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (isDead) return;
+
         if (other.gameObject.layer == LayerMask.NameToLayer("Weapon"))
         {
-            weaponsInContact.Remove(other);
+            if (!weaponsInContact.Contains(other))
+            {
+                TakeDamage(damagePerHit);
+                weaponsInContact.Add(other);
+                Debug.Log($"Golpeado por {other.gameObject.name}. Vida: {currentHealth}");
+            }
         }
     }
 
@@ -68,9 +81,32 @@ public class EnemyHealth : MonoBehaviour
 
         DisableEnemyComponents();
 
+        InstantiateDeathDrop();
+
         // Espera a que termine la animación
         StartCoroutine(WaitForDeathAnimation());
     }
+
+    private void InstantiateDeathDrop()
+    {
+        // Verificar si hay un prefab asignado
+        if (deathDropPrefab == null)
+        {
+            Debug.Log("No hay prefab de muerte asignado");
+            return;
+        }
+
+        // Calcular la posición de spawn
+        Vector3 spawnPosition = transform.position + dropOffset;
+
+        // Calcular la rotación de spawn
+        Quaternion spawnRotation = inheritRotation ? transform.rotation : Quaternion.identity;
+
+        // Instanciar el prefab
+        GameObject droppedObject = Instantiate(deathDropPrefab, spawnPosition, spawnRotation);
+
+        Debug.Log($"Objeto instanciado en muerte: {droppedObject.name} en posición {spawnPosition}");
+    } 
 
 
 

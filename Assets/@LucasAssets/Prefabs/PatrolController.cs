@@ -1,5 +1,6 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Linq;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,29 +14,29 @@ public enum EnemyState
 
 public class PatrolController : MonoBehaviour
 {
-    [Header("Configuración de Patrullaje")]
+    [Header("ConfiguraciÃ³n de Patrullaje")]
     [SerializeField] private Transform[] patrolPoints;
     [SerializeField] private float waitTimeAtPoint = 2f;
     [SerializeField] private float patrolSpeed = 3f;
 
-    [Header("Configuración de Persecución")]
+    [Header("ConfiguraciÃ³n de PersecuciÃ³n")]
     [SerializeField] private EnemyVisionSensor visionSensor;
     [SerializeField] private float chaseSpeed = 5f;
     [SerializeField] private float loseTargetDistance = 15f;
 
-    [Header("Configuración de Combate")]
+    [Header("ConfiguraciÃ³n de Combate")]
     [SerializeField] private float fightingDistance = 0f;//1.5f;        // Distancia realista para entrar en combate
     [SerializeField] private float fightingStopDistance = 0f;      // Distancia para salir de combate
     [SerializeField] private float fightingRotationSpeed = 5f;
     [SerializeField] private float minimumChaseTime = 0.5f;
-    [SerializeField] private float minTimeBetweenHits = 1f;        // Tiempo mínimo entre golpes
+    [SerializeField] private float minTimeBetweenHits = 1f;        // Tiempo mÃ­nimo entre golpes
     [SerializeField] private float maxTimeBetweenHits = 3f;
 
     [SerializeField] private Collider golpe;
 
-    [Header("Sistema de Daño")]
+    [Header("Sistema de DaÃ±o")]
     [SerializeField] private float hitStunDuration = 0.5f;    // Tiempo que dura el stun al recibir golpe
-    private bool isStunned = false;                           // Si está aturdido por un golpe
+    private bool isStunned = false;                           // Si estÃ¡ aturdido por un golpe
     private float stunnedTimer = 0f;
 
     [Header("Referencias")]
@@ -50,7 +51,7 @@ public class PatrolController : MonoBehaviour
     private Vector3 lastKnownPlayerPosition;
     private bool wasInFightingState = false;
     private float timeInCurrentState = 0f;  // Contador de tiempo en el estado actual
-    private float nextHitTime = 0f;     //Momento del próximo golpe
+    private float nextHitTime = 0f;     //Momento del prÃ³ximo golpe
     private float timeSinceEnteredFighting = 0f;
 
 
@@ -60,22 +61,22 @@ public class PatrolController : MonoBehaviour
         agent = this.gameObject.GetComponent<NavMeshAgent>();
         animator = this.gameObject.GetComponent<Animator>();
 
-        // Configuración inicial del NavMeshAgent
+        // ConfiguraciÃ³n inicial del NavMeshAgent
         agent.speed = patrolSpeed;
         agent.autoBraking = false;
         agent.stoppingDistance = 0.5f;
 
-        // Validación del sensor de visión
+        // ValidaciÃ³n del sensor de visiÃ³n
         if (visionSensor == null)
         {
             visionSensor = GetComponent<EnemyVisionSensor>();
             if (visionSensor == null)
             {
-                Debug.LogError("No se encontró EnemyVisionSensor en " + gameObject.name);
+                Debug.LogError("No se encontrÃ³ EnemyVisionSensor en " + gameObject.name);
             }
         }
 
-        // Validación y comienzo
+        // ValidaciÃ³n y comienzo
         if (patrolPoints.Length > 0)
         {
             GoToNextPatrolPoint();
@@ -85,15 +86,29 @@ public class PatrolController : MonoBehaviour
             Debug.LogWarning("No hay puntos de patrullaje asignados en " + gameObject.name);
         }
 
-        GameObject frogTransform = GameObject.Find("Golpe");
+        // DESPUÃ‰S (busca solo en los hijos de este enemigo):
+        Transform golpeTransform = transform.Find("Golpe");
 
-        if (frogTransform != null)
+        // Si no estÃ¡ en hijo directo, buscar recursivamente
+        if (golpeTransform == null)
         {
-            golpe = frogTransform.GetComponent<Collider>();
+            golpeTransform = GetComponentsInChildren<Transform>()
+                .FirstOrDefault(t => t.name == "Golpe");
+        }
+
+        if (golpeTransform != null)
+        {
+            golpe = golpeTransform.GetComponent<Collider>();
+            Debug.Log($"[{gameObject.name}] Golpe encontrado: {golpe.GetInstanceID()}");
+        }
+        else
+        {
+            Debug.LogWarning($"[{gameObject.name}] No se encontrÃ³ 'Golpe' en los hijos");
         }
 
         Debug.Log($"El golpe lo da: {golpe}");
     }
+
 
     void Update()
     {
@@ -111,14 +126,14 @@ public class PatrolController : MonoBehaviour
                 isStunned = false;
                 Debug.Log("<color=green>Enemigo recuperado del stun</color>");
 
-                // Reactivar el agente según el estado actual
+                // Reactivar el agente segÃºn el estado actual
                 if (currentState == EnemyState.Chasing || currentState == EnemyState.Patrolling || currentState == EnemyState.Returning)
                 {
                     agent.isStopped = false;
                 }
             }
 
-            // Mientras está stunned, no procesar comportamiento normal
+            // Mientras estÃ¡ stunned, no procesar comportamiento normal
             return;
         }
 
@@ -156,19 +171,19 @@ public class PatrolController : MonoBehaviour
         {
             float distanceToPlayer = Vector3.Distance(transform.position, visionSensor.DetectedPlayer.position);
 
-            // 1. Si está patrullando o volviendo, SIEMPRE pasar primero a Chasing
+            // 1. Si estÃ¡ patrullando o volviendo, SIEMPRE pasar primero a Chasing
             if (currentState == EnemyState.Patrolling || currentState == EnemyState.Returning)
             {
                 EnterChaseState();
             }
-            // 2. MODIFICADO: Solo puede entrar en Fighting si ha perseguido el tiempo suficiente Y está cerca
+            // 2. MODIFICADO: Solo puede entrar en Fighting si ha perseguido el tiempo suficiente Y estÃ¡ cerca
             else if (currentState == EnemyState.Chasing &&
-                     timeInCurrentState >= minimumChaseTime &&      // <-- NUEVA CONDICIÓN
+                     timeInCurrentState >= minimumChaseTime &&      // <-- NUEVA CONDICIÃ“N
                      distanceToPlayer <= fightingDistance)
             {
                 EnterFightingState();
             }
-            // 3. Si está en Fighting y el jugador se aleja, volver a Chasing
+            // 3. Si estÃ¡ en Fighting y el jugador se aleja, volver a Chasing
             else if (currentState == EnemyState.Fighting && distanceToPlayer > fightingStopDistance)
             {
                 EnterChaseState();
@@ -178,7 +193,7 @@ public class PatrolController : MonoBehaviour
         }
         else
         {
-            // Perdió de vista al jugador
+            // PerdiÃ³ de vista al jugador
             if (currentState == EnemyState.Chasing || currentState == EnemyState.Fighting)
             {
                 EnterReturningState();
@@ -198,7 +213,7 @@ public class PatrolController : MonoBehaviour
         nextHitTime = Random.Range(minTimeBetweenHits, maxTimeBetweenHits);
         Debug.Log($"Entrando en Fighting. Primer golpe en: {nextHitTime:F2}s");
 
-        Debug.Log("¡Enemigo entró en combate cuerpo a cuerpo!");
+        Debug.Log("Â¡Enemigo entrÃ³ en combate cuerpo a cuerpo!");
     }
 
     void HandleFighting()
@@ -227,11 +242,11 @@ public class PatrolController : MonoBehaviour
         {
             PerformHit();
 
-            // RESETEAR el timer y calcular el próximo golpe
+            // RESETEAR el timer y calcular el prÃ³ximo golpe
             timeSinceEnteredFighting = 0f;  // <-- CLAVE: Resetear a 0
             nextHitTime = Random.Range(minTimeBetweenHits, maxTimeBetweenHits);
 
-            Debug.Log($"Golpe ejecutado. Próximo golpe en: {nextHitTime:F2}s");
+            Debug.Log($"Golpe ejecutado. PrÃ³ximo golpe en: {nextHitTime:F2}s");
         }
     }
 
@@ -246,13 +261,13 @@ public class PatrolController : MonoBehaviour
         agent.isStopped = false;
         isWaiting = false;
 
-        Debug.Log("¡Enemigo detectó al jugador!");
+        Debug.Log("Â¡Enemigo detectÃ³ al jugador!");
     }
 
     void PerformHit()
     {
         animator.SetTrigger("isHitting");
-        Debug.Log($"[{Time.time:F2}] ¡Enemigo golpea!");
+        Debug.Log($"[{Time.time:F2}] Â¡Enemigo golpea!");
 
         //TODO
         StartCoroutine(ManageAttackCollider());
@@ -304,7 +319,7 @@ public class PatrolController : MonoBehaviour
         currentPatrolIndex = closestPointIndex;
         GoToNextPatrolPoint();
 
-        Debug.Log("Enemigo perdió al jugador, volviendo a patrullar");
+        Debug.Log("Enemigo perdiÃ³ al jugador, volviendo a patrullar");
     }
 
     void HandleReturning()
@@ -354,15 +369,15 @@ public class PatrolController : MonoBehaviour
     {
         if (currentState == EnemyState.Fighting)
         {
-            // ACTIVAR el trigger continuamente mientras esté en Fighting
-            // Unity lo reactivará cada vez que la animación termine
+            // ACTIVAR el trigger continuamente mientras estÃ© en Fighting
+            // Unity lo reactivarÃ¡ cada vez que la animaciÃ³n termine
             animator.SetTrigger("isFighting");
 
             // Marcar que estamos en Fighting (solo para tracking)
             if (!wasInFightingState)
             {
                 wasInFightingState = true;
-                Debug.Log("Entrando en animación de combate");
+                Debug.Log("Entrando en animaciÃ³n de combate");
             }
         }
         else
@@ -372,10 +387,10 @@ public class PatrolController : MonoBehaviour
             {
                 animator.SetTrigger("isNotWalking");
                 wasInFightingState = false;
-                Debug.Log("Saliendo de animación de combate");
+                Debug.Log("Saliendo de animaciÃ³n de combate");
             }
 
-            // Lógica normal de caminar (solo cuando NO está en Fighting)
+            // LÃ³gica normal de caminar (solo cuando NO estÃ¡ en Fighting)
             bool hasValidPath = agent.hasPath && !agent.pathPending;
             bool isMovingToDestination = agent.remainingDistance > agent.stoppingDistance;
             bool hasVelocity = agent.velocity.sqrMagnitude > 0.0001f;
@@ -406,25 +421,25 @@ public class PatrolController : MonoBehaviour
 
     void CheckArrival()
     {
-        // Salir si el path aún se está calculando
+        // Salir si el path aÃºn se estÃ¡ calculando
         if (agent.pathPending) return;
 
-        // Calcular distancia directa al punto objetivo (más preciso)
+        // Calcular distancia directa al punto objetivo (mÃ¡s preciso)
         if (patrolPoints[currentPatrolIndex] == null) return;
 
-        // Obtener el índice del punto actual (el que acabamos de establecer)
+        // Obtener el Ã­ndice del punto actual (el que acabamos de establecer)
         int targetIndex = (currentPatrolIndex - 1 + patrolPoints.Length) % patrolPoints.Length;
 
         float distanceToTarget = Vector3.Distance(transform.position, patrolPoints[targetIndex].position);
 
-        // Verificar si está suficientemente cerca del punto
+        // Verificar si estÃ¡ suficientemente cerca del punto
         if (distanceToTarget <= agent.stoppingDistance)
         {
-            // Verificar que está quieto o casi quieto
+            // Verificar que estÃ¡ quieto o casi quieto
             if (agent.velocity.sqrMagnitude < 0.001f)
             {
                 animator.SetTrigger("isNotWalking");
-                Debug.Log($"Llegó al waypoint {targetIndex}");
+                Debug.Log($"LlegÃ³ al waypoint {targetIndex}");
                 agent.ResetPath();
                 StartWaiting();
             }
@@ -502,7 +517,7 @@ public class PatrolController : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, agent.destination);
 
-            // Visualizar última posición conocida del jugador
+            // Visualizar Ãºltima posiciÃ³n conocida del jugador
             if (currentState == EnemyState.Chasing || currentState == EnemyState.Returning)
             {
                 Gizmos.color = Color.magenta;
@@ -513,17 +528,17 @@ public class PatrolController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // Verificar si el objeto que colisionó está en la capa Weapon
+        // Verificar si el objeto que colisionÃ³ estÃ¡ en la capa Weapon
         if (other.gameObject.layer == LayerMask.NameToLayer("Weapon"))
         {
-            Debug.Log($"<color=red>¡Enemigo golpeado por: {other.gameObject.name}!</color>");
+            Debug.Log($"<color=red>Â¡Enemigo golpeado por: {other.gameObject.name}!</color>");
             OnHitByWeapon();
         }
     }
 
     void OnHitByWeapon()
     {
-        // Activar animación de golpeado
+        // Activar animaciÃ³n de golpeado
         animator.SetTrigger("beenHitted");
 
         // Activar estado de stun
@@ -537,6 +552,6 @@ public class PatrolController : MonoBehaviour
             agent.velocity = Vector3.zero;
         }
 
-        Debug.Log($"<color=orange>Enemigo recibió golpe. Stunned por {hitStunDuration}s</color>");
+        Debug.Log($"<color=orange>Enemigo recibiÃ³ golpe. Stunned por {hitStunDuration}s</color>");
     }
 }
