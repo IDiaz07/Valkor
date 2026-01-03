@@ -8,6 +8,7 @@ public class Item
     public string type;
     public Sprite icon;
     public GameObject worldPrefab;
+    public string prefabName;
 
     public Item(string description, int itemID, string type, Sprite icon, GameObject prefab)
     {

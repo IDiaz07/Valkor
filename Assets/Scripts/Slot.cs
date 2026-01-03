@@ -3,13 +3,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class Slot : MonoBehaviour
 {
-    public GameObject Item;
+    [SerializeField] public Item item;
     public int ID = 0;
     public string type;
     public Sprite icon;
+    private XRSimpleInteractable xRSimpleInteractable;
 
     [SerializeField] private Sprite defaultSprite;
 
@@ -21,6 +23,10 @@ public class Slot : MonoBehaviour
 
     private bool isProcessing = false;
 
+    private void Awake()
+    {
+        xRSimpleInteractable = this.gameObject.GetComponent<XRSimpleInteractable>();
+    }
     void Start()
     {
         image = GetComponent<Image>();
@@ -63,7 +69,8 @@ public class Slot : MonoBehaviour
             return;
         }
 
-        Item = itemToAdd;
+        item = new Item(itemToAdd.GetComponent<WorldItem>().itemData.description, itemToAdd.GetComponent<WorldItem>().itemData.itemID, itemToAdd.GetComponent<WorldItem>().itemData.type,itemToAdd.GetComponent<WorldItem>().itemData.icon, itemToAdd.GetComponent<WorldItem>().itemData.worldPrefab);
+        item.prefabName = itemToAdd.name;
         description = desc;
         ID = id;
         type = t;
@@ -90,9 +97,8 @@ public class Slot : MonoBehaviour
 
         amount--;
 
-        GameObject obj = Instantiate(
-            Item.GetComponent<WorldItem>().itemData.worldPrefab
-        );
+        GameObject obj = Resources.Load<GameObject>(item.prefabName);
+        obj = Instantiate(obj);
 
         obj.transform.position = hand.position;
         obj.transform.rotation = hand.rotation;
@@ -105,7 +111,7 @@ public class Slot : MonoBehaviour
 
     public void ClearSlot()
     {
-        Item = null;
+        item = null;
         description = "";
         ID = 0;
         type = "";
