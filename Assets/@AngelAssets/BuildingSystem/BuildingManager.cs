@@ -27,6 +27,7 @@ public class BuildingManager : MonoBehaviour
 
     [Header("Internal State")]
     [SerializeField] private bool isBuilding = false;
+    [SerializeField] private bool isCurrentConnected = false;
     [SerializeField] private int currentBuildingIndex;
     private GameObject ghostBuildGameobject;
     private bool isGhostInValidPosition;
@@ -36,6 +37,7 @@ public class BuildingManager : MonoBehaviour
     [Header("Hands")]
     [SerializeField] private Transform leftHand;
     [SerializeField] private Transform rightHand;
+
     [Header("Input")]
     [SerializeField] private InputActionProperty accept;
 
@@ -120,6 +122,8 @@ public class BuildingManager : MonoBehaviour
         if (Physics.Raycast(raycastObject.position, raycastObject.TransformDirection(Vector3.forward), out hit))
         {
             ghostBuildGameobject.transform.position = hit.point;
+            if(!isCurrentConnected)
+            ghostBuildGameobject.transform.rotation = Quaternion.Euler(ghostBuildGameobject.transform.eulerAngles.x,raycastObject.eulerAngles.z, ghostBuildGameobject.transform.eulerAngles.z);
         }
     }
 
@@ -210,14 +214,30 @@ public class BuildingManager : MonoBehaviour
             Quaternion newRotation = ghostBuildGameobject.transform.rotation;
             newRotation.eulerAngles = new Vector3(newRotation.eulerAngles.x, connector.transform.rotation.eulerAngles.y, newRotation.eulerAngles.z);
             ghostBuildGameobject.transform.rotation = newRotation;
-        }
+        }else if (currentBuildType == SelectedBuildType.floor)
+            {
+            
+                Quaternion newRotation = ghostBuildGameobject.transform.rotation;
+            if (connector.transform.root.GetComponent<Buildable>().Type == SelectedBuildType.floor)
+            {
+                newRotation.eulerAngles = new Vector3(newRotation.eulerAngles.x, connector.transform.root.rotation.eulerAngles.y, newRotation.eulerAngles.z);
+            }
+            else
+            {
+                newRotation.eulerAngles = new Vector3(newRotation.eulerAngles.x, connector.transform.rotation.eulerAngles.y, newRotation.eulerAngles.z);
+                newRotation *= Quaternion.Euler(Vector3.up * 90);
+            }
+                ghostBuildGameobject.transform.rotation = newRotation;
+            }
 
         GhostifyModel(modelParent, ghostMaterialValid);
         isGhostInValidPosition = true;
+        isCurrentConnected = true;
     }
 
     private void GhostSeparateBuild()
     {
+        isCurrentConnected = false;
         RaycastHit hit;
         if (Physics.Raycast(raycastObject.position, raycastObject.TransformDirection(Vector3.forward), out hit))
         {
@@ -348,6 +368,7 @@ public class BuildingManager : MonoBehaviour
                     connector.UpdateConnectors(true);
                 }
             }
+            isCurrentConnected = false;
             AudioSource.PlayClipAtPoint(audioClip, newBuild.transform.position, 2f);
         }
     }
