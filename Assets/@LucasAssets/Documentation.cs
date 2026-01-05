@@ -1,4 +1,4 @@
-﻿# PatrolController - Documentación Técnica
+﻿/*# PatrolController - Documentación Técnica
 
 ## Índice
 using System;
@@ -1093,3 +1093,5 @@ foreach (Collider col in hits)
 ---
 
 *Documentación para proyecto Valkor - Enero 2026*
+
+*/

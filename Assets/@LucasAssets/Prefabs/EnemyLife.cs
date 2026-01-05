@@ -1,4 +1,4 @@
-﻿using sc.terrain.proceduralpainter;
+﻿/*using sc.terrain.proceduralpainter;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -121,7 +121,7 @@ public class EnemyHealth : MonoBehaviour
         GameObject droppedObject = Instantiate(deathDropPrefab, spawnPosition, spawnRotation);
 
         Debug.Log($"Objeto instanciado en muerte: {droppedObject.name} en posición {spawnPosition}");
-    } 
+    }
 
 
 
@@ -199,7 +199,6 @@ public class EnemyHealth : MonoBehaviour
 
 
 
-
 # EnemyHealth - Documentación Técnica
 
 ## Índice
@@ -212,35 +211,35 @@ public class EnemyHealth : MonoBehaviour
 7. [Dependencias](#dependencias)
 8. [Problemas Conocidos y Soluciones](#problemas-conocidos-y-soluciones)
 9. [Debugging](#debugging)
-
+    
 ---
 
 ## Descripción General
 
-`EnemyHealth` gestiona la vida, daño y muerte de los enemigos. Implementa detección de golpes mediante triggers, prevención de daño múltiple con HashSet, y una secuencia de muerte con animación, drop de items y destrucción.
+`EnemyHealth` gestiona la vida, daño y muerte de los enemigos.Implementa detección de golpes mediante triggers, prevención de daño múltiple con HashSet, y una secuencia de muerte con animación, drop de items y destrucción.
 
 ### Responsabilidades:
 - Gestionar vida actual del enemigo
-- Detectar colisiones con armas (layer "Weapon")
+- Detectar colisiones con armas(layer "Weapon")
 - Prevenir múltiples registros de daño por el mismo golpe
-- Ejecutar secuencia de muerte (animación → drop → destrucción)
+- Ejecutar secuencia de muerte(animación → drop → destrucción)
 - Desactivar componentes de IA al morir
 
----
+-- -
 
 ## Arquitectura
 
 ### Flujo de daño
 ```
-Weapon Collider → OnTriggerEnter() → ¿isDead? → ¿Layer Weapon? → ¿Ya en HashSet?
+Weapon Collider → OnTriggerEnter() → ¿isDead ? → ¿Layer Weapon ? → ¿Ya en HashSet ?
                                          │            │                │
-                                        [SKIP]      [SKIP]     NO → TakeDamage() → ¿HP≤0? → Die()
+                                        [SKIP][SKIP]     NO → TakeDamage() → ¿HP≤0 ? → Die()
                                                                 SÍ → [SKIP]
 ```
 
 ### Secuencia de muerte
 ```
-Die() → isDead=true → DisableComponents() → Trigger "die" → InstantiateDrop() → WaitForAnimation() → Destroy()
+Die() → isDead = true → DisableComponents() → Trigger "die" → InstantiateDrop() → WaitForAnimation() → Destroy()
 ```
 
 ---
@@ -250,7 +249,7 @@ Die() → isDead=true → DisableComponents() → Trigger "die" → InstantiateD
 ### Variables de Vida
 
 | Campo | Tipo | Default | Descripción |
-|-------|------|---------|-------------|
+| -------| ------| ---------| -------------|
 | `maxHealth` | float | 25f | Vida máxima |
 | `damagePerHit` | float | 7f | Daño por golpe |
 | `deathAnimationName` | string | "Death" | Nombre del estado de muerte en Animator |
@@ -258,18 +257,18 @@ Die() → isDead=true → DisableComponents() → Trigger "die" → InstantiateD
 ### Death Drop Settings
 
 | Campo | Tipo | Default | Descripción |
-|-------|------|---------|-------------|
+| -------| ------| ---------| -------------|
 | `deathDropPrefab` | GameObject | null | Prefab a instanciar al morir |
-| `dropOffset` | Vector3 | (0,0,0) | Offset de posición del spawn |
+| `dropOffset` | Vector3 | (0, 0, 0) | Offset de posición del spawn |
 | `inheritRotation` | bool | false | Si hereda rotación del enemigo |
 
 ### Variables Runtime (privadas)
 
 | Variable | Tipo | Descripción |
-|----------|------|-------------|
+| ----------| ------| -------------|
 | `currentHealth` | float | Vida actual |
 | `isDead` | bool | Previene múltiples muertes |
-| `weaponsInContact` | HashSet\<Collider\> | Armas que ya golpearon |
+| `weaponsInContact` | HashSet\< Collider\> | Armas que ya golpearon |
 | `animator` | Animator | Referencia cacheada |
 
 ---
@@ -279,15 +278,15 @@ Die() → isDead=true → DisableComponents() → Trigger "die" → InstantiateD
 ### Ciclo de Vida Unity
 
 | Método | Descripción |
-|--------|-------------|
+| --------| -------------|
 | `Start()` | Inicializa `currentHealth = maxHealth`, cachea Animator |
 | `OnTriggerEnter()` | Detecta golpes, verifica layer y HashSet, aplica daño |
-| `OnTriggerExit()` | ⚠️ **BUG**: Lógica incorrecta (ver problemas conocidos) |
+| `OnTriggerExit()` | ⚠️ **BUG * *: Lógica incorrecta(ver problemas conocidos) |
 
 ### Sistema de Daño
 
 | Método | Descripción |
-|--------|-------------|
+| --------| -------------|
 | `TakeDamage(float)` | Reduce vida, llama `Die()` si HP ≤ 0 |
 | `Die()` | Secuencia completa de muerte |
 | `DisableEnemyComponents()` | Desactiva PatrolController, NavMeshAgent, Collider, VisionSensor |
@@ -297,11 +296,11 @@ Die() → isDead=true → DisableComponents() → Trigger "die" → InstantiateD
 ### Orden de desactivación en muerte
 
 ```
-1. PatrolController.enabled = false  ← Primero (evita navegación)
-2. NavMeshAgent.isStopped = true     ← Verificando isOnNavMesh
-3. NavMeshAgent.enabled = false
-4. Collider.enabled = false          ← Evita más daño
-5. EnemyVisionSensor.enabled = false
+1.PatrolController.enabled = false  ← Primero(evita navegación)
+2.NavMeshAgent.isStopped = true     ← Verificando isOnNavMesh
+3.NavMeshAgent.enabled = false
+4.Collider.enabled = false          ← Evita más daño
+5.EnemyVisionSensor.enabled = false
 ```
 
 ---
@@ -309,7 +308,7 @@ Die() → isDead=true → DisableComponents() → Trigger "die" → InstantiateD
 ## Sistema de Detección de Daño
 
 ### Problema del "doble golpe"
-Un arma puede registrar múltiples colisiones durante un swing. Solución: **HashSet**.
+Un arma puede registrar múltiples colisiones durante un swing.Solución: **HashSet * *.
 
 ```csharp
 private HashSet<Collider> weaponsInContact = new HashSet<Collider>();
@@ -330,9 +329,9 @@ if (!weaponsInContact.Contains(other))
 
 ### Timeline
 ```
-t=0.000s  Die() → isDead=true, desactivar componentes, trigger "die", spawn drop
+t = 0.000s Die() → isDead = true, desactivar componentes, trigger "die", spawn drop
 t=0.016s  yield return null (esperar 1 frame)
-t=~0.1s   Animator entra en estado "Death"
+t = ~0.1s Animator entra en estado "Death"
 t=~2.0s   normalizedTime >= 1.0 → Destroy(gameObject)
 ```
 
@@ -356,8 +355,8 @@ Destroy(gameObject);
 ### Componentes requeridos
 
 | Componente | Obligatorio | Notas |
-|------------|-------------|-------|
-| Collider (Trigger) | ✅ | Para detectar golpes |
+| ------------| -------------| -------|
+| Collider(Trigger) | ✅ | Para detectar golpes |
 | Animator | ⚠️ Recomendado | Para animación de muerte |
 
 ### Componentes desactivados al morir
@@ -390,7 +389,7 @@ if (!weaponsInContact.Contains(other))
 weaponsInContact.Remove(other);
 ```
 
-**Impacto**: El arma solo puede golpear una vez por vida del enemigo.
+**Impacto * *: El arma solo puede golpear una vez por vida del enemigo.
 
 ---
 
@@ -419,7 +418,7 @@ if (animator == null)
 
 ### 4. Corrutinas de PatrolController no se detienen
 
-**Solución**: Añadir en `DisableEnemyComponents()`:
+**Solución * *: Añadir en `DisableEnemyComponents()`:
 ```csharp
 patrol.StopAllCoroutines();
 patrol.enabled = false;
@@ -432,7 +431,7 @@ patrol.enabled = false;
 ### Mensajes de Log
 
 | Mensaje | Momento |
-|---------|---------|
+| ---------| ---------|
 | `"Golpeado por {name}. Vida: {hp}"` | OnTriggerEnter exitoso |
 | `"Vida restante: {current}/{max}"` | TakeDamage() |
 | `"{name} ha muerto"` | Die() |
@@ -466,30 +465,30 @@ patrol.enabled = false;
 
 ## Descripción General
 
-`EnemyHealth` gestiona la vida, daño y muerte de los enemigos. Implementa detección de golpes mediante triggers, prevención de daño múltiple con HashSet, y una secuencia de muerte con animación, drop de items y destrucción.
+`EnemyHealth` gestiona la vida, daño y muerte de los enemigos.Implementa detección de golpes mediante triggers, prevención de daño múltiple con HashSet, y una secuencia de muerte con animación, drop de items y destrucción.
 
 ### Responsabilidades:
 - Gestionar vida actual del enemigo
-- Detectar colisiones con armas (layer "Weapon")
+- Detectar colisiones con armas(layer "Weapon")
 - Prevenir múltiples registros de daño por el mismo golpe
-- Ejecutar secuencia de muerte (animación → drop → destrucción)
+- Ejecutar secuencia de muerte(animación → drop → destrucción)
 - Desactivar componentes de IA al morir
 
----
+-- -
 
 ## Arquitectura
 
 ### Flujo de daño
 ```
-Weapon Collider → OnTriggerEnter() → ¿isDead? → ¿Layer Weapon? → ¿Ya en HashSet?
+Weapon Collider → OnTriggerEnter() → ¿isDead ? → ¿Layer Weapon ? → ¿Ya en HashSet ?
                                          │            │                │
-                                        [SKIP]      [SKIP]     NO → TakeDamage() → ¿HP≤0? → Die()
+                                        [SKIP][SKIP]     NO → TakeDamage() → ¿HP≤0 ? → Die()
                                                                 SÍ → [SKIP]
 ```
 
 ### Secuencia de muerte
 ```
-Die() → isDead=true → DisableComponents() → Trigger "die" → InstantiateDrop() → WaitForAnimation() → Destroy()
+Die() → isDead = true → DisableComponents() → Trigger "die" → InstantiateDrop() → WaitForAnimation() → Destroy()
 ```
 
 ---
@@ -499,7 +498,7 @@ Die() → isDead=true → DisableComponents() → Trigger "die" → InstantiateD
 ### Variables de Vida
 
 | Campo | Tipo | Default | Descripción |
-|-------|------|---------|-------------|
+| -------| ------| ---------| -------------|
 | `maxHealth` | float | 25f | Vida máxima |
 | `damagePerHit` | float | 7f | Daño por golpe |
 | `deathAnimationName` | string | "Death" | Nombre del estado de muerte en Animator |
@@ -648,4 +647,4 @@ Destroy(gameObject);
 
 *Documentación para proyecto Valkor - Enero 2026*
 
-
+*/
