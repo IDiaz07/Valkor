@@ -58,9 +58,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b73ad9cc3cc989429c1500b4697888c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1700877639200069812}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b73ad9cc3cc989429c1500b4697888c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7686858233420375688}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b73ad9cc3cc989429c1500b4697888c, type: 3}
       insertIndex: -1
@@ -68,29 +65,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b73ad9cc3cc989429c1500b4697888c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 903606857840335897}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b73ad9cc3cc989429c1500b4697888c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4269703666514523987}
   m_SourcePrefab: {fileID: 100100000, guid: 9b73ad9cc3cc989429c1500b4697888c, type: 3}
 --- !u!1 &5272209550920253297 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b73ad9cc3cc989429c1500b4697888c, type: 3}
   m_PrefabInstance: {fileID: 5038348717548683808}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1700877639200069812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5272209550920253297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6b5fa9826bc9654da8a737d9dea23b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  description: Piedra
-  itemID: 4
-  type: Recurso
-  icon: {fileID: 21300000, guid: 48658b859dda8cd4cbf453556a69a7c4, type: 3}
-  pickedUp: 0
 --- !u!114 &7686858233420375688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,3 +203,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cd4b9fc85b3c540bcee2c543904fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pullThreshold: 0.4
+  sliderOffset: {x: 0, y: 0.2, z: 0}
+  progressGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 0, g: 1, b: 0, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  pullProgressSlider: {fileID: 0}
+--- !u!114 &4269703666514523987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272209550920253297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e850a10628a1e447be70c1e660ca911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData:
+    description: "Esto no deber\xEDa estar en el juego..."
+    itemID: 10000
+    type: Basura
+    icon: {fileID: 21300000, guid: e3fb38ba0c902a04fbb4538ba106ea4c, type: 3}
+    worldPrefab: {fileID: 5272209550920253297}
+    prefabName: Stone_1

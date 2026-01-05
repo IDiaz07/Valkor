@@ -1,0 +1,5 @@
+0;Tronco
+1;Palo de madera
+2;Fibra Vegetal
+3;Cuero
+4;Lingote de Metal
