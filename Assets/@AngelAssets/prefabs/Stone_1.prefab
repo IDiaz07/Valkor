@@ -58,9 +58,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b73ad9cc3cc989429c1500b4697888c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1700877639200069812}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b73ad9cc3cc989429c1500b4697888c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7686858233420375688}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b73ad9cc3cc989429c1500b4697888c, type: 3}
       insertIndex: -1
@@ -68,29 +65,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b73ad9cc3cc989429c1500b4697888c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 903606857840335897}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b73ad9cc3cc989429c1500b4697888c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3663953879674650053}
   m_SourcePrefab: {fileID: 100100000, guid: 9b73ad9cc3cc989429c1500b4697888c, type: 3}
 --- !u!1 &5272209550920253297 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b73ad9cc3cc989429c1500b4697888c, type: 3}
   m_PrefabInstance: {fileID: 5038348717548683808}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1700877639200069812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5272209550920253297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6b5fa9826bc9654da8a737d9dea23b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  description: Piedra
-  itemID: 4
-  type: Recurso
-  icon: {fileID: 21300000, guid: 48658b859dda8cd4cbf453556a69a7c4, type: 3}
-  pickedUp: 0
 --- !u!114 &7686858233420375688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +93,7 @@ MonoBehaviour:
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
-  m_CustomReticle: {fileID: 5341414003007625708, guid: ada0e1d516e7b554592f9ee8c12932f4, type: 3}
+  m_CustomReticle: {fileID: 0}
   m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
   m_OverrideGazeTimeToSelect: 0
@@ -220,3 +203,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cd4b9fc85b3c540bcee2c543904fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3663953879674650053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272209550920253297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e850a10628a1e447be70c1e660ca911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData:
+    description: Piedra
+    itemID: 4
+    type: Recurso
+    icon: {fileID: 21300000, guid: e3fb38ba0c902a04fbb4538ba106ea4c, type: 3}
+    worldPrefab: {fileID: 5272209550920253297}
+    prefabName: Stone_1

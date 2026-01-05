@@ -37,7 +37,6 @@ public class Slot : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (isProcessing) return;
-        if (!other.CompareTag("Item")) return;
 
         WorldItem worldItem = other.GetComponent<WorldItem>();
         if (worldItem == null) return;
@@ -70,7 +69,7 @@ public class Slot : MonoBehaviour
         }
 
         item = new Item(itemToAdd.GetComponent<WorldItem>().itemData.description, itemToAdd.GetComponent<WorldItem>().itemData.itemID, itemToAdd.GetComponent<WorldItem>().itemData.type,itemToAdd.GetComponent<WorldItem>().itemData.icon, itemToAdd.GetComponent<WorldItem>().itemData.worldPrefab);
-        item.prefabName = itemToAdd.name;
+        item.prefabName = itemToAdd.GetComponent<WorldItem>().itemData.prefabName;
         description = desc;
         ID = id;
         type = t;

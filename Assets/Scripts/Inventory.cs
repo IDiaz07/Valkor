@@ -78,4 +78,38 @@ public class Inventory : MonoBehaviour
         }
         return false;
     }
+    //Como FindObjectInInventory, pero te da el idex del objeto y devuelve -1 si no está
+    public int GetSlotIndex(int objectId)
+    {
+        for (int i = 0; i < allSlots; i++)
+        {
+            Slot s = slot[i].GetComponent<Slot>();
+
+            if (!s.empty && s.ID == objectId)
+                return i;
+        }
+        return -1;
+    }
+    public void AddItem(GameObject itemToAdd, string description, int id, string type, Sprite icon)
+    {
+        int objectSlotIndex = GetSlotIndex(id);
+        if (objectSlotIndex != -1)
+        {
+            slot[objectSlotIndex].GetComponent<Slot>().AddItem(itemToAdd, description, id, type, icon);
+        }
+        else
+        {
+            for (int i = 0; i < allSlots; i++)
+            {
+                Slot s = slot[i].GetComponent<Slot>();
+
+                if (s.empty)
+                {
+                    s.AddItem(itemToAdd, description, id, type, icon);
+                    break;
+                }
+            }
+        }
+    }
 }
+

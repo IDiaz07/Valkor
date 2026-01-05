@@ -128,7 +128,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   craftable: {fileID: 6181262944856889445}
-  requirements: []
+  requirements:
+  - requirement: {fileID: 1350307105891777757, guid: 0851596bc438cd44d9fde2743df2b6d9, type: 3}
+    amount: 2
+    itemID: 6
 --- !u!114 &4281919359022179438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,3 +151,4 @@ MonoBehaviour:
     type: Tool
     icon: {fileID: 21300000, guid: 421a0da05ff7ddb42b5111e50f3fdac5, type: 3}
     worldPrefab: {fileID: 5341414003007625708, guid: ada0e1d516e7b554592f9ee8c12932f4, type: 3}
+    prefabName: Axe_NoTexture

@@ -60,7 +60,6 @@ public class TreeBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Colliding with something");
         if (collision.collider.gameObject.CompareTag("DamageCollider"))
         {
             Debug.Log("Colliding with weapon");

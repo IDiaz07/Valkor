@@ -91,7 +91,7 @@ MonoBehaviour:
   requirements:
   - requirement: {fileID: 1350307105891777757, guid: 1c22404767f033a4bb1af533a0514fe8, type: 3}
     amount: 2
-    itemID: 6
+    itemID: 1
 --- !u!114 &4445529745906918034
 MonoBehaviour:
   m_ObjectHideFlags: 0

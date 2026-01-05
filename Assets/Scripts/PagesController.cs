@@ -94,12 +94,19 @@ public class PagesController : MonoBehaviour
             playerInventory.RemoveItemFromInventory(requirement.itemID, requirement.amount);
         }
         GameObject newItem = Instantiate(currentPage1Craftable.craftable);
-        Debug.Log(newItem.GetInstanceID());
 
         Item itemToAdd = newItem.GetComponent<WorldItem>().itemData;
         if (itemToAdd == null) return;
+        playerInventory.AddItem(
+         newItem,
+         itemToAdd.description,
+         itemToAdd.itemID,
+         itemToAdd.type,
+         itemToAdd.icon
+     );
 
-       
+
+
     }
 
     public void CraftPage2Object()
@@ -117,8 +124,15 @@ public class PagesController : MonoBehaviour
 
         Item itemToAdd = newItem.GetComponent<WorldItem>().itemData;
         if (itemToAdd == null) return;
+        playerInventory.AddItem(
+         newItem,
+         itemToAdd.description,
+         itemToAdd.itemID,
+         itemToAdd.type,
+         itemToAdd.icon
+     );
 
-        
+
     }
 
     private void OnEnable()
