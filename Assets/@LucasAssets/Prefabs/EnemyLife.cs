@@ -1,4 +1,4 @@
-/*using sc.terrain.proceduralpainter;
+using sc.terrain.proceduralpainter;
 using System;
 using System.Collections;
 using System.Collections.Generic;

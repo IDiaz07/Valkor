@@ -21,7 +21,7 @@ public class Slot : MonoBehaviour
     public bool empty = true;
     public Image image;
 
-    private bool isProcessing = false;
+    private static bool isProcessing = false;
 
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class Slot : MonoBehaviour
         Item item = worldItem.itemData;
 
         if (!empty && ID != item.itemID) return;
-
+        if (isProcessing) return;
         isProcessing = true;
 
         AddItem(
@@ -56,6 +56,11 @@ public class Slot : MonoBehaviour
         );
 
         Destroy(other.gameObject);
+        Invoke("FinishProcessing", 0.01f);
+    }
+
+    private void FinishProcessing()
+    {
         isProcessing = false;
     }
 

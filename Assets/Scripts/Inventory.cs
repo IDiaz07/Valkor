@@ -14,6 +14,7 @@ public class Inventory : MonoBehaviour
     public GameObject slotHolder;
 
     private GameObject[] slot;
+    public bool addingObject = false;
 
     void Start()
     {
@@ -33,7 +34,12 @@ public class Inventory : MonoBehaviour
     void Update()
     {
         if (thumbstickA.action.WasPressedThisFrame())
+        {
             inventoryEnabled = !inventoryEnabled;
+            //Por si la variable se quedase atascada en true por alguna razón, se resetea al abrir o cerrar el inventario
+            addingObject = false;
+
+        }
 
         inventory.SetActive(inventoryEnabled);
 
