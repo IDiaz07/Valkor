@@ -23,6 +23,7 @@ public class PagesController : MonoBehaviour
     //El crafteable activo de cada página
     private Craftable currentPage1Craftable;
     private Craftable currentPage2Craftable;
+    private Craftable currentBuildSelected;
 
     [Header("Página 1")]
     //Página 1
@@ -97,16 +98,16 @@ public class PagesController : MonoBehaviour
 
         Item itemToAdd = newItem.GetComponent<WorldItem>().itemData;
         if (itemToAdd == null) return;
-        playerInventory.AddItem(
+        for (int i = 0; i < currentPage1Craftable.amountCrafted; i++)
+        {
+            playerInventory.AddItem(
          newItem,
          itemToAdd.description,
          itemToAdd.itemID,
          itemToAdd.type,
-         itemToAdd.icon
-     );
-
-
-
+         itemToAdd.icon);
+        }
+        Destroy(newItem);
     }
 
     public void CraftPage2Object()
@@ -120,19 +121,19 @@ public class PagesController : MonoBehaviour
             playerInventory.RemoveItemFromInventory(requirement.itemID, requirement.amount);
         }
         GameObject newItem = Instantiate(currentPage2Craftable.craftable);
-        Debug.Log(newItem.GetInstanceID());
 
         Item itemToAdd = newItem.GetComponent<WorldItem>().itemData;
         if (itemToAdd == null) return;
-        playerInventory.AddItem(
+        for (int i = 0; i < currentPage2Craftable.amountCrafted; i++)
+        {
+            playerInventory.AddItem(
          newItem,
          itemToAdd.description,
          itemToAdd.itemID,
          itemToAdd.type,
-         itemToAdd.icon
-     );
-
-
+         itemToAdd.icon);
+        }
+        Destroy(newItem);
     }
 
     private void OnEnable()
@@ -277,6 +278,7 @@ public class PagesController : MonoBehaviour
     }
     public void BuildObjectPage1()
     {
+        currentBuildSelected = currentPage1Craftable;
         ChangeBuildingState();
         buildingManager.ChangeSelectedBuildType(currentPage1Craftable.craftable.gameObject.GetComponent<Buildable>().Type);
         buildingManager.ChargeCurrentBuildIndex(currentPage1Craftable.craftable.gameObject.GetComponent<Buildable>().BuildId);
@@ -284,16 +286,25 @@ public class PagesController : MonoBehaviour
     }
     public void BuildObjectPage2()
     {
+        currentBuildSelected = currentPage2Craftable;
         ChangeBuildingState();
         buildingManager.ChangeSelectedBuildType(currentPage2Craftable.craftable.gameObject.GetComponent<Buildable>().Type);
         buildingManager.ChargeCurrentBuildIndex(currentPage2Craftable.craftable.gameObject.GetComponent<Buildable>().BuildId);
 
+    }
+    public void RemoveResourcesForCurrentBuild()
+    {
+        foreach (Requirement requirement in currentBuildSelected.requirements)
+        {
+            playerInventory.RemoveItemFromInventory(requirement.itemID, requirement.amount);
+        }
     }
     public void ChangeBuildingState()
     {
         if (isBuildingMenu)
             buildingManager.ChangeBuildingState();
         buildingManager.RaycastObject = buildingManager.GetOppositeHand(this.transform.root.GetComponent<XRGrabInteractable>().interactorsSelecting[0].transform.parent);
+        buildingManager.PagesController = this;
     }
 
     // Te permite activar el modo desstrucción si está desactivado y viceversa.

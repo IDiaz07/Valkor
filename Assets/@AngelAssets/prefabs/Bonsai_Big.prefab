@@ -9919,7 +9919,7 @@ MonoBehaviour:
   parent: {fileID: 6465476303993713792}
   treeHealth: 100
   treeCutEffectsSpawner: {fileID: 5904804212116689015, guid: e6580605e26c6084d9225a055573156d, type: 3}
-  woodDrop: {fileID: 1350307105891777757, guid: 1c22404767f033a4bb1af533a0514fe8, type: 3}
+  woodDrop: {fileID: 1350307105891777757, guid: 0851596bc438cd44d9fde2743df2b6d9, type: 3}
   woodDropAmount: 3
 --- !u!199 &7483414170447758351
 ParticleSystemRenderer:

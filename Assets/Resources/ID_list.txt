@@ -3,3 +3,7 @@
 2;Fibra Vegetal
 3;Cuero
 4;Lingote de Metal
+5;Hacha de Piedra
+6;Lanza de Piedra
+7;Espada de Piedra
+8;Pico de Piedra

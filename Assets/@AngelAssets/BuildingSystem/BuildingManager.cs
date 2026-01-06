@@ -33,6 +33,7 @@ public class BuildingManager : MonoBehaviour
     private bool isGhostInValidPosition;
     private Transform modelParent = null;
     private Transform raycastObject;
+    private PagesController pagesController;
 
     [Header("Hands")]
     [SerializeField] private Transform leftHand;
@@ -51,6 +52,7 @@ public class BuildingManager : MonoBehaviour
     }
 
     public Transform RaycastObject { get => raycastObject; set => raycastObject = value; }
+    public PagesController PagesController { get => pagesController; set => pagesController = value; }
 
     void Update()
     {
@@ -364,6 +366,7 @@ public class BuildingManager : MonoBehaviour
                 }
             }
             isCurrentConnected = false;
+            pagesController.RemoveResourcesForCurrentBuild();
             AudioSource.PlayClipAtPoint(audioClip, newBuild.transform.position, 2f);
         }
     }

@@ -731,6 +731,7 @@ MonoBehaviour:
   rightHand: {fileID: 5231417696603682240}
   inventory: {fileID: 0}
   slotHolder: {fileID: 0}
+  addingObject: 0
 --- !u!114 &581912098366048018
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -205,7 +205,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6574973015835496887}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.10967231, y: 1.45, z: -3.779285}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
@@ -401,9 +401,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacdf487623ac4c4dad515cdc4e6a342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 0}
   treeHealth: 80
   treeCutEffectsSpawner: {fileID: 5904804212116689015, guid: e6580605e26c6084d9225a055573156d, type: 3}
-  woodDrop: {fileID: 1350307105891777757, guid: 1c22404767f033a4bb1af533a0514fe8, type: 3}
+  woodDrop: {fileID: 1350307105891777757, guid: 0851596bc438cd44d9fde2743df2b6d9, type: 3}
+  woodDropAmount: 1
 --- !u!198 &333264995116451894
 ParticleSystem:
   m_ObjectHideFlags: 0
