@@ -304,10 +304,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   craftable: {fileID: 3762746130996155340, guid: 8585b44134446cb45acb29ea604d24af, type: 3}
-  requirements:
-  - requirement: {fileID: 1350307105891777757, guid: 0851596bc438cd44d9fde2743df2b6d9, type: 3}
-    amount: 1
-    itemID: 0
+  amountCrafted: 1
+  requirements: []
 --- !u!114 &2175156463758929822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,10 +319,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData:
-    description: "Suelo b\xE1sico"
+    description: "Tambi\xE9n puede servir como techo"
     itemID: 500
     type: floor
-    icon: {fileID: 21300000, guid: 9a6560e5bacb40847bb1b879ede354fb, type: 3}
+    icon: {fileID: 21300000, guid: 01593579608ecb148bfddad2b0fd5bc7, type: 3}
     worldPrefab: {fileID: 3762746130996155340, guid: 8585b44134446cb45acb29ea604d24af, type: 3}
     prefabName: 
 --- !u!1 &7618914078865748453

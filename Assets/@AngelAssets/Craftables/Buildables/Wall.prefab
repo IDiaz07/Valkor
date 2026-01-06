@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   craftable: {fileID: 8459090752340650080, guid: f9ead6f90d52ecf4897c64628ddaa71f, type: 3}
+  amountCrafted: 1
   requirements: []
 --- !u!114 &88464890403521626
 MonoBehaviour:
@@ -190,11 +191,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData:
-    description: "Pared b\xE1sica"
+    description: Con cuatro de estas y un techo, tienes un hogar
     itemID: 501
     type: wall
-    icon: {fileID: 21300000, guid: 7066e0747291df44fa5c2bf93bee3a6e, type: 3}
+    icon: {fileID: 21300000, guid: 0e3c566e13591ec4f861ea8cdf09aa62, type: 3}
     worldPrefab: {fileID: 8459090752340650080, guid: f9ead6f90d52ecf4897c64628ddaa71f, type: 3}
+    prefabName: 
 --- !u!1 &2034696105552301705
 GameObject:
   m_ObjectHideFlags: 0

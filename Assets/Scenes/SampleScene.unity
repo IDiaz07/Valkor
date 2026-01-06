@@ -5776,6 +5776,8 @@ MonoBehaviour:
   wallObjects:
   - {fileID: 8459090752340650080, guid: f9ead6f90d52ecf4897c64628ddaa71f, type: 3}
   - {fileID: 4930375362777995958, guid: 85235c327392a824eb52055f4900bf45, type: 3}
+  - {fileID: 8459090752340650080, guid: f97f857083ab2ab48965eacad3813e83, type: 3}
+  - {fileID: 8459090752340650080, guid: 678f7a8c87674894886a9582c1f244df, type: 3}
   placeableObjects:
   - {fileID: 632285527429816752, guid: 64959959d6714134ca79a579e08cbe54, type: 3}
   currentBuildType: 0
@@ -33835,7 +33837,7 @@ PrefabInstance:
       objectReference: {fileID: 421968828}
     - target: {fileID: 5813869964823569632, guid: 2fcc419baa9e9764e81ed1b549195f90, type: 3}
       propertyPath: buildables.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5813869964823569632, guid: 2fcc419baa9e9764e81ed1b549195f90, type: 3}
       propertyPath: craftables.Array.size
@@ -33843,6 +33845,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5813869964823569632, guid: 2fcc419baa9e9764e81ed1b549195f90, type: 3}
       propertyPath: 'buildables.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1527959296523526881, guid: 8dafa2006852e8e49a21eb40fd35f36a, type: 3}
+    - target: {fileID: 5813869964823569632, guid: 2fcc419baa9e9764e81ed1b549195f90, type: 3}
+      propertyPath: 'buildables.Array.data[4]'
+      value: 
+      objectReference: {fileID: -1294718164517876452, guid: 45727414bd1e92f479a5b89640ac1752, type: 3}
+    - target: {fileID: 5813869964823569632, guid: 2fcc419baa9e9764e81ed1b549195f90, type: 3}
+      propertyPath: 'buildables.Array.data[5]'
       value: 
       objectReference: {fileID: 6057160475198839043, guid: e3d8d3e0090b3fe4aaf39bac57785b15, type: 3}
     - target: {fileID: 5813869964823569632, guid: 2fcc419baa9e9764e81ed1b549195f90, type: 3}
