@@ -554,4 +554,24 @@ public class PatrolController : MonoBehaviour
 
         Debug.Log($"<color=orange>Enemigo recibió golpe. Stunned por {hitStunDuration}s</color>");
     }
+
+    public void SetPatrolPoints(Transform[] newWaypoints)
+    {
+        if (newWaypoints == null || newWaypoints.Length == 0)
+        {
+            Debug.LogWarning($"[{gameObject.name}] Se intentó asignar waypoints vacíos");
+            return;
+        }
+
+        patrolPoints = newWaypoints;
+        currentPatrolIndex = 0;
+
+        // Si ya está en juego, ir al primer waypoint
+        if (Application.isPlaying && agent != null)
+        {
+            GoToNextPatrolPoint();
+        }
+
+        Debug.Log($"[{gameObject.name}] Waypoints asignados correctamente: {patrolPoints.Length} puntos");
+    }
 }
