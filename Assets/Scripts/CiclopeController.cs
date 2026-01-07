@@ -19,6 +19,9 @@ public class CiclopeController : MonoBehaviour
     private bool hasWoken = false;
     private bool isDead = false;
 
+    private float attackTimer = 0f;
+    public float attackCooldown = 2.5f;
+
     void Start()
     {
 
@@ -28,7 +31,6 @@ public class CiclopeController : MonoBehaviour
 
         animator.applyRootMotion = false;
 
-        // Auto find player
         if (player == null)
         {
 
@@ -55,7 +57,7 @@ public class CiclopeController : MonoBehaviour
                 player.position
             );
 
-        // 1. Wake up only when player is close
+        // WAKE UP WHEN VR PLAYER IS CLOSE
         if (!hasWoken &&
             dist <= wakeDistance)
         {
@@ -67,7 +69,7 @@ public class CiclopeController : MonoBehaviour
             return;
         }
 
-        // 2. After wake animation → chase / attack
+        // AFTER WAKE UP → CHASE / ATTACK
         if (hasWoken)
         {
 
@@ -75,25 +77,20 @@ public class CiclopeController : MonoBehaviour
                 attackDistance)
             {
 
-                ChaseAndAnimate();
+                HandleChase();
 
             }
             else
             {
 
-                AttackLogic();
+                HandleAttackByDistance(dist);
             }
         }
     }
 
-    // 🎯 ONLY ONE DEFINITION — WALK / CHASE
-    void ChaseAndAnimate()
+    // 🎯 SOLO 1 DEFINICIÓN — PERSEGUIR
+    void HandleChase()
     {
-
-        if (agent == null || player == null)
-            return;
-
-        agent.speed = chaseSpeed;
 
         agent.SetDestination(
             player.position
@@ -105,26 +102,43 @@ public class CiclopeController : MonoBehaviour
         );
     }
 
-    // 🎯 ONLY ONE DEFINITION — ATTACK DECISION
-    void AttackLogic()
+    // 🎯 SOLO 1 DEFINICIÓN — ATAQUE
+    void HandleAttackByDistance(float dist)
     {
 
         if (animations == null)
             return;
 
-        int r = Random.Range(1, 4);
+        attackTimer +=
+            Time.deltaTime;
 
-        if (r == 1)
-            animations.PlayAttack1();
+        if (attackTimer <
+            attackCooldown)
+            return;
 
-        if (r == 2)
-            animations.PlayAttack2();
+        if (dist <=
+            attackDistance)
+        {
 
-        if (r == 3)
-            animations.PlayJumpAttack();
+            int r =
+                Random.Range(
+                    1,
+                    4
+                );
+
+            if (r == 1)
+                animations.PlayAttack1();
+
+            if (r == 2)
+                animations.PlayAttack2();
+
+            if (r == 3)
+                animations.PlayJumpAttack();
+
+            attackTimer = 0f;
+        }
     }
 
-    // 🎯 COLLISION WITH WEAPON LAYER — IN ENGLISH
     void OnTriggerEnter(Collider other)
     {
 
@@ -140,11 +154,8 @@ public class CiclopeController : MonoBehaviour
         }
     }
 
-    // 🎯 DEATH
     public void Die()
     {
-
-        if (isDead) return;
 
         isDead = true;
 
@@ -156,18 +167,9 @@ public class CiclopeController : MonoBehaviour
         if (animations != null)
             animations.enabled = false;
 
-        Destroy(gameObject, 5f);
-    }
-
-    public float GetDistanceToPlayer()
-    {
-
-        if (player == null)
-            return 999f;
-
-        return Vector3.Distance(
-            transform.position,
-            player.position
+        Destroy(
+            gameObject,
+            5f
         );
     }
 }
