@@ -23,6 +23,7 @@ public class floorGrabbable : MonoBehaviour
     [Header("UI References (Optional)")]
     [Tooltip("Leave empty to auto-generate a slider")]
     [SerializeField] private Slider pullProgressSlider;
+    [SerializeField] GameObject drop;
 
     private XRSimpleInteractable xRSimpleInteractable;
     private float initialDistance = 0;
@@ -37,6 +38,10 @@ public class floorGrabbable : MonoBehaviour
         xRSimpleInteractable = this.gameObject.GetComponent<XRSimpleInteractable>();
         item = this.GetComponent<WorldItem>().itemData;
         cameraTransform = Camera.main.transform;
+        if(drop == null)
+        {
+            drop = gameObject;
+        }
 
         // 1. Auto-Generate Slider if missing
         if (pullProgressSlider == null)
@@ -165,7 +170,7 @@ public class floorGrabbable : MonoBehaviour
         Inventory inventory = FindFirstObjectByType<Inventory>();
         if (inventory != null)
         {
-            inventory.AddItem(gameObject, item.description, item.itemID, item.type, item.icon);
+            inventory.AddItem(drop, item.description, item.itemID, item.type, item.icon);
         }
         Destroy(this.gameObject);
     }
