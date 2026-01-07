@@ -321,7 +321,17 @@ public class BuildingManager : MonoBehaviour
         {
             foreach (MeshRenderer meshRenderer in modelParent.GetComponentsInChildren<MeshRenderer>())
             {
-                meshRenderer.material = ghostMaterial;
+                // 1. GET the copy
+                Material[] mats = meshRenderer.materials;
+
+                // 2. MODIFY the copy
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    mats[i] = ghostMaterial;
+                }
+
+                // 3. SET the copy back to the renderer
+                meshRenderer.materials = mats;
             }
         }
         else

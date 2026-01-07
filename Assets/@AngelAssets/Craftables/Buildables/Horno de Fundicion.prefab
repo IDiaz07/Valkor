@@ -488,7 +488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afbe579b1a25c7248a3b28c5ccea25bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  craftable: {fileID: 8692547180130513206, guid: a12dace8fb6c49c4b90b817e84be63da, type: 3}
+  craftable: {fileID: 2281417089594394163, guid: d767add101820da46bff6f3a3f068ac7, type: 3}
   amountCrafted: 1
   requirements: []
 --- !u!114 &-9153456608560759303
