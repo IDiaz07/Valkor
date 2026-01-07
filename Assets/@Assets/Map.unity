@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &3148152 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1912418223925813693, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+  m_PrefabInstance: {fileID: 411160149}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9468432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2271,6 +2276,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2065815608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &377579818 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5085528487046991361, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+  m_PrefabInstance: {fileID: 411160149}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &411160149
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2303,6 +2313,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.8823874
       objectReference: {fileID: 0}
+    - target: {fileID: 114469282225628020, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: Espada
+      value: 
+      objectReference: {fileID: 3148152}
+    - target: {fileID: 114469282225628020, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: CiclopeBackPoint
+      value: 
+      objectReference: {fileID: 377579818}
+    - target: {fileID: 114469282225628020, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: CiclopeHandPoint
+      value: 
+      objectReference: {fileID: 691813548}
     - target: {fileID: 552442452125462141, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 26.63208
@@ -2962,10 +2984,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 223759142100612432, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 735011743}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
 --- !u!1 &463836658
 GameObject:
@@ -4649,6 +4668,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 671706323}
   m_CullTransparentMesh: 1
+--- !u!4 &691813548 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9175565638555967398, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+  m_PrefabInstance: {fileID: 411160149}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &708783250 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6678509202150728127, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
@@ -4902,26 +4926,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 723063692}
   m_CullTransparentMesh: 1
---- !u!1 &735011733 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 223759142100612432, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
-  m_PrefabInstance: {fileID: 411160149}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &735011743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 735011733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f601e51cb61e8a844a05c43b5c480a40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sword: {fileID: 0}
-  handBone: mixamorig:RightHand
-  backBone: mixamorig:Spine2
 --- !u!1 &765102842
 GameObject:
   m_ObjectHideFlags: 0
