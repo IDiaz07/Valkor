@@ -1167,6 +1167,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
   m_PrefabInstance: {fileID: 523357996}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &304437762
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2000849826136874493, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: m_Height
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000849826136874493, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: m_Radius
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000849826136874493, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3164079802140268544, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: m_Name
+      value: CiclopeBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 7966174923047380162, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1152.3671
+      objectReference: {fileID: 0}
+    - target: {fileID: 7966174923047380162, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 47.975674
+      objectReference: {fileID: 0}
+    - target: {fileID: 7966174923047380162, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 424.63043
+      objectReference: {fileID: 0}
+    - target: {fileID: 7966174923047380162, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7966174923047380162, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7966174923047380162, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7966174923047380162, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7966174923047380162, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7966174923047380162, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7966174923047380162, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7b5c6644fa48a244bb09310ca7a0f29d, type: 3}
 --- !u!1 &360235184
 GameObject:
   m_ObjectHideFlags: 0
@@ -5555,6 +5624,8 @@ MonoBehaviour:
   - {fileID: 1866825493}
   respawnDelay: 2
   spawnHeight: 5.08
+  assignWaypoints: 1
+  patrolWaypoints: []
 --- !u!4 &2001319676
 Transform:
   m_ObjectHideFlags: 0
@@ -5600,3 +5671,4 @@ SceneRoots:
   - {fileID: 714191911}
   - {fileID: 102006158}
   - {fileID: 2001319676}
+  - {fileID: 304437762}
