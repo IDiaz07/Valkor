@@ -1,66 +1,45 @@
 ﻿using UnityEngine;
-using UnityEngine.AI;
 
 public class CiclopeWeaponHandler : MonoBehaviour
 {
 
-    public GameObject sword;
+    public GameObject Espada;
+    public Transform CiclopeHandPoint;
+    public Transform CiclopeBackPoint;
 
-    // English bone names
-    public string handBone = "mixamorig:RightHand";
-    public string backBone = "mixamorig:Spine2";
-
-    private Transform handTransform;
-    private Transform backTransform;
-
-    void Start()
+    public void GrabSword()
     {
 
-        // Find bones in hierarchy
-        foreach (Transform t in GetComponentsInChildren<Transform>())
-        {
-
-            if (t.name == handBone)
-                handTransform = t;
-
-            if (t.name == backBone)
-                backTransform = t;
-        }
-
-        // Start with sword on back
-        if (sword != null && backTransform != null)
-        {
-
-            sword.transform.SetParent(backTransform);
-            sword.transform.localPosition = Vector3.zero;
-            sword.transform.localRotation = Quaternion.identity;
-        }
-    }
-
-    // 🎯 THIS EVENT MUST BE IN TAKE SWORD 1
-    public void OnTakeSword1Started()
-    {
-
-        if (sword == null || handTransform == null)
+        if (Espada == null ||
+            CiclopeHandPoint == null)
             return;
 
-        // Move sword from back to hand
-        sword.transform.SetParent(handTransform);
-        sword.transform.localPosition = Vector3.zero;
-        sword.transform.localRotation = Quaternion.identity;
+        Espada.transform.SetParent(
+            CiclopeHandPoint
+        );
 
-        Debug.Log("Sword moved to hand in Take Sword 1");
+        Espada.transform.localPosition =
+            Vector3.zero;
+
+        Espada.transform.localRotation =
+            Quaternion.identity;
     }
 
-    // optional reset
-    public void PutSwordOnBack()
+    public void PutOnBack()
     {
 
-        if (sword == null || backTransform == null)
+        if (Espada == null ||
+            CiclopeBackPoint == null)
             return;
 
-        sword.transform.SetParent(backTransform);
-        sword.transform.localPosition = Vector3.zero;
-        sword.transform.localRotation = Quaternion.identity;
+        Espada.transform.SetParent(
+            CiclopeBackPoint
+        );
+
+        Espada.transform.localPosition =
+            Vector3.zero;
+
+        Espada.transform.localRotation =
+            Quaternion.identity;
     }
 }
