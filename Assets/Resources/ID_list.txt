@@ -7,3 +7,7 @@
 6;Lanza de Piedra
 7;Espada de Piedra
 8;Pico de Piedra
+9;Metal en bruto
+10;Carne Cruda
+11;Horno
+12;Horno de fundición

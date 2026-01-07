@@ -33,6 +33,8 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private Vector3 dropOffset = Vector3.zero;
     [SerializeField] private bool inheritRotation = false;
 
+    public float DamagePerHit { get => damagePerHit; }
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -69,7 +71,7 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    private void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         Debug.Log($"Vida restante: {currentHealth}/{maxHealth}");

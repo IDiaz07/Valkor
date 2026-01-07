@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8716793903870068873
+--- !u!1 &7858465526291374213
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7671895679305800261}
-  - component: {fileID: 3471368785595050609}
-  - component: {fileID: 3843939888362933576}
-  - component: {fileID: 690512894032053424}
+  - component: {fileID: 5967178239554195036}
+  - component: {fileID: 5333243190622828961}
+  - component: {fileID: 8818003781340939713}
+  - component: {fileID: 8597720703653910295}
+  - component: {fileID: 5982807481856656849}
   m_Layer: 0
   m_Name: Carne
   m_TagString: Untagged
@@ -19,29 +20,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7671895679305800261
+--- !u!4 &5967178239554195036
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8716793903870068873}
+  m_GameObject: {fileID: 7858465526291374213}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.6565056, y: 1.0541399, z: 16.721903}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4668033964903775258}
+  - {fileID: 5754442924679784802}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &3471368785595050609
+--- !u!54 &5333243190622828961
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8716793903870068873}
+  m_GameObject: {fileID: 7858465526291374213}
   serializedVersion: 4
   m_Mass: 0.2
   m_Drag: 0
@@ -62,13 +63,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3843939888362933576
+--- !u!114 &8818003781340939713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8716793903870068873}
+  m_GameObject: {fileID: 7858465526291374213}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
@@ -184,13 +185,13 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 1
---- !u!114 &690512894032053424
+--- !u!114 &8597720703653910295
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8716793903870068873}
+  m_GameObject: {fileID: 7858465526291374213}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e850a10628a1e447be70c1e660ca911, type: 3}
@@ -201,15 +202,36 @@ MonoBehaviour:
     itemID: 10
     type: Material
     icon: {fileID: 21300000, guid: 64a629cf9df5adf45ae61ed10a43b722, type: 3}
-    worldPrefab: {fileID: 8716793903870068873}
+    worldPrefab: {fileID: 7858465526291374213}
     prefabName: Carne
---- !u!1001 &5134817526998457329
+--- !u!65 &5982807481856656849
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7858465526291374213}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 0.01, z: 0.1}
+  m_Center: {x: -0.02, y: 0.03, z: 0}
+--- !u!1001 &5211045369465605769
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7671895679305800261}
+    m_TransformParent: {fileID: 5967178239554195036}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 96cc5f33384bab9409f18b1c1fa902b9, type: 3}
       propertyPath: m_LocalScale.x
@@ -267,6 +289,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 96cc5f33384bab9409f18b1c1fa902b9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 96cc5f33384bab9409f18b1c1fa902b9, type: 3}
       propertyPath: m_Name
       value: base_basic_shaded
@@ -277,25 +303,20 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 96cc5f33384bab9409f18b1c1fa902b9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3515328644673133967}
+      addedObject: {fileID: 6046238894750791939}
   m_SourcePrefab: {fileID: 100100000, guid: 96cc5f33384bab9409f18b1c1fa902b9, type: 3}
---- !u!4 &4668033964903775258 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 96cc5f33384bab9409f18b1c1fa902b9, type: 3}
-  m_PrefabInstance: {fileID: 5134817526998457329}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5441439633394919072 stripped
+--- !u!1 &4940505925556122584 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 96cc5f33384bab9409f18b1c1fa902b9, type: 3}
-  m_PrefabInstance: {fileID: 5134817526998457329}
+  m_PrefabInstance: {fileID: 5211045369465605769}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &3515328644673133967
+--- !u!64 &6046238894750791939
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5441439633394919072}
+  m_GameObject: {fileID: 4940505925556122584}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -311,3 +332,8 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5668984478841134232, guid: 96cc5f33384bab9409f18b1c1fa902b9, type: 3}
+--- !u!4 &5754442924679784802 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 96cc5f33384bab9409f18b1c1fa902b9, type: 3}
+  m_PrefabInstance: {fileID: 5211045369465605769}
+  m_PrefabAsset: {fileID: 0}

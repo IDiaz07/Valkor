@@ -301,14 +301,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   waitTimeAtPoint: 2
   patrolSpeed: 3
   visionSensor: {fileID: 6440400598807757046}
@@ -355,8 +347,8 @@ MonoBehaviour:
   maxHealth: 25
   damagePerHit: 7
   deathAnimationName: Death
-  deathDropPrefab: {fileID: 0}
-  dropOffset: {x: 0, y: 0, z: 0}
+  deathDropPrefab: {fileID: 7858465526291374213, guid: 6071d26e6fc0fcf40aef58520cd79fe7, type: 3}
+  dropOffset: {x: 0, y: 3, z: 0}
   inheritRotation: 0
 --- !u!136 &6940664335480843388
 CapsuleCollider:

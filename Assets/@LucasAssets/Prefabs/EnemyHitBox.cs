@@ -20,8 +20,14 @@ public class EnemyHitbox : MonoBehaviour
         {
             playerLife.TakeDamage(damage);
             hasHit = true;
+            Invoke(nameof(SetHasHitToFalse), 0.25f);
 
             Debug.Log("<color=orange>Hitbox enemigo golpeó al jugador</color>");
         }
+    }
+
+    public void SetHasHitToFalse()
+    {
+        hasHit = false;
     }
 }

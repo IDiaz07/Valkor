@@ -53,6 +53,8 @@ public class PatrolController : MonoBehaviour
     private float timeInCurrentState = 0f;  // Contador de tiempo en el estado actual
     private float nextHitTime = 0f;     //Momento del próximo golpe
     private float timeSinceEnteredFighting = 0f;
+    private EnemyHealth enemyHealth;
+    private bool canTakeDamage;
 
 
     void Start()
@@ -60,6 +62,7 @@ public class PatrolController : MonoBehaviour
         // Obtener componentes
         agent = this.gameObject.GetComponent<NavMeshAgent>();
         animator = this.gameObject.GetComponent<Animator>();
+        enemyHealth = this.gameObject.GetComponent<EnemyHealth>();
 
         // Configuración inicial del NavMeshAgent
         agent.speed = patrolSpeed;
@@ -540,6 +543,10 @@ public class PatrolController : MonoBehaviour
     {
         // Activar animación de golpeado
         animator.SetTrigger("beenHitted");
+        if (canTakeDamage == true)
+        enemyHealth.TakeDamage(enemyHealth.DamagePerHit);
+        canTakeDamage = false;
+        Invoke(nameof(SetCanTakeDamageToTrue), 0.2f);
 
         // Activar estado de stun
         isStunned = true;
@@ -553,6 +560,11 @@ public class PatrolController : MonoBehaviour
         }
 
         Debug.Log($"<color=orange>Enemigo recibió golpe. Stunned por {hitStunDuration}s</color>");
+    }
+
+    private void SetCanTakeDamageToTrue()
+    {
+        canTakeDamage = true;
     }
 
     public void SetPatrolPoints(Transform[] newWaypoints)
