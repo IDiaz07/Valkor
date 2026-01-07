@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/@AngelAssets/Final Scene.unity
+    guid: 513c9d88c7491174b9c5ae5dc8502346
+  - enabled: 1
     path: Assets/@AngelAssets/MenuPrincipal.unity
     guid: e0a1a86d2963a024d85452cdd787dadf
   - enabled: 1

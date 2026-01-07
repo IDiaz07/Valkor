@@ -48,6 +48,18 @@ public class CharacterLife : MonoBehaviour
             Debug.Log($"Daño de rana recivido. Vida actual ={actualHealth}");
         }
     }
+    public void TakeDamage(float damage)
+    {
+        actualHealth -= damage;
+        actualHealth = Mathf.Clamp(actualHealth, 0, maxHealth);
+
+        Debug.Log($"<color=red>Jugador recibió {damage} de daño. Vida actual: {actualHealth}</color>");
+
+        if (actualHealth <= 0)
+        {
+            Die();
+        }
+    }
 
     private void Die()
     {
