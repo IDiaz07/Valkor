@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4162754344073111443}
   - component: {fileID: 3973667257341766019}
   - component: {fileID: 2581817647855523309}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: DamageCollider
   m_TagString: DamageCollider
   m_Icon: {fileID: 0}
@@ -146,6 +146,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c7ee0e007e992bd4ebe32f2738bd3746, type: 3}
       propertyPath: m_Name
       value: Espada de Piedra
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c7ee0e007e992bd4ebe32f2738bd3746, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

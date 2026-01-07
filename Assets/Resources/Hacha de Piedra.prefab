@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9144439913844059142}
   - component: {fileID: 1549142473819650459}
   - component: {fileID: 199759953385982759}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: DamageCollider
   m_TagString: DamageCollider
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6344512006593307440}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttachPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,6 +170,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 15b35a0cc93bd3e46984f7738d3570fa, type: 3}
       propertyPath: m_Name
       value: Hacha de Piedra
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 15b35a0cc93bd3e46984f7738d3570fa, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
