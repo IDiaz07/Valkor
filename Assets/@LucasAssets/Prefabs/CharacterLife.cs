@@ -64,5 +64,6 @@ public class CharacterLife : MonoBehaviour
     private void Die()
     {
         Debug.Log("MORISTE DEJA DE JUGAR");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScene");
     }
 }
