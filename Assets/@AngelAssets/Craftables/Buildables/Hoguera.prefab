@@ -133,7 +133,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   craftable: {fileID: 632285527429816752, guid: 64959959d6714134ca79a579e08cbe54, type: 3}
-  requirements: []
+  amountCrafted: 1
+  requirements:
+  - requirement: {fileID: 1350307105891777757, guid: 0851596bc438cd44d9fde2743df2b6d9, type: 3}
+    amount: 0
+    itemID: 0
 --- !u!114 &3925734187779122757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +156,7 @@ MonoBehaviour:
     type: placeableObject
     icon: {fileID: 21300000, guid: f26fa8880b3aeef4b8516c82dc12f2a5, type: 3}
     worldPrefab: {fileID: 632285527429816752, guid: 64959959d6714134ca79a579e08cbe54, type: 3}
+    prefabName: 
 --- !u!1 &3403564502039240490
 GameObject:
   m_ObjectHideFlags: 0

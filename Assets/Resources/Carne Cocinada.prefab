@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8716793903870068873
+--- !u!1 &1723559799866097489
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7671895679305800261}
-  - component: {fileID: 1493730102418716419}
-  - component: {fileID: 1114702662775660677}
-  - component: {fileID: 4747206254210967179}
-  - component: {fileID: 5206683266039554329}
+  - component: {fileID: 7227720233429225636}
+  - component: {fileID: 6075888419771107967}
+  - component: {fileID: 2282667793450840034}
+  - component: {fileID: 4860707630183581685}
+  - component: {fileID: 6094160600572418056}
   m_Layer: 0
   m_Name: Carne Cocinada
   m_TagString: Untagged
@@ -20,29 +20,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7671895679305800261
+--- !u!4 &7227720233429225636
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8716793903870068873}
+  m_GameObject: {fileID: 1723559799866097489}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.725532, y: 0.00000023841858, z: -3.3459086}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4668033964903775258}
+  - {fileID: 3542851396622515385}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &1493730102418716419
+--- !u!54 &6075888419771107967
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8716793903870068873}
+  m_GameObject: {fileID: 1723559799866097489}
   serializedVersion: 4
   m_Mass: 0.2
   m_Drag: 0
@@ -63,13 +63,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1114702662775660677
+--- !u!114 &2282667793450840034
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8716793903870068873}
+  m_GameObject: {fileID: 1723559799866097489}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
@@ -185,13 +185,13 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 1
---- !u!114 &4747206254210967179
+--- !u!114 &4860707630183581685
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8716793903870068873}
+  m_GameObject: {fileID: 1723559799866097489}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e850a10628a1e447be70c1e660ca911, type: 3}
@@ -202,15 +202,15 @@ MonoBehaviour:
     itemID: 14
     type: Comida
     icon: {fileID: 21300000, guid: 64a629cf9df5adf45ae61ed10a43b722, type: 3}
-    worldPrefab: {fileID: 8716793903870068873}
+    worldPrefab: {fileID: 1723559799866097489}
     prefabName: Carne Cocinada
---- !u!65 &5206683266039554329
+--- !u!65 &6094160600572418056
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8716793903870068873}
+  m_GameObject: {fileID: 1723559799866097489}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -225,13 +225,13 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.04422783, y: 0.019955534, z: 0.13739535}
   m_Center: {x: -0.027886081, y: 0.018341878, z: 0.018697657}
---- !u!1001 &5134817526998457329
+--- !u!1001 &3936152596046355282
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7671895679305800261}
+    m_TransformParent: {fileID: 7227720233429225636}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 96cc5f33384bab9409f18b1c1fa902b9, type: 3}
       propertyPath: m_LocalScale.x
@@ -303,25 +303,25 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 96cc5f33384bab9409f18b1c1fa902b9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3515328644673133967}
+      addedObject: {fileID: 6212499339219490645}
   m_SourcePrefab: {fileID: 100100000, guid: 96cc5f33384bab9409f18b1c1fa902b9, type: 3}
---- !u!4 &4668033964903775258 stripped
+--- !u!4 &3542851396622515385 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 96cc5f33384bab9409f18b1c1fa902b9, type: 3}
-  m_PrefabInstance: {fileID: 5134817526998457329}
+  m_PrefabInstance: {fileID: 3936152596046355282}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5441439633394919072 stripped
+--- !u!1 &4206762547214165507 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 96cc5f33384bab9409f18b1c1fa902b9, type: 3}
-  m_PrefabInstance: {fileID: 5134817526998457329}
+  m_PrefabInstance: {fileID: 3936152596046355282}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &3515328644673133967
+--- !u!64 &6212499339219490645
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5441439633394919072}
+  m_GameObject: {fileID: 4206762547214165507}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
