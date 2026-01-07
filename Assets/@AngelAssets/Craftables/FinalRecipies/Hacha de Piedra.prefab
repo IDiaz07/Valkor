@@ -125,3 +125,6 @@ MonoBehaviour:
   - requirement: {fileID: 2333689050944101757, guid: 47269fa36e1daf147b0717b72d76012c, type: 3}
     amount: 2
     itemID: 1
+  - requirement: {fileID: 4196123770489565581, guid: ab8f63b95fc18714282409e1b270ac17, type: 3}
+    amount: 1
+    itemID: 13

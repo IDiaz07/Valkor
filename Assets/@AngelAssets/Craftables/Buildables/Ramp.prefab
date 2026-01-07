@@ -719,7 +719,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   craftable: {fileID: 8459090752340650080, guid: f97f857083ab2ab48965eacad3813e83, type: 3}
   amountCrafted: 1
-  requirements: []
+  requirements:
+  - requirement: {fileID: 1350307105891777757, guid: 0851596bc438cd44d9fde2743df2b6d9, type: 3}
+    amount: 0
+    itemID: 0
 --- !u!114 &-9172379756464676597
 MonoBehaviour:
   m_ObjectHideFlags: 0
