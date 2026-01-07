@@ -1,20 +1,7 @@
-using sc.terrain.proceduralpainter;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.ConstrainedExecution;
-using Unity.Android.Gradle;
-using Unity.Android.Gradle.Manifest;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Rendering.VirtualTexturing;
-using UnityEngine.UIElements;
-using static UnityEditor.Experimental.GraphView.GraphView;
-using static UnityEditor.PlayerSettings;
-using static UnityEditorInternal.ReorderableList;
-using static UnityEngine.InputSystem.Controls.AxisControl;
+using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyHealth : MonoBehaviour
 {
