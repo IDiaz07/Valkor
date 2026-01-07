@@ -47,6 +47,8 @@ public class PagesController : MonoBehaviour
 
     private void Awake()
     {
+        if (playerInventory == null)
+            playerInventory = FindFirstObjectByType<Inventory>();
         page1Image = page1.transform.GetChild(0).GetComponent<Image>();
         page1Title = page1.transform.GetChild(1).GetComponent<TMP_Text>();
         page1Description = page1.transform.GetChild(2).GetComponent<TMP_Text>();
