@@ -119,13 +119,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445498204128103529}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.92, z: 0.22}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.028097149, y: 7.384352e-11, z: 4.0305693e-12, w: 0.99960524}
+  m_LocalPosition: {x: 0.000030412359, y: -0.00056099147, z: 0.0021741842}
+  m_LocalScale: {x: 0.0033333336, y: 0.0033333332, z: 0.0033333332}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1422605926736177239}
-  m_Father: {fileID: 7966174923047380162}
+  m_Father: {fileID: 5085528487046991361}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3164079802140268544
 GameObject:
@@ -157,7 +157,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 599299178867683306}
-  - {fileID: 1739006045303441890}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5354219479792933963
@@ -188,7 +187,8 @@ Transform:
   m_LocalPosition: {x: -0.000029999997, y: 0.0042422265, z: -0.0011600001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1739006045303441890}
   m_Father: {fileID: 4641390932121582829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8787007307601104116
@@ -516,9 +516,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f601e51cb61e8a844a05c43b5c480a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sword: {fileID: 1912418223925813693}
-  handBone: mixamorig:RightHand
-  backBone: mixamorig:Spine2
+  Espada: {fileID: 0}
+  CiclopeHandPoint: {fileID: 0}
+  CiclopeBackPoint: {fileID: 0}
 --- !u!4 &599299178867683306 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 30faf06e3f051d948a1855192e2de470, type: 3}
@@ -613,10 +613,5 @@ PrefabInstance:
 --- !u!4 &1422605926736177239 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5961294257270138787, guid: 5a4e384abe4487a4690e8bea215db596, type: 3}
-  m_PrefabInstance: {fileID: 4685108138478669812}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1912418223925813693 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6597385573374422601, guid: 5a4e384abe4487a4690e8bea215db596, type: 3}
   m_PrefabInstance: {fileID: 4685108138478669812}
   m_PrefabAsset: {fileID: 0}
