@@ -1,4 +1,5 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator))]
 public class CiclopeMovement : MonoBehaviour
@@ -10,9 +11,15 @@ public class CiclopeMovement : MonoBehaviour
     private Animator animator;
     private bool canMove = true;
 
+    // direction received from Input System (VR sticks)
+    private Vector2 moveInput = Vector2.zero;
+
     void Start()
     {
+
         animator = GetComponent<Animator>();
+
+        // Root motion must stay disabled
         animator.applyRootMotion = false;
     }
 
@@ -21,15 +28,17 @@ public class CiclopeMovement : MonoBehaviour
 
         if (!canMove) return;
 
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-
         Vector3 direction =
-            new Vector3(h, 0, v);
+            new Vector3(
+                moveInput.x,
+                0,
+                moveInput.y
+            );
 
         bool isMoving =
             direction.magnitude > 0.1f;
 
+        // Animation parameter in English
         animator.SetBool(
             "isWalking",
             isMoving
@@ -40,6 +49,7 @@ public class CiclopeMovement : MonoBehaviour
 
             direction.Normalize();
 
+            // Real movement controlled by script
             transform.position +=
                 direction * speed *
                 Time.deltaTime;
@@ -57,6 +67,14 @@ public class CiclopeMovement : MonoBehaviour
                     Time.deltaTime
                 );
         }
+    }
+
+    // 🎯 INPUT SYSTEM CALLBACK — this replaces GetAxis
+    public void OnMove(InputValue value)
+    {
+
+        moveInput =
+            value.Get<Vector2>();
     }
 
     public void SetMovement(bool enable)
