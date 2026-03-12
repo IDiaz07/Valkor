@@ -15,8 +15,10 @@ public class GameManager : NetworkBehaviour
             NetworkManager.Singleton.OnClientConnectedCallback += (clientId) =>
             {
                 Debug.Log("Connected: " + clientId);
+                Camera.main.gameObject.SetActive(false);
                 GameObject spawnedObject = Instantiate(spawnable1);
                 spawnedObject.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
+                spawnedObject.transform.position = new Vector3(290, 60, 290);
 
             };
             NetworkManager.Singleton.OnClientDisconnectCallback += (clientId) =>
@@ -29,8 +31,9 @@ public class GameManager : NetworkBehaviour
             NetworkManager.Singleton.OnClientConnectedCallback += (clientId) =>
             {
                 Debug.Log("Connected: " + clientId);
-                GameObject spawnedObject = Instantiate(spawnable2);
-                spawnedObject.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
+
+             
+
 
             };
             NetworkManager.Singleton.OnClientDisconnectCallback += (clientId) =>

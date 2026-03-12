@@ -962,7 +962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  spawnable1: {fileID: 2374889860007979000, guid: 99845323190fb0c4cbfff1e7c33b20ce, type: 3}
+  spawnable1: {fileID: 2190585178648008687, guid: 2849f78ebe395484eaff14c8e170a626, type: 3}
   spawnable2: {fileID: 2374889860007979000, guid: 75f8543b69a9e13409d30a7af1fba4f3, type: 3}
 --- !u!4 &1609145492
 Transform:
