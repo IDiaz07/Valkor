@@ -1,5 +1,8 @@
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class MultiplayerPlayerSetup : NetworkBehaviour
 {
@@ -25,6 +28,19 @@ public class MultiplayerPlayerSetup : NetworkBehaviour
             // This is ANOTHER player..
             playerCamera.enabled = false;
             playerListener.enabled = false;
+            // 1. Find and disable all TrackedPoseDrivers (Head and Hands tracking)
+            TrackedPoseDriver[] poseDrivers = GetComponentsInChildren<TrackedPoseDriver>();
+            foreach (var driver in poseDrivers)
+            {
+                driver.enabled = false;
+            }
+
+            // 2. Find and disable all XR Controllers (Interaction tracking for Hands)
+            XRInteractionGroup[] xrControllers = GetComponentsInChildren<XRInteractionGroup>();
+            foreach (var controller in xrControllers)
+            {
+                controller.enabled = false;
+            }
         }
     }
 }
