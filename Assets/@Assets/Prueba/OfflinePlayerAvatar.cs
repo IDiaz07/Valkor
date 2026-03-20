@@ -4,21 +4,39 @@ using Unity.Netcode;
 
 public class SimplePlayerAvatar : NetworkBehaviour 
 {
+    [Header("Configuración de Red")]
     [SerializeField] Transform m_HeadTransform; 
-    [SerializeField] GameObject m_VisualsDeLaCabeza; // Arrastra aquí el objeto que tiene el Mesh/Modelo
-    
+
+    [Header("Modelos de Cabeza")]
+    [SerializeField] GameObject m_ModeloHost;    // The Boss
+    [SerializeField] GameObject m_ModeloCliente; // Claire
+
     private Transform m_HeadOrigin;
+    private GameObject m_MiCabezaVisual;
 
     public override void OnNetworkSpawn()
     {
+        // 1. DETERMINAR EL MODELO SEGÚN EL ID
+        // El Host siempre tiene el OwnerClientId = 0
+        if (OwnerClientId == 0) 
+        {
+            m_ModeloHost.SetActive(true);
+            m_ModeloCliente.SetActive(false);
+            m_MiCabezaVisual = m_ModeloHost;
+        }
+        else // Cualquier otro cliente (ID 1, 2, 3...) será Claire
+        {
+            m_ModeloHost.SetActive(false);
+            m_ModeloCliente.SetActive(true);
+            m_MiCabezaVisual = m_ModeloCliente;
+        }
+
+        // 2. VISIBILIDAD LOCAL (Si soy YO, no veo mi cabeza)
         if (IsOwner) 
         {
             BuscarCamara();
-            // TRUCO MAESTRO: Si soy el dueño, apago mis visuales para no ver mi cara por dentro
-            // Pero como soy el DUEÑO local, esto solo ocurre en MI pantalla.
-            // Los demás verán mi cabeza porque en SUS pantallas IsOwner será falso para mi avatar.
-            if(m_VisualsDeLaCabeza != null) 
-                m_VisualsDeLaCabeza.SetActive(false); 
+            if(m_MiCabezaVisual != null) 
+                m_MiCabezaVisual.SetActive(false); 
         }
     }
 
