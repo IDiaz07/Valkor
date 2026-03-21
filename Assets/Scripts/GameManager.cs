@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : NetworkBehaviour
 {
     public GameObject spawnable1;
+    [SerializeField] private Vector3 playerSpawnPosition;
 
     NetworkVariable<int> playersInGame = new NetworkVariable<int> (0);
     public override void OnNetworkSpawn()
@@ -18,7 +19,7 @@ public class GameManager : NetworkBehaviour
     private void HandleClientConnected(ulong clientId)
     {
         // Instantiate on the server
-        GameObject spawnedObject = Instantiate(spawnable1, new Vector3(290, 60, 290), Quaternion.identity);
+        GameObject spawnedObject = Instantiate(spawnable1, playerSpawnPosition , Quaternion.identity);
 
         // Spawn it across the network and assign ownership to the connected client
         spawnedObject.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);

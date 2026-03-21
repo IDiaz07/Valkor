@@ -809,11 +809,6 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   playerCamera: {fileID: 373358370404126547}
   playerListener: {fileID: 1005022326245205246}
-  localInputComponents:
-  - {fileID: 1086630204649959883}
-  - {fileID: 8119315570816401610}
-  - {fileID: 2380139698460465990}
-  - {fileID: 2380139698460465990}
 --- !u!1 &2624454667625132565
 GameObject:
   m_ObjectHideFlags: 0
