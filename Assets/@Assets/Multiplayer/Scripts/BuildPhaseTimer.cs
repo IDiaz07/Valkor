@@ -1,86 +1,100 @@
-using Unity.Netcode;
+﻿using Unity.Netcode;
 using UnityEngine;
 using TMPro;
 using System.Collections;
 
 public class BuildPhaseTimer : NetworkBehaviour
 {
+    [Header("UI")]
     public TextMeshProUGUI buildMessageTMP;
     public TextMeshProUGUI timerTMP;
 
-    public int buildTime = 30;
+    [Header("Settings")]
+    public float buildTime = 30f;
 
-    private NetworkVariable<int> timeLeft = new NetworkVariable<int>();
-    private float timer;
-    private bool started = false;
+    private NetworkVariable<float> timeLeft = new NetworkVariable<float>(0f);
 
-    void Start()
-    {
-        buildMessageTMP.gameObject.SetActive(false);
-        timerTMP.gameObject.SetActive(false);
-    }
+    private bool phaseEnded = false;
 
     public override void OnNetworkSpawn()
     {
-        timeLeft.OnValueChanged += OnTimerChanged;
+        timeLeft.OnValueChanged += OnTimeChanged;
 
         if (IsServer)
         {
-            NetworkManager.Singleton.OnClientConnectedCallback += OnPlayerConnected;
+            StartCoroutine(WaitForPlayers());
         }
     }
 
-    void OnPlayerConnected(ulong clientId)
+    IEnumerator WaitForPlayers()
     {
-        if (!IsServer) return;
-
-        if (NetworkManager.Singleton.ConnectedClientsList.Count >= 2 && !started)
+        while (NetworkManager.Singleton.ConnectedClientsList.Count < 2)
         {
-            started = true;
-            StartCoroutine(StartBuildPhase());
+            yield return null;
         }
+
+        StartCoroutine(StartBuildPhase());
     }
 
     IEnumerator StartBuildPhase()
     {
-        ShowMessageClientRpc();
+        ShowBuildMessageClientRpc();
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(3f);
 
         timeLeft.Value = buildTime;
-        StartTimerClientRpc();
-    }
 
-    void Update()
-    {
-        if (!IsServer) return;
-        if (timeLeft.Value <= 0) return;
-
-        timer += Time.deltaTime;
-
-        if (timer >= 1f)
+        while (timeLeft.Value > 0)
         {
-            timer = 0f;
-            timeLeft.Value--;
+            yield return new WaitForSeconds(1f);
+            timeLeft.Value -= 1f;
         }
+
+        phaseEnded = true;
+        EndBuildPhaseClientRpc();
     }
 
-    void OnTimerChanged(int oldValue, int newValue)
+    void OnTimeChanged(float oldValue, float newValue)
     {
-        timerTMP.text = newValue.ToString();
+        if (phaseEnded) return;
+
+        timerTMP.text = Mathf.CeilToInt(newValue).ToString();
     }
 
-    [ClientRpc]
-    void ShowMessageClientRpc()
+    [Rpc(SendTo.Everyone)]
+    void ShowBuildMessageClientRpc()
+    {
+        StartCoroutine(ShowMessage());
+    }
+
+    IEnumerator ShowMessage()
     {
         buildMessageTMP.gameObject.SetActive(true);
-        buildMessageTMP.text = "Construye tu base";
-    }
+        timerTMP.gameObject.SetActive(false);
 
-    [ClientRpc]
-    void StartTimerClientRpc()
-    {
+        buildMessageTMP.text = "Construye tu base";
+
+        yield return new WaitForSeconds(3f);
+
         buildMessageTMP.gameObject.SetActive(false);
         timerTMP.gameObject.SetActive(true);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    void EndBuildPhaseClientRpc()
+    {
+        StartCoroutine(ShowFinalMessage());
+    }
+
+    IEnumerator ShowFinalMessage()
+    {
+        // Mostrar mensaje final
+        timerTMP.gameObject.SetActive(true);
+        timerTMP.text = "¡Atrapa la bandera!";
+
+        yield return new WaitForSeconds(3f);
+
+
+       
     }
 }
