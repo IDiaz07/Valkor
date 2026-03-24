@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion;
 
 public class MultiplayerPlayerSetup : NetworkBehaviour
 {
@@ -29,8 +30,6 @@ public class MultiplayerPlayerSetup : NetworkBehaviour
             // This is ANOTHER player..
             playerCamera.enabled = false;
             playerListener.enabled = false;
-            if (!IsOwner)
-            {
                 // 1. Disable Tracking
                 TrackedPoseDriver[] poseDrivers = GetComponentsInChildren<TrackedPoseDriver>();
                 foreach (var driver in poseDrivers)
@@ -52,9 +51,12 @@ public class MultiplayerPlayerSetup : NetworkBehaviour
                     interactor.enabled = false;
                 }
 
-                // 4. Disable global input listeners (Stops hand animations or custom scripts from firing)
-                PlayerInput playerInput = GetComponent<PlayerInput>();
-                if (playerInput != null) playerInput.enabled = false;
+                // 4. Disable the locomotion provider
+                var locomotionProviders = GetComponentsInChildren<LocomotionProvider>();
+                foreach (var provider in locomotionProviders)
+                {
+                    provider.enabled = false;
+                }
 
                 // 5. Disable hand animation scripts
                 HandAnimator[] handAnimators = GetComponentsInChildren<HandAnimator>();
@@ -62,7 +64,6 @@ public class MultiplayerPlayerSetup : NetworkBehaviour
                 {
                     handAnimator.enabled = false;
                 }
-            }
         }
     }
 }

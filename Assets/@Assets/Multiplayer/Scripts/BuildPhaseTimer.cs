@@ -92,7 +92,9 @@ public class BuildPhaseTimer : NetworkBehaviour
         timerTMP.gameObject.SetActive(true);
         timerTMP.text = "¡Atrapa la bandera!";
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
+
+        timerTMP.transform.root.gameObject.SetActive(false);
 
 
        
