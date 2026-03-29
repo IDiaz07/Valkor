@@ -8,6 +8,8 @@ TagManager:
   - Item
   - Boat
   - Buildables
+  - P1Flag
+  - P2Flag
   layers:
   - Default
   - TransparentFX
