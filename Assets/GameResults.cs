@@ -17,6 +17,7 @@ public class GameResults : MonoBehaviour
         else
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 }
