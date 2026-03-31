@@ -16,6 +16,6 @@ public class MatchEndHandler : NetworkBehaviour
         NetworkManager.Singleton.Shutdown();
 
         // 3. Load the offline scene natively
-        SceneManager.LoadScene("GameOverScene");
+        SceneManager.LoadScene("GameLost");
     }
 }

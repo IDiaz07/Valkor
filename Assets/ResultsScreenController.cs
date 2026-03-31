@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ResultsScreenController : MonoBehaviour
 {
@@ -24,5 +25,15 @@ public class ResultsScreenController : MonoBehaviour
         {
             textBox.text = "GAME OVER: ¡Has Perdido!";
         }
+    }
+    public void RestartGame()
+    {
+        results = FindAnyObjectByType<GameResults>();
+        Destroy(results);
+        SceneManager.LoadScene("Test");
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
