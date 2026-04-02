@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameManager : NetworkBehaviour
 {
     public GameObject spawnable1;
+    NetworkVariable<int> playersInGame = new NetworkVariable<int>(0);
 
-    NetworkVariable<int> playersInGame = new NetworkVariable<int> (0);
     public override void OnNetworkSpawn()
     {
         if (IsServer)
@@ -17,11 +17,24 @@ public class GameManager : NetworkBehaviour
 
     private void HandleClientConnected(ulong clientId)
     {
-        // Instantiate on the server
-        GameObject spawnedObject = Instantiate(spawnable1, new Vector3(290, 60, 290), Quaternion.identity);
+        StartCoroutine(SpawnPlayerDelayed(clientId));
+    }
 
-        // Spawn it across the network and assign ownership to the connected client
-        spawnedObject.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
+    private System.Collections.IEnumerator SpawnPlayerDelayed(ulong clientId)
+    {
+        yield return null; // espera 1 frame
+
+        GameObject instance = Instantiate(spawnable1, new Vector3(290, 60, 290), Quaternion.identity);
+
+        // Fuerza activación de todos los NetworkBehaviours antes del spawn
+        foreach (var nb in instance.GetComponentsInChildren<NetworkBehaviour>(true))
+        {
+            nb.enabled = true;
+            if (!nb.gameObject.activeSelf)
+                nb.gameObject.SetActive(true);
+        }
+
+        instance.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
     }
 
     public override void OnNetworkDespawn()
@@ -32,4 +45,3 @@ public class GameManager : NetworkBehaviour
         }
     }
 }
-
