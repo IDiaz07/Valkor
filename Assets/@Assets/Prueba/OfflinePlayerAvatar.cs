@@ -2,67 +2,42 @@ using UnityEngine;
 using Unity.XR.CoreUtils;
 using Unity.Netcode;
 
-public class SimplePlayerAvatar : NetworkBehaviour 
+public class NetworkAvatarSetup : NetworkBehaviour 
 {
-    [Header("Configuración de Red")]
-    [SerializeField] Transform m_HeadTransform; 
-
-    [Header("Modelos de Cabeza")]
-    [SerializeField] GameObject m_ModeloHost;    // The Boss
-    [SerializeField] GameObject m_ModeloCliente; // Claire
-
-    private Transform m_HeadOrigin;
-    private GameObject m_MiCabezaVisual;
+    [Header("Referencias")]
+    [SerializeField] Transform m_HuesoCabeza; // Arrastra mixamorig:Head
+    [SerializeField] IKTargetFollowVRRig m_IkScript; // El script de Valem
 
     public override void OnNetworkSpawn()
     {
-        // 1. DETERMINAR EL MODELO SEGÚN EL ID
-        // El Host siempre tiene el OwnerClientId = 0
-        if (OwnerClientId == 0) 
+        if (IsOwner)
         {
-            m_ModeloHost.SetActive(true);
-            m_ModeloCliente.SetActive(false);
-            m_MiCabezaVisual = m_ModeloHost;
-        }
-        else // Cualquier otro cliente (ID 1, 2, 3...) será Claire
-        {
-            m_ModeloHost.SetActive(false);
-            m_ModeloCliente.SetActive(true);
-            m_MiCabezaVisual = m_ModeloCliente;
-        }
+            // --- ESTE SOY YO (JUGADOR LOCAL) ---
+            
+            // 1. Encendemos el IK para que el cuerpo siga mis manos/cabeza
+            if (m_IkScript != null) m_IkScript.enabled = true;
 
-        // 2. VISIBILIDAD LOCAL (Si soy YO, no veo mi cabeza)
-        if (IsOwner) 
-        {
-            BuscarCamara();
-            if(m_MiCabezaVisual != null) 
-                m_MiCabezaVisual.SetActive(false); 
+            // 2. Colapsamos la cabeza para no ver el interior del modelo
+            if (m_HuesoCabeza != null) m_HuesoCabeza.localScale = Vector3.zero;
+
+            // 3. Ajustamos la cámara para ver bien los brazos
+            XROrigin rig = FindFirstObjectByType<XROrigin>();
+            if (rig != null && rig.Camera != null)
+            {
+                rig.Camera.nearClipPlane = 0.01f;
+            }
         }
-    }
-
-    void LateUpdate()
-    {
-        if (!IsOwner) return; 
-
-        if (m_HeadOrigin == null) 
+        else
         {
-            BuscarCamara();
-            return;
-        }
+            // --- ESTE ES OTRO JUGADOR (REMOTO) ---
 
-        if (m_HeadTransform != null)
-        {
-            m_HeadTransform.position = m_HeadOrigin.position;
-            m_HeadTransform.rotation = m_HeadOrigin.rotation;
-        }
-    }
+            // 1. APAGAMOS su IK. 
+            // Queremos que su cuerpo se mueva por el NetworkTransform,
+            // no que intente "escuchar" a mis mandos.
+            if (m_IkScript != null) m_IkScript.enabled = false;
 
-    void BuscarCamara()
-    {
-        XROrigin rig = FindFirstObjectByType<XROrigin>();
-        if (rig != null && rig.Camera != null)
-        {
-            m_HeadOrigin = rig.Camera.transform;
+            // 2. Nos aseguramos de ver su cabeza perfectamente
+            if (m_HuesoCabeza != null) m_HuesoCabeza.localScale = Vector3.one;
         }
     }
 }

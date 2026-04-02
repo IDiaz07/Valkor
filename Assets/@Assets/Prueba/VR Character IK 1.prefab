@@ -2368,10 +2368,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7671358501344756440}
   - component: {fileID: 4365693643788261538}
-  - component: {fileID: 7179305877380578656}
   - component: {fileID: 1206860797847218682}
   - component: {fileID: 3860316509099735288}
-  - component: {fileID: 2977765597751634843}
   - component: {fileID: 7982436860185757007}
   m_Layer: 0
   m_Name: VR Character IK 1
@@ -2420,31 +2418,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7179305877380578656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7007024073136117858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 77914279
-  InScenePlacedSourceGlobalObjectIdHash: 1783829551
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!114 &1206860797847218682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2541,20 +2514,6 @@ MonoBehaviour:
   - m_Rig: {fileID: 5353029846195440806}
     m_Active: 1
   m_Effectors: []
---- !u!114 &2977765597751634843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7007024073136117858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a94986567693c044b74bda809e87efa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  m_DistanciaRecorte: 0.1
 --- !u!114 &7982436860185757007
 MonoBehaviour:
   m_ObjectHideFlags: 0
