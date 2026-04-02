@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -47,8 +48,7 @@ public class BuildingManager : MonoBehaviour
 
     private void Awake()
     {
-        leftHand = FindAnyObjectByType<XROrigin>().transform.GetChild(0).GetChild(3);
-        rightHand = FindAnyObjectByType<XROrigin>().transform.GetChild(0).GetChild(5);
+
     }
 
     public Transform RaycastObject { get => raycastObject; set => raycastObject = value; }
@@ -59,6 +59,11 @@ public class BuildingManager : MonoBehaviour
 
         if (isBuilding && !isDestroying)
         {
+            if(leftHand == null || rightHand == null)
+            {
+                leftHand = Camera.main.transform.root.transform.GetChild(0).GetChild(3);
+                rightHand = Camera.main.transform.root.transform.GetChild(0).GetChild(5);
+            }
             GhostBuild();
 
             if (accept.action.WasPressedThisFrame())
@@ -377,6 +382,7 @@ public class BuildingManager : MonoBehaviour
             }
             isCurrentConnected = false;
             pagesController.RemoveResourcesForCurrentBuild();
+            newBuild.GetComponent<NetworkObject>().Spawn();
             AudioSource.PlayClipAtPoint(audioClip, newBuild.transform.position, 2f);
         }
     }

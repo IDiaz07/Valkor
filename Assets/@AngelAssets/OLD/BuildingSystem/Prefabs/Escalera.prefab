@@ -665,6 +665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9026044504696567488}
   - component: {fileID: 6768304607571040909}
+  - component: {fileID: -750034767903306255}
   m_Layer: 0
   m_Name: Escalera
   m_TagString: Buildables
@@ -703,6 +704,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildId: 2
   type: 1
+--- !u!114 &-750034767903306255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8459090752340650080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 0
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &9055591145556268694
 GameObject:
   m_ObjectHideFlags: 0

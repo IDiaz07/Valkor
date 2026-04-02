@@ -10,6 +10,7 @@ TagManager:
   - Buildables
   - P1Flag
   - P2Flag
+  - TemporalPlayer
   layers:
   - Default
   - TransparentFX

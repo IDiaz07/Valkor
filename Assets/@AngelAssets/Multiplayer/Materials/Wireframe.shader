@@ -3,25 +3,16 @@ Shader "Custom/URPWireframeTransparent"
     Properties
     {
         [HDR] _WireColor("Wire Color", Color) = (0, 1, 0, 1)
-        _WireThickness("Wire Thickness", Range(0, 1)) = 0.05
+        _WireThickness("Wire Thickness", Range(0, 0.5)) = 0.05
     }
 
     SubShader
     {
-        // 1. Change Tags for Transparency
-        Tags { 
-            "RenderType"="Transparent" 
-            "Queue"="Transparent" 
-            "RenderPipeline"="UniversalPipeline" 
-        }
+        Tags { "RenderType"="Transparent" "Queue"="Transparent" "RenderPipeline"="UniversalPipeline" }
         
-        LOD 100
-
         Pass
         {
             Name "ForwardLit"
-            
-            // 2. Enable Alpha Blending
             Blend SrcAlpha OneMinusSrcAlpha
             ZWrite Off
             Cull Off 
@@ -36,17 +27,22 @@ Shader "Custom/URPWireframeTransparent"
             struct Attributes
             {
                 float4 positionOS : POSITION;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct v2g
             {
                 float4 projection : SV_POSITION;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+                UNITY_VERTEX_OUTPUT_STEREO
             };
 
             struct g2f
             {
                 float4 projection : SV_POSITION;
                 float3 barycentric : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+                UNITY_VERTEX_OUTPUT_STEREO
             };
 
             CBUFFER_START(UnityPerMaterial)
@@ -57,14 +53,23 @@ Shader "Custom/URPWireframeTransparent"
             v2g vert(Attributes v)
             {
                 v2g o;
+                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+                UNITY_TRANSFER_INSTANCE_ID(v, o);
+
                 o.projection = TransformObjectToHClip(v.positionOS.xyz);
                 return o;
             }
+
 
             [maxvertexcount(3)]
             void geom(triangle v2g input[3], inout TriangleStream<g2f> triStream)
             {
                 g2f o;
+
+
+                UNITY_SETUP_INSTANCE_ID(input[0]);
+
                 float3 barys[3] = {
                     float3(1, 0, 0),
                     float3(0, 1, 0),
@@ -73,6 +78,10 @@ Shader "Custom/URPWireframeTransparent"
 
                 for (int i = 0; i < 3; i++)
                 {
+
+                    UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+                    UNITY_TRANSFER_INSTANCE_ID(input[i], o);
+                    
                     o.projection = input[i].projection;
                     o.barycentric = barys[i];
                     triStream.Append(o);
@@ -81,17 +90,14 @@ Shader "Custom/URPWireframeTransparent"
 
             half4 frag(g2f i) : SV_Target
             {
-                // Calculate wire intensity
+
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
+
                 float minBary = min(i.barycentric.x, min(i.barycentric.y, i.barycentric.z));
                 float delta = fwidth(minBary);
                 float wire = smoothstep(_WireThickness, _WireThickness - delta, minBary);
 
-                // 3. Set Alpha based on the wire calculation
-                float4 finalColor = _WireColor;
-                finalColor.a *= wire; 
-
-                // If the wire is 0, the pixel is fully transparent
-                return finalColor;
+                return float4(_WireColor.rgb, _WireColor.a * wire);
             }
             ENDHLSL
         }

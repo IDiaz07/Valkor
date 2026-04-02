@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2269670913060490854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1020826094715609176}
+  - component: {fileID: 6093231524505782208}
+  m_Layer: 0
+  m_Name: BuildingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1020826094715609176
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2269670913060490854}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 28.419281, y: 4.4947715, z: 3.602264}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6093231524505782208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2269670913060490854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4790b24d8d170ef4db0d5274bc643db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorObjects:
+  - {fileID: 3762746130996155340, guid: 8585b44134446cb45acb29ea604d24af, type: 3}
+  wallObjects:
+  - {fileID: 8459090752340650080, guid: f9ead6f90d52ecf4897c64628ddaa71f, type: 3}
+  - {fileID: 4930375362777995958, guid: 85235c327392a824eb52055f4900bf45, type: 3}
+  - {fileID: 8459090752340650080, guid: f97f857083ab2ab48965eacad3813e83, type: 3}
+  - {fileID: 8459090752340650080, guid: 678f7a8c87674894886a9582c1f244df, type: 3}
+  placeableObjects:
+  - {fileID: 632285527429816752, guid: 64959959d6714134ca79a579e08cbe54, type: 3}
+  - {fileID: 8213581169856455577, guid: d4e6befaa29a0ee4c91b72125aaac52b, type: 3}
+  - {fileID: 2281417089594394163, guid: d767add101820da46bff6f3a3f068ac7, type: 3}
+  currentBuildType: 0
+  connectorLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  isDestroying: 0
+  ghostMaterialValid: {fileID: 2100000, guid: 520499d678e2d6a4d98894db9d9a0952, type: 2}
+  ghostMaterialInvalid: {fileID: 2100000, guid: b1df303bc6279e049b67690e0c01fb1d, type: 2}
+  connectorOverlapRadious: 1
+  maxGroundAngle: 45
+  isBuilding: 0
+  isCurrentConnected: 0
+  currentBuildingIndex: 0
+  leftHand: {fileID: 0}
+  rightHand: {fileID: 0}
+  accept:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Accept
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: ebb71b23-049f-4366-b46b-419981f21d90
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  audioClip: {fileID: 8300000, guid: c23092eee7dd5f64a842babd785f3c92, type: 3}
