@@ -4120,6 +4120,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7007024073136117858, guid: 470dd999ce6d00249bebaf664adea97f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2493845300105580508}
+    - targetCorrespondingSourceObject: {fileID: 4507143695832441849, guid: 470dd999ce6d00249bebaf664adea97f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1026369259752879877}
+    - targetCorrespondingSourceObject: {fileID: 6272134872013416433, guid: 470dd999ce6d00249bebaf664adea97f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3701757052014115702}
+    - targetCorrespondingSourceObject: {fileID: 7071065876767613984, guid: 470dd999ce6d00249bebaf664adea97f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4851021112687242859}
   m_SourcePrefab: {fileID: 100100000, guid: 470dd999ce6d00249bebaf664adea97f, type: 3}
 --- !u!114 &86677344785177158 stripped
 MonoBehaviour:
@@ -4137,6 +4146,57 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7671358501344756440, guid: 470dd999ce6d00249bebaf664adea97f, type: 3}
   m_PrefabInstance: {fileID: 8067249432668004105}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &996940861717314345 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7071065876767613984, guid: 470dd999ce6d00249bebaf664adea97f, type: 3}
+  m_PrefabInstance: {fileID: 8067249432668004105}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4851021112687242859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996940861717314345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
+  AuthorityMode: 1
+  TickSyncChildren: 0
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 1
+  SwitchTransformSpaceWhenParented: 0
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!1 &1065474977908017003 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7007024073136117858, guid: 470dd999ce6d00249bebaf664adea97f, type: 3}
@@ -4193,6 +4253,108 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6639843929111989469, guid: 470dd999ce6d00249bebaf664adea97f, type: 3}
   m_PrefabInstance: {fileID: 8067249432668004105}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4107205837323696376 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6272134872013416433, guid: 470dd999ce6d00249bebaf664adea97f, type: 3}
+  m_PrefabInstance: {fileID: 8067249432668004105}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3701757052014115702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4107205837323696376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
+  AuthorityMode: 1
+  TickSyncChildren: 0
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 1
+  SwitchTransformSpaceWhenParented: 0
+  Interpolate: 1
+  SlerpPosition: 0
+--- !u!1 &5870503490721037552 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4507143695832441849, guid: 470dd999ce6d00249bebaf664adea97f, type: 3}
+  m_PrefabInstance: {fileID: 8067249432668004105}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1026369259752879877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5870503490721037552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
+  AuthorityMode: 1
+  TickSyncChildren: 0
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 1
+  SwitchTransformSpaceWhenParented: 0
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!1001 &8241250524750817887
 PrefabInstance:
   m_ObjectHideFlags: 0
