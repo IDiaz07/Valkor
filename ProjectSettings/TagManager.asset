@@ -8,6 +8,9 @@ TagManager:
   - Item
   - Boat
   - Buildables
+  - P1Flag
+  - P2Flag
+  - TemporalPlayer
   layers:
   - Default
   - TransparentFX

@@ -10,6 +10,11 @@ EditorBuildSettings:
     guid: 9a6dfaed203520941ac135fe8b977cae
   - enabled: 0
     path: Assets/@AngelAssets/MenuPrincipal.unity
+  - enabled: 1
+    path: Assets/Scenes/GameLost.unity
+    guid: 6d6822284d7997e2c84cee83b9a59eb4
+  - enabled: 0
+    path: Assets/@AngelAssets/OLD/MenuPrincipal.unity
     guid: e0a1a86d2963a024d85452cdd787dadf
   - enabled: 0
     path: Assets/@Assets/Map.unity
@@ -19,9 +24,10 @@ EditorBuildSettings:
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
     path: Assets/@AngelAssets/Final Scene.unity
+    path: Assets/@AngelAssets/OLD/Final Scene.unity
     guid: 513c9d88c7491174b9c5ae5dc8502346
   - enabled: 1
-    path: Assets/@AngelAssets/GameOverScene.unity
+    path: Assets/@AngelAssets/OLD/GameOverScene.unity
     guid: 07a4efa73f7bf5047a0012575cd1fa65
   - enabled: 0
     path: Assets/Scenes/mainTEst.unity
