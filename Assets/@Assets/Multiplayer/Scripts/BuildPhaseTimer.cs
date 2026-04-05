@@ -1,4 +1,4 @@
-﻿using Unity.Netcode;
+﻿ using Unity.Netcode;
 using UnityEngine;
 using TMPro;
 using System.Collections;
@@ -14,7 +14,7 @@ public class BuildPhaseTimer : NetworkBehaviour
 
     private NetworkVariable<float> timeLeft = new NetworkVariable<float>(0f);
 
-    private bool phaseEnded = false;
+    public bool phaseEnded = false;
 
     public override void OnNetworkSpawn()
     {

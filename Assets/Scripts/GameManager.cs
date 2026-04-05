@@ -23,7 +23,7 @@ public class GameManager : NetworkBehaviour
     {
         // Instantiate on the server
         Vector3 playerSpawnPosition = Vector3.zero;
-        if (clientId == NetworkManager.LocalClientId)
+        if (clientId == 0)
         {
             playerSpawnPosition = player1SpawnPosition;
         }
