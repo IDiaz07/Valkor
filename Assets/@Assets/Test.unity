@@ -2445,6 +2445,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8599635494042658305, guid: cdc4df2d3ca6fbe4c875588e1ea08952, type: 3}
   m_PrefabInstance: {fileID: 904780691}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &735718787
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2653382098529877156, guid: a04bbc917ce9eed44b12c74dc0d2c994, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 499.39655
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653382098529877156, guid: a04bbc917ce9eed44b12c74dc0d2c994, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5000.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653382098529877156, guid: a04bbc917ce9eed44b12c74dc0d2c994, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -192.06041
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653382098529877156, guid: a04bbc917ce9eed44b12c74dc0d2c994, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653382098529877156, guid: a04bbc917ce9eed44b12c74dc0d2c994, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653382098529877156, guid: a04bbc917ce9eed44b12c74dc0d2c994, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653382098529877156, guid: a04bbc917ce9eed44b12c74dc0d2c994, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653382098529877156, guid: a04bbc917ce9eed44b12c74dc0d2c994, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653382098529877156, guid: a04bbc917ce9eed44b12c74dc0d2c994, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653382098529877156, guid: a04bbc917ce9eed44b12c74dc0d2c994, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3429882925824386590, guid: a04bbc917ce9eed44b12c74dc0d2c994, type: 3}
+      propertyPath: m_Name
+      value: VR Character IK 1 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3429882925824386590, guid: a04bbc917ce9eed44b12c74dc0d2c994, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a04bbc917ce9eed44b12c74dc0d2c994, type: 3}
 --- !u!1 &776577178
 GameObject:
   m_ObjectHideFlags: 0
@@ -3102,16 +3163,16 @@ MonoBehaviour:
     trackingRotationOffset: {x: 0, y: 0, z: 0}
   leftHand:
     vrTarget: {fileID: 2127874897}
-    ikTarget: {fileID: 636958238}
+    ikTarget: {fileID: 942078897}
     trackingPositionOffset: {x: 0, y: 0, z: 0}
     trackingRotationOffset: {x: 0, y: 0, z: 0}
   rightHand:
     vrTarget: {fileID: 1345499837}
-    ikTarget: {fileID: 1900956315}
+    ikTarget: {fileID: 901961710}
     trackingPositionOffset: {x: 0, y: 0, z: 0}
     trackingRotationOffset: {x: 0, y: 0, z: 0}
   headBodyPositionOffset: {x: 0, y: -0.6, z: -0.06}
-  headBodyYawOffset: 0
+  headBodyYawOffset: 10
 --- !u!1 &919320949
 GameObject:
   m_ObjectHideFlags: 0
@@ -7604,3 +7665,4 @@ SceneRoots:
   - {fileID: 1969351011}
   - {fileID: 666339506}
   - {fileID: 904780691}
+  - {fileID: 735718787}
