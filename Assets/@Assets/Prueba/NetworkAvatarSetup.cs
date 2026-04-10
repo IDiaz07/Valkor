@@ -14,6 +14,16 @@ public class NetworkAvatarSetup : NetworkBehaviour
             bool soyHost = NetworkManager.Singleton.IsHost;
             if (m_ModeloHost != null) m_ModeloHost.SetActive(soyHost);
             if (m_ModeloCliente != null) m_ModeloCliente.SetActive(!soyHost);
+
+            foreach (var anim in GetComponentsInChildren<AnimateOnInput>(true))
+                anim.isLocalPlayer = true;
+        }
+        else
+        {
+            // Para el jugador remoto, mostrar solo el modelo correcto según quién es el dueño
+            bool ownerIsHost = OwnerClientId == 0;
+            if (m_ModeloHost != null) m_ModeloHost.SetActive(ownerIsHost);
+            if (m_ModeloCliente != null) m_ModeloCliente.SetActive(!ownerIsHost);
         }
     }
 }
