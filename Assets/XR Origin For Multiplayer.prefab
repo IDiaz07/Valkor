@@ -1904,7 +1904,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4576808145942422979}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b1e8c997df241c1a67045eeac79b41b, type: 3}
   m_Name: 
@@ -1998,7 +1998,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4724197191861634966}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9ac216f0eb04754b1d938aac6380b31, type: 3}
   m_Name: 
@@ -2026,7 +2026,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4724197191861634966}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4a50d88b55b45648927679791f472de, type: 3}
   m_Name: 
@@ -2395,7 +2395,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5581985102860443928}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9f365cf844c03449bc8973eead2c3c1, type: 3}
   m_Name: 
@@ -4427,13 +4427,13 @@ MonoBehaviour:
   leftHand:
     vrTarget: {fileID: 4140858676933438259}
     ikTarget: {fileID: 2614445151910356514}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
+    trackingPositionOffset: {x: 0, y: 0, z: -0.05}
+    trackingRotationOffset: {x: 0, y: 70, z: 90}
   rightHand:
     vrTarget: {fileID: 4563788036720498404}
     ikTarget: {fileID: 4501423341372853337}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
+    trackingPositionOffset: {x: 0, y: 0, z: -0.05}
+    trackingRotationOffset: {x: 0, y: -70, z: -90}
   headBodyPositionOffset: {x: 0, y: -0.54, z: 0}
   headBodyYawOffset: 0
 --- !u!114 &8267534239258862039
@@ -5126,6 +5126,42 @@ PrefabInstance:
       propertyPath: rightHand.vrTarget
       value: 
       objectReference: {fileID: 4563788036720498404}
+    - target: {fileID: 4620328279461457535, guid: 3eb7ce3ab70a0e64a85cc4e70bf7dc8b, type: 3}
+      propertyPath: leftHand.trackingPositionOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620328279461457535, guid: 3eb7ce3ab70a0e64a85cc4e70bf7dc8b, type: 3}
+      propertyPath: leftHand.trackingPositionOffset.z
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620328279461457535, guid: 3eb7ce3ab70a0e64a85cc4e70bf7dc8b, type: 3}
+      propertyPath: leftHand.trackingRotationOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620328279461457535, guid: 3eb7ce3ab70a0e64a85cc4e70bf7dc8b, type: 3}
+      propertyPath: leftHand.trackingRotationOffset.y
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620328279461457535, guid: 3eb7ce3ab70a0e64a85cc4e70bf7dc8b, type: 3}
+      propertyPath: leftHand.trackingRotationOffset.z
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620328279461457535, guid: 3eb7ce3ab70a0e64a85cc4e70bf7dc8b, type: 3}
+      propertyPath: rightHand.trackingPositionOffset.z
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620328279461457535, guid: 3eb7ce3ab70a0e64a85cc4e70bf7dc8b, type: 3}
+      propertyPath: rightHand.trackingRotationOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620328279461457535, guid: 3eb7ce3ab70a0e64a85cc4e70bf7dc8b, type: 3}
+      propertyPath: rightHand.trackingRotationOffset.y
+      value: -70
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620328279461457535, guid: 3eb7ce3ab70a0e64a85cc4e70bf7dc8b, type: 3}
+      propertyPath: rightHand.trackingRotationOffset.z
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 7176407757998588347, guid: 3eb7ce3ab70a0e64a85cc4e70bf7dc8b, type: 3}
       propertyPath: m_Controller
       value: 

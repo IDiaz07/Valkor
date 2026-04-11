@@ -34,18 +34,15 @@ public class MultiplayerPlayerSetup : NetworkBehaviour
                 Camera.main.gameObject.SetActive(false);
             }
 
-            // 4. WAKE UP the Locomotion Providers 
-            var locomotionProviders = GetComponentsInChildren<LocomotionProvider>(true);
-            foreach (var provider in locomotionProviders) provider.enabled = true;
 
-            // 5. WAKE UP your Custom Movement Script
+            // 4. WAKE UP your Custom Movement Script
             var jumpScript = GetComponentInChildren<PlayerMovementManager>(true);
             if (jumpScript != null) jumpScript.enabled = true;
 
             XRInputModalityManager xRInputModalityManager = GetComponentInChildren<XRInputModalityManager>(true);
             if (xRInputModalityManager != null) xRInputModalityManager.enabled = true;
 
-            // 6. WAKE UP the Body Transformer
+            // 5. WAKE UP the Body Transformer
             var bodyTransformer = GetComponentInChildren<XRBodyTransformer>(true);
             if (bodyTransformer != null) bodyTransformer.enabled = true;
         }
@@ -76,7 +73,7 @@ public class MultiplayerPlayerSetup : NetworkBehaviour
             var locomotionProviders = GetComponentsInChildren<LocomotionProvider>();
             foreach (var provider in locomotionProviders) provider.enabled = false;
 
-            // FIX: Explicitly KILL the custom movement script your teammate added
+
             var jumpScript = GetComponentInChildren<PlayerMovementManager>();
             if (jumpScript != null) jumpScript.enabled = false;
 
