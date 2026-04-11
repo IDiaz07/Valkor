@@ -5387,7 +5387,7 @@ GameObject:
   - component: {fileID: 1202017063}
   - component: {fileID: 1202017062}
   m_Layer: 0
-  m_Name: Cube (5)
+  m_Name: OutOfBounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5405,6 +5405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619eda9c590c6074c93287af1aef41cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawnPosition: {x: 560, y: 55, z: 600}
 --- !u!65 &1202017063
 BoxCollider:
   m_ObjectHideFlags: 0
