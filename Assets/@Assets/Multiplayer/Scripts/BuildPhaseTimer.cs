@@ -12,6 +12,13 @@ public class BuildPhaseTimer : NetworkBehaviour
     [Header("Settings")]
     public float buildTime = 30f;
 
+    [Header("Building book spawn parameters")]
+    [SerializeField] private GameObject buildingBookPrefab;
+    [SerializeField] private Vector3 p1BuildBookSpawnPosition;
+    [SerializeField] private Vector3 p2BuildBookSpawnPosition;
+    private GameObject p1Book;
+    private GameObject p2Book;
+
     private NetworkVariable<float> timeLeft = new NetworkVariable<float>(0f);
 
     public bool phaseEnded = false;
@@ -38,6 +45,15 @@ public class BuildPhaseTimer : NetworkBehaviour
 
     IEnumerator StartBuildPhase()
     {
+        if (buildingBookPrefab != null)
+        {
+            p1Book = Instantiate(buildingBookPrefab, p1BuildBookSpawnPosition, Quaternion.identity);
+            p2Book = Instantiate(buildingBookPrefab, p2BuildBookSpawnPosition, Quaternion.identity);
+            if (IsServer) {
+                p1Book.GetComponent<NetworkObject>().Spawn();
+                p2Book.GetComponent<NetworkObject>().Spawn();
+            }
+        }
         ShowBuildMessageClientRpc();
 
         yield return new WaitForSeconds(3f);
@@ -51,6 +67,11 @@ public class BuildPhaseTimer : NetworkBehaviour
         }
 
         phaseEnded = true;
+        if (buildingBookPrefab != null)
+        {
+            Destroy(p1Book);
+            Destroy(p2Book);
+        }
         EndBuildPhaseClientRpc();
     }
 

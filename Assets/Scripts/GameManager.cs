@@ -10,6 +10,7 @@ public class GameManager : NetworkBehaviour
     public GameObject spawnable2;
     [SerializeField] private Vector3 player1SpawnPosition;
     [SerializeField] private Vector3 player2SpawnPosition;
+    public bool gameStarting = false;
 
     NetworkVariable<int> playersInGame = new NetworkVariable<int> (0);
     public override void OnNetworkSpawn()
@@ -19,10 +20,19 @@ public class GameManager : NetworkBehaviour
             NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
         }
     }
+    private void Update()
+    {
+        if (!gameStarting)
+            if (playersInGame.Value > 1)
+            {
+                gameStarting = true;
+            }
+    }
 
     private void HandleClientConnected(ulong clientId)
     {
         // Instantiate on the server
+        playersInGame.Value++;
         Vector3 playerSpawnPosition = Vector3.zero;
         GameObject spawnedObject;
         if (clientId == 0)

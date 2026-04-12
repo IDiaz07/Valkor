@@ -11,6 +11,7 @@ TagManager:
   - P1Flag
   - P2Flag
   - TemporalPlayer
+  - NotMainCamera
   layers:
   - Default
   - TransparentFX

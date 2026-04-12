@@ -4,7 +4,7 @@ using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BuildingManager : MonoBehaviour
+public class BuildingManager : NetworkBehaviour
 {
     [Header("Build Objects")]
     [SerializeField] private List<GameObject> floorObjects = new List<GameObject>();
@@ -46,9 +46,12 @@ public class BuildingManager : MonoBehaviour
     [Header("Sounds")]
     [SerializeField] private AudioClip audioClip;
 
-    private void Awake()
-    {
+    private GameManager gameManager;
+    private bool hasBeenInitialized = false;
 
+    private void Start()
+    {
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     public Transform RaycastObject { get => raycastObject; set => raycastObject = value; }
@@ -56,14 +59,28 @@ public class BuildingManager : MonoBehaviour
 
     void Update()
     {
+        if (!hasBeenInitialized && gameManager.gameStarting)
+        {
+            if (leftHand == null || rightHand == null)
+            {
+                Camera[] cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None);
+                Camera playerCamera = null;
+                foreach (Camera camera in cameras)
+                {
+                    if (camera.CompareTag("MainCamera"))
+                    {
+                        playerCamera = camera;
+                        break;
+                    }
+
+                }
+                leftHand = playerCamera.transform.root.transform.GetChild(0).GetChild(3);
+                rightHand = playerCamera.transform.root.transform.GetChild(0).GetChild(5);
+            }
+        }
 
         if (isBuilding && !isDestroying)
         {
-            if(leftHand == null || rightHand == null)
-            {
-                leftHand = Camera.main.transform.root.transform.GetChild(0).GetChild(3);
-                rightHand = Camera.main.transform.root.transform.GetChild(0).GetChild(5);
-            }
             GhostBuild();
 
             if (accept.action.WasPressedThisFrame())
@@ -83,6 +100,7 @@ public class BuildingManager : MonoBehaviour
                 DestroyBuild();
         }
     }
+
 
     private void GhostBuild()
     {
@@ -124,8 +142,8 @@ public class BuildingManager : MonoBehaviour
         if (Physics.Raycast(raycastObject.position, raycastObject.TransformDirection(Vector3.forward), out hit))
         {
             ghostBuildGameobject.transform.position = hit.point;
-            if(!isCurrentConnected)
-            ghostBuildGameobject.transform.rotation = Quaternion.Euler(ghostBuildGameobject.transform.eulerAngles.x,raycastObject.eulerAngles.z, ghostBuildGameobject.transform.eulerAngles.z);
+            if (!isCurrentConnected)
+                ghostBuildGameobject.transform.rotation = Quaternion.Euler(ghostBuildGameobject.transform.eulerAngles.x, raycastObject.eulerAngles.z, ghostBuildGameobject.transform.eulerAngles.z);
         }
     }
 
@@ -216,10 +234,11 @@ public class BuildingManager : MonoBehaviour
             Quaternion newRotation = ghostBuildGameobject.transform.rotation;
             newRotation.eulerAngles = new Vector3(newRotation.eulerAngles.x, connector.transform.rotation.eulerAngles.y, newRotation.eulerAngles.z);
             ghostBuildGameobject.transform.rotation = newRotation;
-        }else if (currentBuildType == SelectedBuildType.floor)
-            {
-            
-                Quaternion newRotation = ghostBuildGameobject.transform.rotation;
+        }
+        else if (currentBuildType == SelectedBuildType.floor)
+        {
+
+            Quaternion newRotation = ghostBuildGameobject.transform.rotation;
             if (connector.transform.root.GetComponent<Buildable>().Type == SelectedBuildType.floor)
             {
                 newRotation.eulerAngles = new Vector3(newRotation.eulerAngles.x, connector.transform.root.rotation.eulerAngles.y, newRotation.eulerAngles.z);
@@ -229,8 +248,8 @@ public class BuildingManager : MonoBehaviour
                 newRotation.eulerAngles = new Vector3(newRotation.eulerAngles.x, connector.transform.rotation.eulerAngles.y, newRotation.eulerAngles.z);
                 newRotation *= Quaternion.Euler(Vector3.up * 90);
             }
-                ghostBuildGameobject.transform.rotation = newRotation;
-            }
+            ghostBuildGameobject.transform.rotation = newRotation;
+        }
 
         GhostifyModel(modelParent, ghostMaterialValid);
         isGhostInValidPosition = true;
@@ -367,23 +386,56 @@ public class BuildingManager : MonoBehaviour
     {
         if (ghostBuildGameobject != null && isGhostInValidPosition)
         {
-            GameObject newBuild = Instantiate(GetCurrentBuild(), ghostBuildGameobject.transform.position, ghostBuildGameobject.transform.rotation);
+            // 1. Ask the Server to spawn the real object for everyone
+            SpawnBuildServerRpc((int)currentBuildType, currentBuildingIndex, ghostBuildGameobject.transform.position, ghostBuildGameobject.transform.rotation);
 
+            // 2. Play the sound locally for the person building
+            AudioSource.PlayClipAtPoint(audioClip, ghostBuildGameobject.transform.position, 2f);
+
+            // 3. Clean up the local ghost
             Destroy(ghostBuildGameobject);
             ghostBuildGameobject = null;
 
             isBuilding = false;
-            if (currentBuildType != SelectedBuildType.placeableObject)
+            isCurrentConnected = false;
+            pagesController.RemoveResourcesForCurrentBuild();
+        }
+    }
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnBuildServerRpc(int buildTypeInt, int buildIndex, Vector3 spawnPosition, Quaternion spawnRotation)
+    {
+        SelectedBuildType buildType = (SelectedBuildType)buildTypeInt;
+        GameObject prefabToSpawn = null;
+
+        // Figure out which prefab the client was holding
+        switch (buildType)
+        {
+            case SelectedBuildType.floor:
+                prefabToSpawn = floorObjects[buildIndex];
+                break;
+            case SelectedBuildType.wall:
+                prefabToSpawn = wallObjects[buildIndex];
+                break;
+            case SelectedBuildType.placeableObject:
+                prefabToSpawn = placeableObjects[buildIndex];
+                break;
+        }
+
+        if (prefabToSpawn != null)
+        {
+            // The Server instantiates it
+            GameObject newBuild = Instantiate(prefabToSpawn, spawnPosition, spawnRotation);
+
+            if (buildType != SelectedBuildType.placeableObject)
             {
                 foreach (Connector connector in newBuild.GetComponentsInChildren<Connector>())
                 {
                     connector.UpdateConnectors(true);
                 }
             }
-            isCurrentConnected = false;
-            pagesController.RemoveResourcesForCurrentBuild();
+
+            // The Server spawns it over the network so ALL players see it
             newBuild.GetComponent<NetworkObject>().Spawn();
-            AudioSource.PlayClipAtPoint(audioClip, newBuild.transform.position, 2f);
         }
     }
 
@@ -434,16 +486,34 @@ public class BuildingManager : MonoBehaviour
     {
         if (lastHitDestroyTransform)
         {
-            foreach (Connector connector in lastHitDestroyTransform.GetComponentsInChildren<Connector>())
+            // Grab the NetworkObject to tell the server exactly which item to destroy
+            NetworkObject netObj = lastHitDestroyTransform.GetComponent<NetworkObject>();
+
+            if (netObj != null)
+            {
+                DestroyBuildServerRpc(netObj.NetworkObjectId);
+            }
+
+            isDestroying = false;
+            lastHitDestroyTransform = null;
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DestroyBuildServerRpc(ulong networkObjectId)
+    {
+        // The server looks up the specific object by its ID
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
+        {
+            // Update the connectors BEFORE destroying so the surrounding building updates
+            foreach (Connector connector in netObj.GetComponentsInChildren<Connector>())
             {
                 connector.gameObject.SetActive(false);
                 connector.UpdateConnectors(true);
             }
 
-            Destroy(lastHitDestroyTransform.gameObject);
-
-            isDestroying = false;
-            lastHitDestroyTransform = null;
+            // Despawn removes it from the network and destroys the GameObject for everyone
+            netObj.Despawn();
         }
     }
 

@@ -22,6 +22,15 @@ public class MultiplayerPlayerSetup : NetworkBehaviour
             // 1. Claim the Main Camera tag locally
             if (playerCamera != null) playerCamera.gameObject.tag = "MainCamera";
 
+            Camera[] cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None);
+            foreach (Camera cam in cameras)
+            {
+                if(cam != playerCamera)
+                {
+                    cam.tag = "NotMainCamera";
+                }
+            }
+
             // 2. Enable local inputs safely
             InputActionManager inputManager = GetComponentInChildren<InputActionManager>(true);
             if (inputManager != null) inputManager.enabled = true;
