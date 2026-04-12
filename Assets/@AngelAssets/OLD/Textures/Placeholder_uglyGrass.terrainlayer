@@ -7,7 +7,7 @@ TerrainLayer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Placeholder_uglyGrass
-  m_DiffuseTexture: {fileID: 2800000, guid: 3519d459c750057499aaf096547e07ea, type: 3}
+  m_DiffuseTexture: {fileID: 2800000, guid: 16a5f5677109efa47a3b48d04c2a9de0, type: 3}
   m_NormalMapTexture: {fileID: 2800000, guid: f909a24d10ed92741a7cb54380f0ff5a, type: 3}
   m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 2, y: 2}
