@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData:
-    description: "Horno de fundici\xF3n. Te da lingotes de metal"
+    description: "(Decoraci\xF3n) Horno de fundici\xF3n."
     itemID: 12
     type: placeableObject
     icon: {fileID: 21300000, guid: 287e3d1f77031144c90c61664461406a, type: 3}

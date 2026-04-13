@@ -370,7 +370,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData:
-    description: "Un sencillo horno para cocinar. \xA1Incluye un fuego!"
+    description: "(Decoraci\xF3n) Un sencillo horno para cocinar. \xA1Incluye un
+      fuego!"
     itemID: 11
     type: placeableObject
     icon: {fileID: 21300000, guid: f2d3deb83c1f0b14aa726ea4dab871fb, type: 3}

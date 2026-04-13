@@ -1,7 +1,14 @@
 fileFormatVersion: 2
 guid: 6ada47014a6e3774b87f72357120cf33
+AssetOrigin:
+  serializedVersion: 1
+  productId: 325324
+  packageName: Ancient Stone Statue
+  packageVersion: 1.0
+  assetPath: Assets/LumiStudio_AncientStatue/Ancient Stone Statue/Meshes/Cinematic_Meshes/SM_Statue_NN_05a.fbx
+  uploadId: 775803
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
@@ -16,8 +23,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -40,6 +45,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -100,15 +106,9 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 325324
-  packageName: Ancient Stone Statue
-  packageVersion: 1.0
-  assetPath: Assets/LumiStudio_AncientStatue/Ancient Stone Statue/Meshes/Cinematic_Meshes/SM_Statue_NN_05a.fbx
-  uploadId: 775803
