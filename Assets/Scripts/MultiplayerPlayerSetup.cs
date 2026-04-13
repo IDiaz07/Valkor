@@ -28,6 +28,7 @@ public class MultiplayerPlayerSetup : NetworkBehaviour
                 if(cam != playerCamera)
                 {
                     cam.tag = "NotMainCamera";
+                    cam.enabled = false;
                 }
             }
 
@@ -38,10 +39,6 @@ public class MultiplayerPlayerSetup : NetworkBehaviour
             // 3. Enable Camera and Audio
             playerCamera.enabled = true;
             playerListener.enabled = true;
-            if (Camera.main != null && Camera.main != playerCamera)
-            {
-                Camera.main.gameObject.SetActive(false);
-            }
 
 
             // 4. WAKE UP your Custom Movement Script
