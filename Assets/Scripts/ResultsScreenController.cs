@@ -19,7 +19,7 @@ public class ResultsScreenController : MonoBehaviour
     {
         if (results.didIWin)
         {
-            textBox.text = "GAME OVER: ¡Has Ganado!";
+            textBox.text = "Éxito: ¡Has Ganado!";
         }
         else
         {
