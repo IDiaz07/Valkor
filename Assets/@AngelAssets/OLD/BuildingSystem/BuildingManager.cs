@@ -42,6 +42,7 @@ public class BuildingManager : NetworkBehaviour
 
     [Header("Input")]
     [SerializeField] private InputActionProperty accept;
+    [SerializeField] private InputActionProperty acceptRight;
 
     [Header("Sounds")]
     [SerializeField] private AudioClip audioClip;
@@ -83,7 +84,7 @@ public class BuildingManager : NetworkBehaviour
         {
             GhostBuild();
 
-            if (accept.action.WasPressedThisFrame())
+            if (accept.action.WasPressedThisFrame() || acceptRight.action.WasPressedThisFrame())
                 PlaceBuild();
         }
         else if (ghostBuildGameobject)
@@ -96,7 +97,7 @@ public class BuildingManager : NetworkBehaviour
         {
             GhostDestroy();
 
-            if (accept.action.WasPressedThisFrame())
+            if (accept.action.WasPressedThisFrame() || acceptRight.action.WasPressedThisFrame())
                 DestroyBuild();
         }
     }
@@ -139,8 +140,10 @@ public class BuildingManager : NetworkBehaviour
     private void MoveGhostPrefabToRayCast()
     {
         RaycastHit hit;
-        if (Physics.Raycast(raycastObject.position, raycastObject.TransformDirection(Vector3.forward), out hit))
+        Transform activeRayOrigin;
+        if (TryGetBestRaycastHit(out hit, out activeRayOrigin))
         {
+            raycastObject = activeRayOrigin;
             ghostBuildGameobject.transform.position = hit.point;
             if (!isCurrentConnected)
                 ghostBuildGameobject.transform.rotation = Quaternion.Euler(ghostBuildGameobject.transform.eulerAngles.x, raycastObject.eulerAngles.z, ghostBuildGameobject.transform.eulerAngles.z);
@@ -260,8 +263,10 @@ public class BuildingManager : NetworkBehaviour
     {
         isCurrentConnected = false;
         RaycastHit hit;
-        if (Physics.Raycast(raycastObject.position, raycastObject.TransformDirection(Vector3.forward), out hit))
+        Transform activeRayOrigin;
+        if (TryGetBestRaycastHit(out hit, out activeRayOrigin))
         {
+            raycastObject = activeRayOrigin;
             if (currentBuildType == SelectedBuildType.wall)
             {
                 GhostifyModel(modelParent, ghostMaterialInvalid);
@@ -442,8 +447,10 @@ public class BuildingManager : NetworkBehaviour
     private void GhostDestroy()
     {
         RaycastHit hit;
-        if (Physics.Raycast(raycastObject.position, raycastObject.TransformDirection(Vector3.forward), out hit))
+        Transform activeRayOrigin;
+        if (TryGetBestRaycastHit(out hit, out activeRayOrigin))
         {
+            raycastObject = activeRayOrigin;
             if (hit.transform.root.CompareTag("Buildables"))
             {
                 if (!lastHitDestroyTransform)
@@ -468,6 +475,53 @@ public class BuildingManager : NetworkBehaviour
                 ResetLostHitDestroyTransform();
             }
         }
+    }
+
+    private bool TryGetBestRaycastHit(out RaycastHit bestHit, out Transform bestOrigin)
+    {
+        bestHit = default;
+        bestOrigin = null;
+
+        bool gotLeft = TryRaycastFromOrigin(leftHand, out RaycastHit leftResult);
+        bool gotRight = TryRaycastFromOrigin(rightHand, out RaycastHit rightResult);
+
+        if (gotLeft && gotRight)
+        {
+            // La mano que apunta más lejos es la que el jugador está usando deliberadamente.
+            // Una mano en reposo apunta al suelo cercano (distancia corta) y pierde.
+            if (rightResult.distance >= leftResult.distance)
+            {
+                bestHit = rightResult;
+                bestOrigin = rightHand;
+            }
+            else
+            {
+                bestHit = leftResult;
+                bestOrigin = leftHand;
+            }
+            return true;
+        }
+
+        if (gotRight) { bestHit = rightResult; bestOrigin = rightHand; return true; }
+        if (gotLeft) { bestHit = leftResult; bestOrigin = leftHand; return true; }
+
+        if (TryRaycastFromOrigin(raycastObject, out RaycastHit fallbackHit))
+        {
+            bestHit = fallbackHit;
+            bestOrigin = raycastObject;
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool TryRaycastFromOrigin(Transform origin, out RaycastHit hit)
+    {
+        hit = default;
+        if (origin == null)
+            return false;
+
+        return Physics.Raycast(origin.position, origin.TransformDirection(Vector3.forward), out hit);
     }
 
     private void ResetLostHitDestroyTransform()
