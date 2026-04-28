@@ -1,22 +1,33 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class VRHandAttack : MonoBehaviour
 {
     [SerializeField] private int damage = 1;
-    [SerializeField] private float cooldown = 0.5f;
 
-    private float lastHitTime;
+    private bool hasHit = false;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (Time.time - lastHitTime < cooldown) return;
+        Debug.Log("[HAND] Entrando en: " + other.name);
 
-        DestructibleWall wall = collision.gameObject.GetComponent<DestructibleWall>();
+        if (hasHit) return;
+        hasHit = true;
 
-        if (wall != null)
+        DestructibleWall wall = other.GetComponentInParent<DestructibleWall>();
+
+        if (wall != null && wall.IsSpawned)
         {
+            Debug.Log("[HAND] GOLPE ÚNICO");
             wall.TakeDamage(damage);
-            lastHitTime = Time.time;
+            
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("[HAND] Saliendo de: " + other.name);
+
+        // Cuando sales, puedes volver a golpear
+        hasHit = false;
     }
 }

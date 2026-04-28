@@ -37,26 +37,34 @@ public class NetworkGrabbable : NetworkBehaviour
         }
     }
 
-    // Este metodo se ejecuta en el server, a petici�n del cliente
+    /// Este metodo se ejecuta en el server, a petición del cliente
     [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
     private void RequestOwnershipServerRpc(RpcParams rpcParams = default)
     {
+        // ⚠️ Comprobar que hay interactores antes de acceder
+        if (grabInteractable.interactorsSelecting.Count > 0)
         {
             var currentInteractor = grabInteractable.interactorsSelecting[0];
 
-            // If the interactor holding it is a socket
+            // Si el interactor es un socket
             if (currentInteractor is XRSocketInteractor socket)
             {
-                // Force the manager to break the connection
+                // Usar la versión NO obsoleta
                 grabInteractable.interactionManager.CancelInteractableSelection((IXRSelectInteractable)grabInteractable);
 
-                // Disable the socket temporarily so it doesn't instantly snap it back
+                // Desactivar temporalmente el socket
                 StartCoroutine(TemporarilyDisableSocket(socket));
             }
         }
-        // The server transfers ownership to the client who sent the request
+        else
+        {
+            Debug.LogWarning("RequestOwnershipServerRpc: No interactors selecting this object on server.");
+        }
+
+        // Transferir ownership al cliente que hizo la petición
         netObject.ChangeOwnership(rpcParams.Receive.SenderClientId);
     }
+
     private IEnumerator TemporarilyDisableSocket(XRSocketInteractor socket)
     {
         socket.socketActive = false;
