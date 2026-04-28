@@ -10,6 +10,7 @@ public class GameManager : NetworkBehaviour
     public GameObject spawnable2;
     [SerializeField] private Vector3 player1SpawnPosition;
     [SerializeField] private Vector3 player2SpawnPosition;
+    [SerializeField] GameObject terrain;
     public bool gameStarting = false;
 
     NetworkVariable<int> playersInGame = new NetworkVariable<int> (0);
@@ -48,6 +49,8 @@ public class GameManager : NetworkBehaviour
 
         // Spawn it across the network and assign ownership to the connected client
         spawnedObject.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
+        Destroy(terrain);
+
     }
 
     public override void OnNetworkDespawn()
