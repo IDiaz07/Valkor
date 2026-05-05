@@ -20,6 +20,11 @@ public class DestructibleWall : NetworkBehaviour
         health.OnValueChanged += OnHealthChanged;
     }
 
+    public override void OnNetworkDespawn()
+    {
+        health.OnValueChanged -= OnHealthChanged;
+    }
+
     private void OnHealthChanged(int oldValue, int newValue)
     {
         Debug.Log($"[WALL] Vida cambiada: {oldValue} -> {newValue}");
@@ -31,7 +36,13 @@ public class DestructibleWall : NetworkBehaviour
 
         if (!IsSpawned)
         {
-            Debug.LogError("[WALL] NO está spawneado en red");
+            Debug.LogError("[WALL] ❌ NO está spawneado en red");
+            return;
+        }
+
+        if (health.Value <= 0)
+        {
+            Debug.Log("[WALL] Ya está destruida (cliente)");
             return;
         }
 
@@ -41,19 +52,25 @@ public class DestructibleWall : NetworkBehaviour
     [Rpc(SendTo.Server)]
     private void DamageServerRpc(int amount)
     {
-        Debug.Log($"[WALL][SERVER RPC] Recibido daño: {amount} | Vida actual: {health.Value}");
-
         if (!IsServer)
         {
-            Debug.LogError("[WALL] Este código debería ejecutarse SOLO en el servidor");
+            Debug.LogError("[WALL] ❌ Este código debería ejecutarse SOLO en el servidor");
+            return;
+        }
+
+        if (!IsSpawned)
+        {
+            Debug.LogError("[WALL][SERVER] ❌ No está spawneado");
             return;
         }
 
         if (health.Value <= 0)
         {
-            Debug.Log("[WALL][SERVER] Ya está destruida");
+            Debug.Log("[WALL][SERVER] Ya destruida");
             return;
         }
+
+        Debug.Log($"[WALL][SERVER RPC] Daño recibido: {amount} | Vida actual: {health.Value}");
 
         health.Value -= amount;
 
@@ -61,7 +78,7 @@ public class DestructibleWall : NetworkBehaviour
 
         if (health.Value <= 0)
         {
-            Debug.Log("[WALL][SERVER] Destruyendo pared");
+            Debug.Log("[WALL][SERVER] 💥 Destruyendo pared");
             DestroyWall();
         }
     }
@@ -70,11 +87,26 @@ public class DestructibleWall : NetworkBehaviour
     {
         if (!IsServer)
         {
-            Debug.LogError("[WALL] DestroyWall llamado fuera del servidor");
+            Debug.LogError("[WALL] ❌ DestroyWall llamado fuera del servidor");
             return;
         }
 
         Debug.Log("[WALL][SERVER] Despawn()");
         GetComponent<NetworkObject>().Despawn(true);
+    }
+
+    public bool IsAlive()
+    {
+        return health.Value > 0;
+    }
+
+    public int GetHealth()
+    {
+        return health.Value;
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
     }
 }

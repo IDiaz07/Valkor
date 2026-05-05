@@ -743,7 +743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  maxHealth: 5
+  maxHealth: 9
 --- !u!1 &9055591145556268694
 GameObject:
   m_ObjectHideFlags: 0
