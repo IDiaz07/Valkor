@@ -11,17 +11,26 @@ public class NetworkGrabbable : NetworkBehaviour
     private XRGrabInteractable grabInteractable;
     private NetworkObject netObject;
 
+    // ── AUDIO ──────────────────────────────────────────────
+    [Header("Audio")]
+    [SerializeField] private AudioClip grabClip;   // Sonido al agarrar este objeto
+    private AudioSource audioSource;
+    // ───────────────────────────────────────────────────────
+
     private void Awake()
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
         netObject = GetComponent<NetworkObject>();
+        audioSource = GetComponent<AudioSource>();
 
-        // Subscribe to the grab event
         grabInteractable.selectEntered.AddListener(OnGrabbed);
     }
 
     private void OnGrabbed(SelectEnterEventArgs args)
     {
+        // Reproducir sonido localmente cuando este jugador agarra el objeto
+        if (audioSource != null && grabClip != null)
+            audioSource.PlayOneShot(grabClip);
 
         if (netObject.OwnerClientId != NetworkManager.Singleton.LocalClientId)
         {
@@ -41,7 +50,7 @@ public class NetworkGrabbable : NetworkBehaviour
     [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
     private void RequestOwnershipServerRpc(RpcParams rpcParams = default)
     {
-        // ⚠️ Comprobar que hay interactores antes de acceder
+        // Comprobar que hay interactores antes de acceder
         if (grabInteractable.interactorsSelecting.Count > 0)
         {
             var currentInteractor = grabInteractable.interactorsSelecting[0];
@@ -49,7 +58,6 @@ public class NetworkGrabbable : NetworkBehaviour
             // Si el interactor es un socket
             if (currentInteractor is XRSocketInteractor socket)
             {
-                // Usar la versión NO obsoleta
                 grabInteractable.interactionManager.CancelInteractableSelection((IXRSelectInteractable)grabInteractable);
 
                 // Desactivar temporalmente el socket
@@ -74,6 +82,7 @@ public class NetworkGrabbable : NetworkBehaviour
 
         socket.socketActive = true;
     }
+
     private void OnDestroy()
     {
         if (grabInteractable != null)

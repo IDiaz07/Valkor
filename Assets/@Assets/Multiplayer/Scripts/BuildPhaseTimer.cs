@@ -1,4 +1,4 @@
-﻿ using Unity.Netcode;
+using Unity.Netcode;
 using UnityEngine;
 using TMPro;
 using System.Collections;
@@ -19,12 +19,20 @@ public class BuildPhaseTimer : NetworkBehaviour
     private GameObject p1Book;
     private GameObject p2Book;
 
-    private NetworkVariable<float> timeLeft = new NetworkVariable<float>(0f);
+    [Header("Audio (efectos, no música de fondo)")]
+    [SerializeField] private AudioClip tickClip;          // Tick cada segundo normal
+    [SerializeField] private AudioClip urgentTickClip;    // Tick urgente en los últimos 5 segundos
+    private AudioSource audioSource;
 
+    private NetworkVariable<float> timeLeft = new NetworkVariable<float>(0f);
     public bool phaseEnded = false;
+
+    private GameMusicManager gameMusicManager;
 
     public override void OnNetworkSpawn()
     {
+        audioSource = GetComponent<AudioSource>();
+        gameMusicManager = FindAnyObjectByType<GameMusicManager>();
         timeLeft.OnValueChanged += OnTimeChanged;
 
         if (IsServer)
@@ -49,11 +57,13 @@ public class BuildPhaseTimer : NetworkBehaviour
         {
             p1Book = Instantiate(buildingBookPrefab, p1BuildBookSpawnPosition, Quaternion.identity);
             p2Book = Instantiate(buildingBookPrefab, p2BuildBookSpawnPosition, Quaternion.identity);
-            if (IsServer) {
+            if (IsServer)
+            {
                 p1Book.GetComponent<NetworkObject>().Spawn();
                 p2Book.GetComponent<NetworkObject>().Spawn();
             }
         }
+
         ShowBuildMessageClientRpc();
 
         yield return new WaitForSeconds(3f);
@@ -80,6 +90,18 @@ public class BuildPhaseTimer : NetworkBehaviour
         if (phaseEnded) return;
 
         timerTMP.text = Mathf.CeilToInt(newValue).ToString();
+
+        // Tick urgente en los últimos 5 segundos
+        if (newValue <= 5f && newValue > 0f)
+        {
+            if (audioSource != null && urgentTickClip != null)
+                audioSource.PlayOneShot(urgentTickClip);
+        }
+        else if (newValue > 5f)
+        {
+            if (audioSource != null && tickClip != null)
+                audioSource.PlayOneShot(tickClip);
+        }
     }
 
     [Rpc(SendTo.Everyone)]
@@ -99,6 +121,10 @@ public class BuildPhaseTimer : NetworkBehaviour
 
         buildMessageTMP.gameObject.SetActive(false);
         timerTMP.gameObject.SetActive(true);
+
+        // Cambia la música a construcción justo cuando aparece el contador
+        if (gameMusicManager != null)
+            gameMusicManager.CambiarAConstruccion();
     }
 
     [Rpc(SendTo.Everyone)]
@@ -109,15 +135,15 @@ public class BuildPhaseTimer : NetworkBehaviour
 
     IEnumerator ShowFinalMessage()
     {
-        // Mostrar mensaje final
         timerTMP.gameObject.SetActive(true);
         timerTMP.text = "¡Atrapa la bandera!";
+
+        // Cambia la música a combate cuando termina la fase de construcción
+        if (gameMusicManager != null)
+            gameMusicManager.CambiarACombate();
 
         yield return new WaitForSeconds(5f);
 
         timerTMP.transform.root.gameObject.SetActive(false);
-
-
-       
     }
 }

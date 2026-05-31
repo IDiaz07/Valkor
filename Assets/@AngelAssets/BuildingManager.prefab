@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 577576058
+  GlobalObjectIdHash: 3634784860
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -108,4 +108,16 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  acceptRight:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Accept Right
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: f65cb00b-995d-4267-a1c9-fb3e0e74c3a8
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
   audioClip: {fileID: 8300000, guid: c23092eee7dd5f64a842babd785f3c92, type: 3}

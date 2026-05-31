@@ -1,15 +1,24 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Unity.Netcode;
 
 public class DestructibleWall : NetworkBehaviour
 {
     [SerializeField] private int maxHealth = 5;
 
+    // ── AUDIO ──────────────────────────────────────────────
+    [Header("Audio")]
+    [SerializeField] private AudioClip hitClip;       // Sonido al recibir golpe
+    [SerializeField] private AudioClip destroyClip;   // Sonido al ser destruida
+    private AudioSource audioSource;
+    // ───────────────────────────────────────────────────────
+
     private NetworkVariable<int> health = new NetworkVariable<int>();
 
     public override void OnNetworkSpawn()
     {
         Debug.Log($"[WALL] Spawned | IsServer: {IsServer} | Owner: {OwnerClientId}");
+
+        audioSource = GetComponent<AudioSource>();
 
         if (IsServer)
         {
@@ -28,6 +37,13 @@ public class DestructibleWall : NetworkBehaviour
     private void OnHealthChanged(int oldValue, int newValue)
     {
         Debug.Log($"[WALL] Vida cambiada: {oldValue} -> {newValue}");
+
+        // Suena en todos los clientes cuando la vida baja (pero la pared sigue viva)
+        if (newValue < oldValue && newValue > 0)
+        {
+            if (audioSource != null && hitClip != null)
+                audioSource.PlayOneShot(hitClip);
+        }
     }
 
     public void TakeDamage(int amount)
@@ -79,8 +95,21 @@ public class DestructibleWall : NetworkBehaviour
         if (health.Value <= 0)
         {
             Debug.Log("[WALL][SERVER] 💥 Destruyendo pared");
-            DestroyWall();
+            // Avisamos a todos para que suenen el audio de destrucción ANTES del Despawn
+            PlayDestroyAudioRpc();
         }
+    }
+
+    // Se ejecuta en TODOS los clientes: reproduce el sonido de destrucción
+    [Rpc(SendTo.Everyone)]
+    private void PlayDestroyAudioRpc()
+    {
+        if (audioSource != null && destroyClip != null)
+            audioSource.PlayOneShot(destroyClip);
+
+        // Solo el servidor hace el despawn, con un pequeño delay para que el audio suene
+        if (IsServer)
+            Invoke(nameof(DestroyWall), 0.15f);
     }
 
     private void DestroyWall()
