@@ -10059,10 +10059,8 @@ MonoBehaviour:
   buildingBookPrefab: {fileID: 8986755070573403252, guid: 66a51625cae6134429f729bd56d52dfa, type: 3}
   p1BuildBookSpawnPosition: {x: 615.7868, y: 55.09, z: 568.49524}
   p2BuildBookSpawnPosition: {x: 549.3759, y: 54.33, z: 599.3736}
-  phaseTrackClip: {fileID: 0}
   tickClip: {fileID: 0}
   urgentTickClip: {fileID: 8300000, guid: b014d8c424b51674b8d30862441f50a2, type: 3}
-  phaseEndClip: {fileID: 0}
   phaseEnded: 0
 --- !u!82 &887497424
 AudioSource:
@@ -12273,10 +12271,8 @@ MonoBehaviour:
   buildingBookPrefab: {fileID: 0}
   p1BuildBookSpawnPosition: {x: 0, y: 0, z: 0}
   p2BuildBookSpawnPosition: {x: 0, y: 0, z: 0}
-  phaseTrackClip: {fileID: 0}
   tickClip: {fileID: 0}
   urgentTickClip: {fileID: 0}
-  phaseEndClip: {fileID: 0}
   phaseEnded: 0
 --- !u!114 &1067498158
 MonoBehaviour:
@@ -20942,10 +20938,8 @@ MonoBehaviour:
   buildingBookPrefab: {fileID: 0}
   p1BuildBookSpawnPosition: {x: 0, y: 0, z: 0}
   p2BuildBookSpawnPosition: {x: 0, y: 0, z: 0}
-  phaseTrackClip: {fileID: 0}
   tickClip: {fileID: 0}
   urgentTickClip: {fileID: 0}
-  phaseEndClip: {fileID: 0}
   phaseEnded: 0
 --- !u!114 &1781884872
 MonoBehaviour:
@@ -21024,10 +21018,8 @@ MonoBehaviour:
   buildingBookPrefab: {fileID: 0}
   p1BuildBookSpawnPosition: {x: 0, y: 0, z: 0}
   p2BuildBookSpawnPosition: {x: 0, y: 0, z: 0}
-  phaseTrackClip: {fileID: 0}
   tickClip: {fileID: 0}
   urgentTickClip: {fileID: 0}
-  phaseEndClip: {fileID: 0}
   phaseEnded: 0
 --- !u!114 &1785995696
 MonoBehaviour:
@@ -24945,6 +24937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2126134426}
   - component: {fileID: 2126134425}
+  - component: {fileID: 2126134427}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -24963,9 +24956,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: fe5e1618be6b5eb49b9694472ea5e780, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.52
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -25064,6 +25057,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2126134427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126134424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e41411811c4f5964cbd48f62bfd80b2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicaMenu: {fileID: 8300000, guid: fe5e1618be6b5eb49b9694472ea5e780, type: 3}
+  musicaConstruccion: {fileID: 8300000, guid: eb4f723b6189c87478063f6b73db0f45, type: 3}
+  musicaCombate: {fileID: 8300000, guid: 4ea848305a6929b4ab0e916495b88c44, type: 3}
+  volumenMenu: 0.5
+  volumenConstruccion: 0.7
+  volumenCombate: 0.7
 --- !u!1 &2127874896
 GameObject:
   m_ObjectHideFlags: 0

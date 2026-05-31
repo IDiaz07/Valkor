@@ -12,10 +12,12 @@ public class GameMusicManager : MonoBehaviour
     [Range(0f, 1f)] [SerializeField] private float volumenConstruccion = 0.7f;
     [Range(0f, 1f)] [SerializeField] private float volumenCombate      = 1f;
 
+    public static GameMusicManager Instance;
     private AudioSource audioSource;
 
     void Awake()
     {
+        Instance = this;
         audioSource = GetComponent<AudioSource>();
         audioSource.loop = true;
 

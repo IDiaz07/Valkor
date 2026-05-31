@@ -29,10 +29,14 @@ public class BuildPhaseTimer : NetworkBehaviour
 
     private GameMusicManager gameMusicManager;
 
+    private GameMusicManager GetMusicManager()
+    {
+        return GameMusicManager.Instance;
+    }
+
     public override void OnNetworkSpawn()
     {
         audioSource = GetComponent<AudioSource>();
-        gameMusicManager = FindAnyObjectByType<GameMusicManager>();
         timeLeft.OnValueChanged += OnTimeChanged;
 
         if (IsServer)
@@ -123,8 +127,9 @@ public class BuildPhaseTimer : NetworkBehaviour
         timerTMP.gameObject.SetActive(true);
 
         // Cambia la música a construcción justo cuando aparece el contador
-        if (gameMusicManager != null)
-            gameMusicManager.CambiarAConstruccion();
+        var mm = GetMusicManager();
+        Debug.Log($"[MÚSICA] ShowMessage ejecutado | IsServer: {IsServer} | MusicManager encontrado: {mm != null}");
+        mm?.CambiarAConstruccion();
     }
 
     [Rpc(SendTo.Everyone)]
@@ -139,8 +144,7 @@ public class BuildPhaseTimer : NetworkBehaviour
         timerTMP.text = "¡Atrapa la bandera!";
 
         // Cambia la música a combate cuando termina la fase de construcción
-        if (gameMusicManager != null)
-            gameMusicManager.CambiarACombate();
+        GetMusicManager()?.CambiarACombate();
 
         yield return new WaitForSeconds(5f);
 

@@ -940,6 +940,10 @@ MonoBehaviour:
   sprintStaminaConsumption: 10
   currentGravity: 0
   playerStats: {fileID: 581912098366048018}
+  sprintStartClip: {fileID: 0}
+  sprintStopClip: {fileID: 0}
+  jumpClip: {fileID: 0}
+  staminaEmptyClip: {fileID: 0}
 --- !u!114 &581912098366048018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2245,7 +2249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  cooldown: 0.5
+  punchClip: {fileID: 0}
 --- !u!1 &5020052488647872643
 GameObject:
   m_ObjectHideFlags: 0
@@ -3025,7 +3029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  cooldown: 0.5
+  punchClip: {fileID: 0}
 --- !u!1 &8129985482322731525
 GameObject:
   m_ObjectHideFlags: 0
